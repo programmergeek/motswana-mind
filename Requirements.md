@@ -9,7 +9,7 @@
 
 ## 1. Introduction
 
-#### 1.1 Purpose
+### 1.1 Purpose
 
 Identify the product whose software requirements are specified in this document, including the revision or release number. Describe the scope of the product that is covered by this SRS, particularly if this SRS describes only part of the system or a single subsystem.
 
@@ -29,7 +29,7 @@ Provide a short description of the software being specified and its purpose, inc
 
 List any other documents or Web addresses to which this SRS refers. These may include user interface style guides, contracts, standards, system requirements specifications, use case documents, or a vision and scope document. Provide enough information so that the reader could access a copy of each reference, including title, author, version number, date, and source or location.
 
-## Overall Description
+## 2. Overall Description
 
 ### 2.1 Product Perspective
 
@@ -59,7 +59,7 @@ List the user documentation components (such as user manuals, on-line help, and 
 
 List any assumed factors (as opposed to known facts) that could affect the requirements stated in the SRS. These could include third-party or commercial components that you plan to use, issues around the development or operating environment, or constraints. The project could be affected if these assumptions are incorrect, are not shared, or change. Also identify any dependencies the project has on external factors, such as software components that you intend to reuse from another project, unless they are already documented elsewhere (for example, in the vision and scope document or the project plan).
 
-## 3 External Interface Requirements
+## 3. External Interface Requirements
 
 ### 3.1 User Interface
 
@@ -77,7 +77,7 @@ Describe the connections between this product and other specific software compon
 
 Describe the requirements associated with any communications functions required by this product, including e-mail, web browser, network server communications protocols, electronic forms, and so on. Define any pertinent message formatting. Identify any communication standards that will be used, such as FTP or HTTP. Specify any communication security or encryption issues, data transfer rates, and synchronization mechanisms.
 
-## 4 System Features
+## 4. System Features
 
 This template illustrates organizing the functional requirements for the product by system features, the major services provided by the product. You may prefer to organize this section by use case, mode of operation, user class, object class, functional hierarchy, or combinations of these, whatever makes the most logical sense for your product.
 
@@ -91,7 +91,7 @@ Don’t really say “System Feature 1.” State the feature name in just a few 
 4.1.3	Functional Requirements
 	Itemize the detailed functional requirements associated with this feature. These are the software capabilities that must be present in order for the user to carry out the services provided by the feature, or to execute the use case. Include how the product should respond to anticipated error conditions or invalid inputs. Requirements should be concise, complete, unambiguous, verifiable, and necessary. Use “TBD” as a placeholder to indicate when necessary information is not yet available.
 	
-	Each requirement should be uniquely identified with a sequence number or a meaningful tag of some kind.
+Each requirement should be uniquely identified with a sequence number or a meaningful tag of some kind.
 	
 REQ-1:	
 REQ-2:	
@@ -100,7 +100,7 @@ REQ-2:
 
 ...
 
-## 5 Other Nonfunctional Requirements
+## 5. Other Nonfunctional Requirements
 
 ### 5.1 Performance Requirements
 
@@ -122,7 +122,7 @@ Specify any additional quality characteristics for the product that will be impo
 
 List any operating principles about the product, such as which individuals or roles can perform which functions under specific circumstances. These are not functional requirements in themselves, but they may imply certain functional requirements to enforce the rules.
 
-## 6 Other Requirements
+## 6. Other Requirements
 
 Define any other requirements not covered elsewhere in the SRS. This might include database requirements, internationalization requirements, legal requirements, reuse objectives for the project, and so on. Add any new sections that are pertinent to the project.
 
