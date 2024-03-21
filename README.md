@@ -35,3 +35,6 @@ npm run dev
 - React
 - Typescript
 - Tailwindcss
+- TanStack Router
+
+## Router
