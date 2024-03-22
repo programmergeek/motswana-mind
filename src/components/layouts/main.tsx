@@ -7,7 +7,8 @@ type LayoutProps = {
 
 const Layout: React.FC<LayoutProps> = ({ ...props }) => {
 	return (
-		<div className="h-screen grid grid-rows-[10vh_auto]">
+		<div className="h-screen grid grid-rows-[5vh_auto]">
+			<div></div>
 			<NavMenu />
 			{props.children}
 		</div>
