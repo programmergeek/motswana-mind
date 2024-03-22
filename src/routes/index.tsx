@@ -9,12 +9,12 @@ export const Route = createFileRoute("/")({
 function Index() {
   return (
     <Layout>
-      <div className="container flex flex-col gap-20">
+      <div className="flex flex-col gap-20 px-64">
         <section
           id="hero"
-          className="h-96 rounded-b-[50px] bg-accent 2xl:h-[475px] 2xl:rounded-b-[75px]"
+          className="h-[400px] rounded-b-[50px] bg-accent 2xl:h-[475px] 2xl:rounded-b-[75px]"
         >
-          <div className="flex flex-col gap-5 px-10 py-16 2xl:container md:px-36 lg:px-52 lg:py-24 ">
+          <div className="flex flex-col gap-5 px-10 py-16 2xl:container md:px-36 lg:px-32 lg:py-24 ">
             <h1 className="font-playfair text-4xl text-white 2xl:text-7xl">
               Making the Motswana Dream Possible through Education
             </h1>
@@ -29,7 +29,7 @@ function Index() {
             </div>
           </div>
         </section>
-        <section className="grid min-h-64 w-full grid-cols-2 gap-10 rounded-[50px] bg-gray-200 px-10 py-16 2xl:container md:px-36 lg:px-52 lg:py-24 lg:pt-16">
+        <section className="grid min-h-64 w-full grid-cols-2 gap-10 rounded-[50px] bg-gray-200 px-10 py-16 2xl:container md:px-36 lg:px-32 lg:py-24">
           <div>
             <p className="text-xl">
               <span className="font-bold">Chapter 1</span> Numbers & Operations
@@ -50,7 +50,19 @@ function Index() {
               <span className="font-bold">Chapter 2</span> Geometry
             </p>
             <ul className="mt-5 flex flex-col gap-2 pl-5 font-medium">
-              <li>2.1 Angles</li>
+              <li>
+                2.1{" "}
+                <div>
+                  <p className="text-xl">Quick Links</p>
+                  <div className="mt-5 flex flex-col gap-3">
+                    <p>Home</p>
+                    <p>Learn</p>
+                    <p>Resources</p>
+                    <p>Events</p>
+                  </div>
+                </div>
+                Angles
+              </li>
               <li>2.2 Polygons</li>
               <li>2.3 Transformations</li>
               <li>2.4 Coordinate Geometry</li>
