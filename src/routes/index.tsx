@@ -12,7 +12,7 @@ function Index() {
   return (
     <Layout>
       <div>
-        <div className="px-64">
+        <div className="px-0 xl:px-64">
           <section
             id="hero"
             className="h-[400px] rounded-b-[50px] bg-accent 2xl:h-[475px] 2xl:rounded-b-[75px]"
@@ -33,8 +33,8 @@ function Index() {
             </div>
           </section>
         </div>
-        <section className="px-64">
-          <div className="grid min-h-64 w-full grid-cols-2 gap-10 rounded-[50px] bg-gray-200 px-10 py-16 2xl:container md:px-36 lg:px-32 lg:py-24">
+        <section className="p-5 xl:px-64">
+          <div className="grid min-h-64 w-full grid-cols-1 gap-10 rounded-[50px] bg-gray-200 px-10 py-16 2xl:container md:px-36 lg:grid-cols-2 lg:px-32 lg:py-24">
             <div>
               <p className="text-xl">
                 <span className="font-bold">Chapter 1</span> Numbers &
@@ -107,7 +107,7 @@ function Index() {
             </div>
           </div>
         </section>
-        <section className="w-full bg-accent">
+        {/* <section className="w-full bg-accent">
           <div className="px-64 py-10">
             <div className="flex gap-10">
               <Card>
@@ -173,21 +173,26 @@ function Index() {
               </div>
             </div>
           </div>
-        </section>
-        <section>
-          <div className="grid h-[600px] grid-cols-[30vw_auto]">
+        </section> */}
+        <section className="w-fit">
+          <div className="flex flex-col-reverse md:grid md:h-[600px] md:grid-cols-2">
             <div className="">
-              <div className="grid h-full place-content-center gap-5 bg-[#BDE283]">
+              <div className="grid h-full place-content-center gap-5 bg-[#BDE283] py-10">
                 <p className="font-playfair text-4xl font-semibold">
                   Upcomming Events!!!
                 </p>
                 <Button className="w-fit font-della">View all</Button>
               </div>
             </div>
-            <div className="grid grid-rows-2">
-              <div></div>
-              <div className="px-5">
-                <p className="grid place-content-center font-della text-2xl">
+            <div className="grid lg:grid-rows-2">
+              <div className="relative hidden overflow-hidden lg:block">
+                <img
+                  src="/pattern.jpeg"
+                  className="absolute -z-10 object-fill object-center"
+                />
+              </div>
+              <div className="grid place-content-center bg-[url(/pattern.jpeg)]  bg-cover bg-center lg:bg-none">
+                <p className="px-10 py-10 font-della text-lg  lg:text-xl">
                   Motswana child hosts educational events that you would not
                   want to miss out. Skip the FOMO and join us at one these
                   exciting events.
