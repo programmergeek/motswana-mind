@@ -1,6 +1,11 @@
 import Layout from "@/components/layouts/main";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardFooter } from "@/components/ui/card";
+import {
+  Card,
+  CardContent,
+  CardFooter,
+  CardHeader,
+} from "@/components/ui/card";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, X } from "lucide-react";
 
@@ -107,73 +112,73 @@ function Index() {
             </div>
           </div>
         </section>
-        {/* <section className="w-full bg-accent">
-          <div className="px-64 py-10">
-            <div className="flex gap-10">
-              <Card>
-                <CardContent>
-                  <div>
+        <section className="w-full bg-accent">
+          <div className="px-8 py-10 sm:px-16 xl:px-64">
+            <div className="grid grid-rows-[auto_auto_auto] gap-y-5 sm:grid-rows-[auto_auto] sm:gap-x-5 md:grid-cols-3 md:grid-rows-1">
+              <Card className="col-span-2 row-start-3 rounded-[30px] sm:col-span-1 sm:row-start-2 md:row-start-1">
+                <CardHeader>
+                  <div className="flex flex-col gap-3">
                     <p className="text-center text-gray-600">Premium</p>
-                    <p className="text-center text-2xl">P50/pm</p>
+                    <p className="text-center text-3xl">P50/pm</p>
                   </div>
-                  <div>
-                    <p className="flex gap-3">
-                      {" "}
-                      <Check /> Introductory content{" "}
-                    </p>
-                    <p className="flex gap-3">
-                      {" "}
-                      <X /> Full access to courses{" "}
-                    </p>
-                    <p className="flex gap-3">
-                      {" "}
-                      <Check /> Past papers{" "}
-                    </p>
-                    <p className="flex gap-3">
-                      {" "}
-                      <X /> Workshops and events{" "}
-                    </p>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full">Sign up</Button>
-                </CardFooter>
-              </Card>
-              <Card>
+                </CardHeader>
                 <CardContent>
-                  <div>
-                    <p className="text-center text-gray-600">Basic</p>
-                    <p className="text-center text-2xl">Free</p>
-                  </div>
-                  <div>
+                  <div className="flex flex-col gap-2">
                     <p className="flex gap-3">
-                      {" "}
-                      <Check /> Introductory content{" "}
+                      <Check /> Introductory content
                     </p>
                     <p className="flex gap-3">
-                      {" "}
-                      <X /> Full access to courses{" "}
+                      <Check /> Full access to courses
                     </p>
                     <p className="flex gap-3">
-                      {" "}
-                      <Check /> Past papers{" "}
+                      <Check /> Past papers
                     </p>
                     <p className="flex gap-3">
-                      {" "}
-                      <X /> Workshops and events{" "}
+                      <Check /> Workshops and events
                     </p>
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full">Sign up</Button>
+                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
+                    Sign up
+                  </Button>
                 </CardFooter>
               </Card>
-              <div className="text-end font-playfair text-4xl font-semibold text-white">
+              <Card className="col-span-2 row-start-2 rounded-[30px] sm:col-span-1 md:row-start-1">
+                <CardHeader>
+                  <div className="flex flex-col gap-3">
+                    <p className="text-center text-gray-600">Basic</p>
+                    <p className="text-center text-3xl">Free</p>
+                  </div>
+                </CardHeader>
+                <CardContent className="px-10">
+                  <div className="flex flex-col gap-2">
+                    <p className="flex gap-3">
+                      <Check /> Introductory content
+                    </p>
+                    <p className="flex gap-3">
+                      <X /> Full access to courses
+                    </p>
+                    <p className="flex gap-3">
+                      <Check /> Past papers
+                    </p>
+                    <p className="flex gap-3">
+                      <X /> Workshops and events
+                    </p>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
+                    Sign up
+                  </Button>
+                </CardFooter>
+              </Card>
+              <div className="col-span-2 row-start-1 text-center font-playfair text-4xl font-semibold text-white md:text-end">
                 Get full access with our affordable payment plans
               </div>
             </div>
           </div>
-        </section> */}
+        </section>
         <section className="w-fit">
           <div className="flex flex-col-reverse md:grid md:h-[600px] md:grid-cols-2">
             <div className="">
