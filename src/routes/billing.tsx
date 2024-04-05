@@ -3,30 +3,29 @@ import { createFileRoute } from "@tanstack/react-router";
 import Layout from "@/components/layouts/main";
 
 /* shadcn */
-"use client"
+"use client";
 
 import { zodResolver } from "@hookform/resolvers/zod"
 import { useForm } from "react-hook-form"
 import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
-import {
-	Form,
-	FormControl,
-	FormDescription,
-	FormField,
-	FormItem,
-	FormLabel,
-	FormMessage,
-} from "@/components/ui/form"
+import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
+	cardHolderName: z.string().refine((cardHolderName) => {
+		return /^[A-Za-z]*$/.test(cardHolderName)
+	}, {
+		message: "Card holder name must contain only letters.",
+	}),
 	username: z.string().min(2, {
 		message: "Username must be at least 2 characters.",
 	}),
-	cvv: z.number().max(3, {
-		message: "CVV must be 3 digits"
+	cvv: z.string().refine((cvv) => {  
+		return /\d{3}/.test(cvv) 
+	}, {
+		message: "CVV must be exactly 3 digits."
 	})
 })
 
@@ -37,14 +36,14 @@ const Billing: React.FC = () => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			username: "",
-			cvv: 0
+			cvv: ""
 		},
 	})
 
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
-		console.log(values)
+		alert(values.cardHolderName + "\n" + values.username + "\n" + values.cvv);
 	}
 
 	return (
@@ -63,12 +62,9 @@ const Billing: React.FC = () => {
 							Enter your payment details
 						</h5>
 
-						<form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
+						<form onSubmit={ form.handleSubmit(onSubmit) } className="space-y-8">
 
-							<FormField
-								control={form.control}
-								name="username"
-
+							<FormField control={ form.control } name="cardHolderName"
 								render={({ field }) => (
 									<FormItem>
 										<FormLabel>Card holder name</FormLabel>
@@ -80,7 +76,7 @@ const Billing: React.FC = () => {
 								)}
 							/>
 							<FormField
-								control={form.control}
+								control={ form.control }
 								name="username"
 
 								render={({ field }) => (
@@ -109,9 +105,8 @@ const Billing: React.FC = () => {
 										</FormItem>
 									)}
 								/>
-								<FormField
-									control={form.control}
-									name="cvv"
+
+								<FormField control={ form.control } name="cvv"
 
 									render={({ field }) => (
 										<FormItem>
@@ -126,8 +121,8 @@ const Billing: React.FC = () => {
 							</div>
 							
 							<div className="flex justify-around">
-								<Button type="submit">Cancel payment</Button>
-								<Button type="submit">Subscribe now</Button>
+								<Button type="submit">Cancel payment</Button> { /* route to home page */ }
+								<Button type="submit" className="bg-purple-700">Subscribe now</Button>
 							</div>
 						</form>
 
