@@ -15,12 +15,19 @@ import { Input } from "@/components/ui/input"
 
 const formSchema = z.object({
 	cardHolderName: z.string().refine((cardHolderName) => {
-		return /^[A-Za-z]*$/.test(cardHolderName)
+		return /^[A-Za-z ]*$/.test(cardHolderName)
 	}, {
 		message: "Card holder name must contain only letters.",
 	}),
-	username: z.string().min(2, {
-		message: "Username must be at least 2 characters.",
+	cardNo: z.string().refine((cardNo) => {
+		return /\d{16}/.test(cardNo)
+	}, {
+		message: "Card number must be 16 digits.",
+	}),
+	expiryDate: z.string().refine((expiryDate) => {
+		return /^[01-12]\/[0-90-9]$/.test(expiryDate)
+	}, {
+		message: "Enter date of format MM/YY."
 	}),
 	cvv: z.string().refine((cvv) => {  
 		return /\d{3}/.test(cvv) 
@@ -75,9 +82,8 @@ const Billing: React.FC = () => {
 									</FormItem>
 								)}
 							/>
-							<FormField
-								control={ form.control }
-								name="username"
+
+							<FormField control={ form.control } name="cardNo"
 
 								render={({ field }) => (
 									<FormItem>
@@ -91,15 +97,13 @@ const Billing: React.FC = () => {
 							/>
 
 							<div className="flex justify-between">
-								<FormField
-									control={form.control}
-									name="username"
+								<FormField control={ form.control } name="expiryDate"
 
 									render={({ field }) => (
 										<FormItem>
 											<FormLabel>Expiry date</FormLabel>
 											<FormControl>
-												<Input placeholder="Expiry date" {...field} />
+												<Input placeholder="MM/YY" {...field} />
 											</FormControl>
 											<FormMessage />
 										</FormItem>
