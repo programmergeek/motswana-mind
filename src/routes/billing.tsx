@@ -42,7 +42,7 @@ const Billing: React.FC = () => {
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
-			username: "",
+			cardHolderName: "",
 			cvv: ""
 		},
 	})
@@ -50,7 +50,7 @@ const Billing: React.FC = () => {
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
-		alert(values.cardHolderName + "\n" + values.username + "\n" + values.cvv);
+		alert(values.cardHolderName + "\n" + values.cardHolderName + "\n" + values.cvv);
 	}
 
 	return (
