@@ -13,6 +13,7 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+/* input validation */
 const formSchema = z.object({
 	cardHolderName: z.string().refine((cardHolderName) => {
 		return /^[A-Za-z ]*$/.test(cardHolderName)
@@ -25,16 +26,65 @@ const formSchema = z.object({
 		message: "Card number must be 16 digits.",
 	}),
 	expiryDate: z.string().refine((expiryDate) => {
-		return /^[01-12]\/[0-90-9]$/.test(expiryDate)
+		return /^[0-9]{2}\/[0-9]{2}$/.test(expiryDate)
 	}, {
 		message: "Enter date of format MM/YY."
+	}).refine((expiryDate) => {
+		let rgx = /^[0-9]{2}\/[0-9]{2}$/
+		
+		if (rgx.test(expiryDate)) {
+			let data = expiryDate.split("/");
+			let expirationMonth = data[0];
+			let expirationYear = '20' + data[1];
+			
+			if (validateExpirationDate(expirationMonth, expirationYear)) {
+				return true
+			} else {
+				return false
+			}
+		}
+	}, {
+		message: "Card expired."
+	}).refine((expiryDate) => {		// checking if month is valid
+		let rgx = /^[0-9]{2}\/[0-9]{2}$/
+		
+		if (rgx.test(expiryDate)) {
+			let data = expiryDate.split("/");
+			let expirationMonth = data[0];
+			
+			if (parseInt(expirationMonth) > 12) {
+				return false
+			} else {
+				return true
+			}
+		}
+	}, {
+		message: "Invalid month"
 	}),
 	cvv: z.string().refine((cvv) => {  
-		return /\d{3}/.test(cvv) 
+		return /^\d{3}$/.test(cvv) 
 	}, {
 		message: "CVV must be exactly 3 digits."
 	})
 })
+
+const validateExpirationDate = (expirationMonth: string, expirationYear: string) => {
+	const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth() + 1;		// January is 0
+
+	let expMonth = parseInt(expirationMonth)
+	let expYear = parseInt(expirationYear)
+
+    if (expYear > currentYear) {
+        return true;
+    } else if (expYear === currentYear && expMonth >= currentMonth) {
+        return true;
+    } else {
+		return false;
+	}
+
+}
 
 /* billing func */
 const Billing: React.FC = () => {
@@ -43,6 +93,8 @@ const Billing: React.FC = () => {
 		resolver: zodResolver(formSchema),
 		defaultValues: {
 			cardHolderName: "",
+			cardNo: "",
+			expiryDate: "",
 			cvv: ""
 		},
 	})
@@ -50,7 +102,7 @@ const Billing: React.FC = () => {
 	function onSubmit(values: z.infer<typeof formSchema>) {
 		// Do something with the form values.
 		// ✅ This will be type-safe and validated.
-		alert(values.cardHolderName + "\n" + values.cardHolderName + "\n" + values.cvv);
+		alert(values.cardHolderName + "\n" + values.cardHolderName + "\n" + values.expiryDate + "\n" + values.cvv);
 	}
 
 	return (
