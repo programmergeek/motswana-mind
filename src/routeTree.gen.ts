@@ -12,8 +12,11 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as StartassessmentImport } from './routes/start_assessment'
+import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as BillingImport } from './routes/billing'
+import { Route as AssessmentoverviewImport } from './routes/assessment_overview'
 import { Route as IndexImport } from './routes/index'
+import { Route as SubjectidMytopicsImport } from './routes/$subject_id.my_topics'
 
 // Create/Update Routes
 
@@ -22,13 +25,28 @@ const StartassessmentRoute = StartassessmentImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const MysubjectsRoute = MysubjectsImport.update({
+  path: '/my_subjects',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const BillingRoute = BillingImport.update({
   path: '/billing',
   getParentRoute: () => rootRoute,
 } as any)
 
+const AssessmentoverviewRoute = AssessmentoverviewImport.update({
+  path: '/assessment_overview',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SubjectidMytopicsRoute = SubjectidMytopicsImport.update({
+  path: '/$subject_id/my_topics',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -40,12 +58,24 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/assessment_overview': {
+      preLoaderRoute: typeof AssessmentoverviewImport
+      parentRoute: typeof rootRoute
+    }
     '/billing': {
       preLoaderRoute: typeof BillingImport
       parentRoute: typeof rootRoute
     }
+    '/my_subjects': {
+      preLoaderRoute: typeof MysubjectsImport
+      parentRoute: typeof rootRoute
+    }
     '/start_assessment': {
       preLoaderRoute: typeof StartassessmentImport
+      parentRoute: typeof rootRoute
+    }
+    '/$subject_id/my_topics': {
+      preLoaderRoute: typeof SubjectidMytopicsImport
       parentRoute: typeof rootRoute
     }
   }
@@ -55,8 +85,11 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
+  AssessmentoverviewRoute,
   BillingRoute,
+  MysubjectsRoute,
   StartassessmentRoute,
+  SubjectidMytopicsRoute,
 ])
 
 /* prettier-ignore-end */

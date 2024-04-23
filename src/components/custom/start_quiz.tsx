@@ -10,6 +10,7 @@ import { Link } from "@tanstack/react-router";
 
 
 
+
 const StartQuiz: React.FC = () => {
     return (
         <div className="bg-[url(/pattern.jpeg)]">
