@@ -1,6 +1,9 @@
 /* imports */
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import Layout from "@/components/layouts/main";
+import { loadStripe } from "@stripe/stripe-js";
+import React, { useState, useEffect } from "react";
+
 
 /* shadcn */
 "use client";
@@ -13,19 +16,38 @@ import { Button } from "@/components/ui/button"
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form"
 import { Input } from "@/components/ui/input"
 
+// const stripePromise = loadStripe(process.env.STRIPE_PUBLISHABLE_KEY);
+
 /* input validation */
 const formSchema = z.object({
+	// card holder name
 	cardHolderName: z.string().refine((cardHolderName) => {
+		return cardHolderName.length != 0
+	}, {
+		message: "Required"
+	}).refine((cardHolderName) => {
 		return /^[A-Za-z ]*$/.test(cardHolderName)
 	}, {
 		message: "Card holder name must contain only letters.",
 	}),
+
+	// card number
 	cardNo: z.string().refine((cardNo) => {
-		return /\d{16}/.test(cardNo)
+		return cardNo.length != 0
+	}, {
+		message: "Required"
+	}).refine((cardNo) => {
+		return /^\d{16}$/.test(cardNo)
 	}, {
 		message: "Card number must be 16 digits.",
 	}),
+
+	// expiry date 
 	expiryDate: z.string().refine((expiryDate) => {
+		return expiryDate.length != 0
+	}, {
+		message: "Required"
+	}).refine((expiryDate) => {
 		return /^[0-9]{2}\/[0-9]{2}$/.test(expiryDate)
 	}, {
 		message: "Enter date of format MM/YY."
@@ -61,7 +83,13 @@ const formSchema = z.object({
 	}, {
 		message: "Invalid month"
 	}),
+
+	// cvv
 	cvv: z.string().refine((cvv) => {  
+		return cvv.length != 0
+	}, {
+		message: "Required"
+	}).refine((cvv) => {
 		return /^\d{3}$/.test(cvv) 
 	}, {
 		message: "CVV must be exactly 3 digits."
@@ -83,12 +111,23 @@ const validateExpirationDate = (expirationMonth: string, expirationYear: string)
     } else {
 		return false;
 	}
-
 }
 
 /* billing func */
 const Billing: React.FC = () => {
+	const [clientSecret, setClientSecret] = useState("");
 
+  useEffect(() => {
+    // Create PaymentIntent as soon as the page loads
+    fetch("http://localhost:4242/create-payment-intent", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({  }),
+    })
+      .then((res) => res.json())
+      .then((data) => setClientSecret(data.clientSecret));
+  }, []);
+	
 	const form = useForm<z.infer<typeof formSchema>>({
 		resolver: zodResolver(formSchema),
 		defaultValues: {
@@ -177,8 +216,12 @@ const Billing: React.FC = () => {
 							</div>
 							
 							<div className="flex justify-around">
-								<Button type="submit">Cancel payment</Button> { /* route to home page */ }
-								<Button type="submit" className="bg-purple-700">Subscribe now</Button>
+								<Link to="/">
+									<Button type="submit">Cancel payment</Button>
+								</Link>
+								{/* <Link to=""> */}
+									<Button type="submit" className="bg-purple-700">Subscribe now</Button>
+								{/* </Link> */}
 							</div>
 						</form>
 
