@@ -1,4 +1,4 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
@@ -38,9 +38,9 @@ function TopicsPage() {
             {topics.map(topic => (
                 <div key={topic.topic_id}>
                     <h2>{topic.topic_name}</h2>
-                    {/* <Link to={`/topics/${topic.topic_id}`}>
-                        <button>View More Information</button>
-                    </Link> */}
+                    <Link to="/$topic_id/sub_topics" params={{ topic_id : (topic.topic_id) as unknown as string }}>
+                        <button>Start</button>
+                    </Link>
                 </div>
             ))}
         </div>

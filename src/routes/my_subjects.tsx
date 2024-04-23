@@ -1,8 +1,8 @@
 import { Link, createFileRoute } from '@tanstack/react-router'
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
-import Layout from "@/components/layouts/main";
+//import Layout from "@/components/layouts/main";
 
 interface Subject {
     subject_id: number;

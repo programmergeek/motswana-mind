@@ -1,5 +1,5 @@
-import { Link, createFileRoute } from "@tanstack/react-router";
-import React, { useEffect, useState } from 'react';
+import { createFileRoute } from "@tanstack/react-router";
+import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Layout from "@/components/layouts/main";
