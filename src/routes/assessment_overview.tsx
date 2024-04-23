@@ -31,6 +31,7 @@ function QuizTopics() {
     };
 
     return (
+        
         <div>
             <h1>Choose a Quiz Topic</h1>
             {quizTopics.map(topic => (

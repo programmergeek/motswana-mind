@@ -17,12 +17,14 @@ interface Question {
   options: Option[];
 }
 
-
-export const Route = createFileRoute("/start_assessment")({
-  component: Quiz,
+export const Route = createFileRoute('/$topic_id/start_test')({
+    component: Quiz,
 });
 
 function Quiz() {
+
+	const { topic_id } = Route.useParams()
+
     const [questions, setQuestions] = useState<Question[]>([]);
     const [answers, setAnswers] = useState<{ [questionId: number]: number | null }>({});
     const [score, setScore] = useState<number | null>(null);
@@ -39,7 +41,7 @@ function Quiz() {
 
     const fetchQuestions = async () => {
         try {
-            const response = await axios.get('http://localhost:3333/questions');
+            const response = await axios.get(`http://localhost:3333/questions/test/${topic_id}`);
             const responseData = response.data as Question[]; // Type assertion
             setQuestions(responseData);
             console.log(responseData);
@@ -163,5 +165,3 @@ function Quiz() {
 		</Layout>
     );
 }
-
-

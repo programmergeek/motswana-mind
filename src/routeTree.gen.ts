@@ -11,20 +11,16 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
-import { Route as StartassessmentImport } from './routes/start_assessment'
 import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as BillingImport } from './routes/billing'
 import { Route as AssessmentoverviewImport } from './routes/assessment_overview'
 import { Route as IndexImport } from './routes/index'
 import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
+import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
 import { Route as SubjectidMytopicsImport } from './routes/$subject_id.my_topics'
+import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.start_exercise'
 
 // Create/Update Routes
-
-const StartassessmentRoute = StartassessmentImport.update({
-  path: '/start_assessment',
-  getParentRoute: () => rootRoute,
-} as any)
 
 const MysubjectsRoute = MysubjectsImport.update({
   path: '/my_subjects',
@@ -51,8 +47,18 @@ const TopicidSubtopicsRoute = TopicidSubtopicsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const TopicidStarttestRoute = TopicidStarttestImport.update({
+  path: '/$topic_id/start_test',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const SubjectidMytopicsRoute = SubjectidMytopicsImport.update({
   path: '/$subject_id/my_topics',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SubtopicidStartexerciseRoute = SubtopicidStartexerciseImport.update({
+  path: '/$sub_topic_id/start_exercise',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -76,12 +82,16 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MysubjectsImport
       parentRoute: typeof rootRoute
     }
-    '/start_assessment': {
-      preLoaderRoute: typeof StartassessmentImport
+    '/$sub_topic_id/start_exercise': {
+      preLoaderRoute: typeof SubtopicidStartexerciseImport
       parentRoute: typeof rootRoute
     }
     '/$subject_id/my_topics': {
       preLoaderRoute: typeof SubjectidMytopicsImport
+      parentRoute: typeof rootRoute
+    }
+    '/$topic_id/start_test': {
+      preLoaderRoute: typeof TopicidStarttestImport
       parentRoute: typeof rootRoute
     }
     '/$topic_id/sub_topics': {
@@ -98,8 +108,9 @@ export const routeTree = rootRoute.addChildren([
   AssessmentoverviewRoute,
   BillingRoute,
   MysubjectsRoute,
-  StartassessmentRoute,
+  SubtopicidStartexerciseRoute,
   SubjectidMytopicsRoute,
+  TopicidStarttestRoute,
   TopicidSubtopicsRoute,
 ])
 

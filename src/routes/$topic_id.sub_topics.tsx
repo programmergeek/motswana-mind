@@ -1,6 +1,8 @@
-import { createFileRoute } from '@tanstack/react-router'
+import { Link, createFileRoute } from '@tanstack/react-router'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
+
+import Layout from "@/components/layouts/main";
 
 interface Sub_Topic {
     sub_topic_id: number;
@@ -31,13 +33,24 @@ function SubTopicsPage() {
     };
 
     return (
-        <div>
-            <h1>Sub-Topics related to Topic ID: {topic_id}</h1>
-            {subtopics.map(subtopic => (
-                <div key={subtopic.sub_topic_id}>
-                    <h2>{subtopic.sub_topic_name}</h2>
-                </div>
-            ))}
-        </div>
+        <Layout>
+            <div>
+                <h1>Sub-Topics related to Topic ID: {topic_id}</h1>
+                {subtopics.map(subtopic => (
+                    <div key={subtopic.sub_topic_id}>
+                        <h2>{subtopic.sub_topic_name}</h2>
+                        <Link to="/$sub_topic_id/start_exercise" params={{ sub_topic_id : (subtopic.sub_topic_id) as unknown as string }}>
+                            <button>Start</button>
+                        </Link>
+                    </div>
+                ))}
+
+                <Link to="/$topic_id/start_test" params={{ topic_id : (topic_id) as unknown as string }}>
+                    <h2>Test</h2>
+                    <button>Start</button>
+                </Link>
+
+            </div>
+        </Layout>
     );
 }

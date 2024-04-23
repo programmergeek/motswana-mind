@@ -2,6 +2,7 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import Layout from "@/components/layouts/main";
 interface Topic {
     topic_id: number;
     topic_name: string;
@@ -33,16 +34,18 @@ function TopicsPage() {
     console.log('Topics state:', topics); // Log topics state
 
     return (
-        <div>
-            <h1>Topics</h1>
-            {topics.map(topic => (
-                <div key={topic.topic_id}>
-                    <h2>{topic.topic_name}</h2>
-                    <Link to="/$topic_id/sub_topics" params={{ topic_id : (topic.topic_id) as unknown as string }}>
-                        <button>Start</button>
-                    </Link>
-                </div>
-            ))}
-        </div>
+        <Layout>
+            <div>
+                <h1>Topics</h1>
+                {topics.map(topic => (
+                    <div key={topic.topic_id}>
+                        <h2>{topic.topic_name}</h2>
+                        <Link to="/$topic_id/sub_topics" params={{ topic_id : (topic.topic_id) as unknown as string }}>
+                            <button>Start</button>
+                        </Link>
+                    </div>
+                ))}
+            </div>
+        </Layout>
     );
 }
