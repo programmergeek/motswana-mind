@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Layout from "@/components/layouts/main";
+//import { start } from "repl";
 
 
 interface Option {
@@ -31,11 +32,15 @@ function Quiz() {
     const [quizStarted, setQuizStarted] = useState<boolean>(false);
     const [quizSubmitted, setQuizSubmitted] = useState<boolean>(false);
     const [showAnswers, setShowAnswers] = useState<boolean>(false);
-	const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+	const [timeLeft, setTimeLeft] = useState<number | null>(null);
+    const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
+    const quizDuration = 50; // 5 minutes (300 seconds)
     
     useEffect(() => {
         if (quizStarted) {
             fetchQuestions();
+            startTimer();
         }
     }, [quizStarted]);
 
@@ -48,6 +53,24 @@ function Quiz() {
         } catch (error) {
             console.error('Error fetching questions:', error);
         }
+    };
+
+    const startTimer = () => {
+        setTimeLeft(quizDuration);
+        const newTimer = setInterval(() => {
+            setTimeLeft(prevTime => {
+                if (prevTime === 0) {
+                    clearInterval(newTimer);
+                    handleSubmitQuiz(); // Automatically submit quiz when time runs out
+                    return 0;
+                }
+                if (prevTime !== null) {
+                    return prevTime - 1;
+                }
+                return prevTime;
+            });
+        }, 1000);
+        setTimer(newTimer);
     };
 
     const handleStartQuiz = () => {
@@ -71,6 +94,9 @@ function Quiz() {
 
     const handleSubmitQuiz = () => {
         // Grade the user's input
+        if (timer) {
+            clearInterval(timer); // Stop the timer when quiz is submitted
+        }
         let userScore = 0;
         questions.forEach(question => {
             const userAnswer = answers[question.question_id];
@@ -90,6 +116,10 @@ function Quiz() {
         setAnswers({});
         setScore(null);
         setShowAnswers(false); // Reset showAnswers state
+        setCurrentQuestionIndex(0);
+        if (timer) {
+            clearInterval(timer); // Stop the timer when quiz is restarted
+        }
     };
 
     
@@ -125,9 +155,15 @@ function Quiz() {
 										))}
 									</ul>
 								</div>
-								<button onClick={handleBack} disabled={currentQuestionIndex === 0}>Back</button>
-								<button onClick={handleNext} disabled={currentQuestionIndex === questions.length - 1}>Next</button>
-								<button onClick={handleSubmitQuiz}>Submit Quiz</button>
+								{currentQuestionIndex > 0 && (
+									<button onClick={handleBack}>Back</button>
+								)}
+								{currentQuestionIndex < questions.length - 1 && (
+                                    <button onClick={handleNext}>Next</button>
+								)}
+                                <button onClick={handleSubmitQuiz}>Submit Quiz</button>
+                                
+                                <p>Time left: {timeLeft} seconds</p>
 							</>
 						)}
 					</>

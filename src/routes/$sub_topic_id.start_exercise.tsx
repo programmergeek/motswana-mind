@@ -23,17 +23,17 @@ export const Route = createFileRoute("/$sub_topic_id/start_exercise")({
 });
 
 function Quiz() {
-
-	const { sub_topic_id } = Route.useParams()
+    const { sub_topic_id } = Route.useParams();
 
     const [questions, setQuestions] = useState<Question[]>([]);
-    const [answers, setAnswers] = useState<{ [questionId: number]: number | null }>({});
+    const [answers, setAnswers] = useState<{ [questionId: number]: string }>({});
     const [score, setScore] = useState<number | null>(null);
     const [quizStarted, setQuizStarted] = useState<boolean>(false);
     const [quizSubmitted, setQuizSubmitted] = useState<boolean>(false);
     const [showAnswers, setShowAnswers] = useState<boolean>(false);
-	const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-    
+    const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
+	const [shortAnswer] = useState<boolean>(true);
+
     useEffect(() => {
         if (quizStarted) {
             fetchQuestions();
@@ -43,9 +43,8 @@ function Quiz() {
     const fetchQuestions = async () => {
         try {
             const response = await axios.get(`http://localhost:3333/questions/exercise/${sub_topic_id}`);
-            const responseData = response.data as Question[]; // Type assertion
+            const responseData = response.data as Question[];
             setQuestions(responseData);
-            console.log(responseData);
         } catch (error) {
             console.error('Error fetching questions:', error);
         }
@@ -55,14 +54,14 @@ function Quiz() {
         setQuizStarted(true);
     };
 
-    const handleAnswerChange = (questionId: number, optionId: number) => {
+    const handleAnswerChange = (questionId: number, value: string) => {
         setAnswers(prevAnswers => ({
             ...prevAnswers,
-            [questionId]: optionId,
+            [questionId]: value,
         }));
     };
 
-	const handleBack = () => {
+    const handleBack = () => {
         setCurrentQuestionIndex(prevIndex => Math.max(prevIndex - 1, 0));
     };
 
@@ -71,29 +70,36 @@ function Quiz() {
     };
 
     const handleSubmitQuiz = () => {
-        // Grade the user's input
         let userScore = 0;
         questions.forEach(question => {
-            const userAnswer = answers[question.question_id];
-            const correctOption = question.options.find(option => option.is_correct);
-            if (userAnswer !== null && correctOption && userAnswer === correctOption.option_id) {
-                userScore++;
-            }
+            const userAnswer = (answers[question.question_id]).trim();
+            const correctAnswer = (question.options[0].option_text).trim();
+
+			if(/^\d*\.?\d+$/.test(correctAnswer)){
+				let answer = Number(userAnswer);
+				let correct = Number(correctAnswer);
+				if(answer === correct){
+					userScore++;
+				}
+			}else{
+				if(userAnswer === correctAnswer){
+					userScore++;
+				}
+			}
         });
         setScore(userScore);
         setQuizSubmitted(true);
     };
-    
+
     const handleRestartQuiz = () => {
         setQuizStarted(false);
         setQuizSubmitted(false);
         setQuestions([]);
         setAnswers({});
         setScore(null);
-        setShowAnswers(false); // Reset showAnswers state
+        setShowAnswers(false);
+		setCurrentQuestionIndex(0);
     };
-
-    
 
     return (
 		<Layout>
@@ -110,25 +116,23 @@ function Quiz() {
 							<>
 								<div key={questions[currentQuestionIndex].question_id}>
 									<h2>{questions[currentQuestionIndex].question_text}</h2>
-									<ul>
-										{questions[currentQuestionIndex].options.map(option => (
-											<li key={option.option_id}>
-												<input
-													type="radio"
-													name={`question_${questions[currentQuestionIndex].question_id}`}
-													id={`option_${option.option_id}`}
-													value={option.option_id}
-													onChange={() => handleAnswerChange(questions[currentQuestionIndex].question_id, option.option_id)}
-													checked={answers[questions[currentQuestionIndex].question_id] === option.option_id}
-												/>
-												<label htmlFor={`option_${option.option_id}`}>{option.option_text}</label>
-											</li>
-										))}
-									</ul>
+									<input
+										type="text"
+										placeholder="Enter your answer"
+										value={answers[questions[currentQuestionIndex].question_id] || ''}
+										onChange={(e) => handleAnswerChange(questions[currentQuestionIndex].question_id, e.target.value)}
+									/>
 								</div>
-								<button onClick={handleBack} disabled={currentQuestionIndex === 0}>Back</button>
-								<button onClick={handleNext} disabled={currentQuestionIndex === questions.length - 1}>Next</button>
-								<button onClick={handleSubmitQuiz}>Submit Quiz</button>
+								{currentQuestionIndex > 0 && (
+									<button onClick={handleBack}>Back</button>
+								)}
+								{currentQuestionIndex === questions.length - 1 && (
+									<button onClick={handleSubmitQuiz}>Submit Quiz</button>
+								)}
+								{currentQuestionIndex < questions.length - 1 && (
+									<button onClick={handleNext}>Next</button>
+								)}
+
 							</>
 						)}
 					</>
@@ -140,25 +144,19 @@ function Quiz() {
 						<button onClick={() => setShowAnswers(!showAnswers)}>Toggle Answers</button>
 						{showAnswers && (
 							<>
-								<h2>Review Answers:</h2>
-								{questions.map(question => (
-									<div key={question.question_id}>
-										<h3>{question.question_text}</h3>
-										<p>
-											Correct Answer: {question.options.find(option => option.is_correct)?.option_text}
-											{question.options.find(option => option.is_correct) && <span> </span>}
-										</p>
-										<ul>
-											{question.options.map(option => (
-												<li key={option.option_id}>
-													<span>{option.option_text}</span>
-													{answers[question.question_id] === option.option_id && <span> (Selected)</span>}
-												</li>
-											))}
-										</ul>
-									</div>
-								))}
-							</>
+							<h2>Review Answers:</h2>
+							{questions.map(question => (
+								<div key={question.question_id}>
+									<h3>{question.question_text}</h3>
+									{shortAnswer ? ( // Display the correct answer for short answer questions
+										<>
+											<p>Correct Answer: {question.options[0].option_text}</p>
+											<p>User's Answer: {answers[question.question_id]}</p>
+										</>
+									) : null} {/* Do not display for multiple-choice questions */}
+								</div>
+							))}
+						</>
 						)}
 					</div>
 				)}
@@ -166,5 +164,6 @@ function Quiz() {
 		</Layout>
     );
 }
+
 
 
