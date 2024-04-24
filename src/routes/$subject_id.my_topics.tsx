@@ -2,6 +2,15 @@ import { Link, createFileRoute } from '@tanstack/react-router'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
 
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+} from "@/components/ui/card";
+
+import { Button } from "@/components/ui/button";
+
 import Layout from "@/components/layouts/main";
 interface Topic {
     topic_id: number;
@@ -35,15 +44,21 @@ function TopicsPage() {
 
     return (
         <Layout>
-            <div>
+            <div className='flex justify-center pt-10'>
+                <img src="/math.jpeg" alt="math banner" className='w-11/12 rounded-lg'/>
+            </div>
+            <div className='flex flex-col items-center justify-center w-full'>
                 <h1>Topics</h1>
                 {topics.map(topic => (
+                    <Card className='w-11/12 my-3 p-4'>
+
                     <div key={topic.topic_id}>
                         <h2>{topic.topic_name}</h2>
                         <Link to="/$topic_id/sub_topics" params={{ topic_id : (topic.topic_id) as unknown as string }}>
-                            <button>Start</button>
+                            <Button>Start</Button>
                         </Link>
                     </div>
+                    </Card>
                 ))}
             </div>
         </Layout>

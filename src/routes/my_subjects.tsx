@@ -3,6 +3,13 @@ import { useEffect, useState } from 'react';
 import axios from 'axios';
 
 import Layout from "@/components/layouts/main";
+import {
+    Card,
+    CardContent,
+    CardFooter,
+    CardHeader,
+} from "@/components/ui/card";
+
 
 interface Subject {
     subject_id: number;
@@ -32,6 +39,7 @@ function Subjects() {
 
     return (
         <Layout>
+            
             <div>
                 <h1>Subjects</h1>
                 {subjects.map(subject => (
@@ -43,6 +51,7 @@ function Subjects() {
                     </div>
                 ))}
             </div>
+            
         </Layout>
     );
 }
