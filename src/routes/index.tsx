@@ -13,7 +13,7 @@ export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Index() {
+export default function Index() {
   return (
     <Layout>
       <div>

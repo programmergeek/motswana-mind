@@ -16,12 +16,12 @@ export function SignIn(){
 }
 
 export const Public = () => {
-  return <div>Public</div>;
+  return <div>You are logged out.</div>;
 };
 
 
 export const Protected = () => {
-  return <div>Protected</div>;
+  return <div>You are logged</div>;
 };
 
 
