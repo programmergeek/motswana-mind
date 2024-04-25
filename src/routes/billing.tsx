@@ -1,5 +1,5 @@
 /* imports */
-import React from "react"
+import React, { useEffect, useState } from "react"
 import { createFileRoute } from "@tanstack/react-router"
 import { loadStripe } from "@stripe/stripe-js"
 import { Elements } from "@stripe/react-stripe-js"
@@ -10,10 +10,39 @@ const stripe = loadStripe(
 );
 
 const Billing: React.FC = () => {
+	const [clientSecret, setClientSecret] = useState('')
+
+	const retrieveClientSecret = async () => {
+		try {
+			const response = await fetch('http://localhost:4242/create-payment-intent', {
+				method: 'POST',
+				mode: 'cors',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ amount: 250 }),
+			})
+			.then((res) => res.json())
+			.then((data) => setClientSecret(data.clientSecret))
+		} catch (error) {
+			console.error('Error:', error)
+		}
+	}
+
+	useEffect(() => {
+		retrieveClientSecret()
+  }, []);
+
+	const options = {
+		clientSecret
+	};
+
 	return (
-		<Elements stripe={ stripe }>
-			<BillingForm />
-		</Elements>
+		<div>
+			{clientSecret && (
+				<Elements stripe={ stripe } options={ options }>
+					<BillingForm />
+				</Elements>
+			)}
+		</div>
 	)
 };
 

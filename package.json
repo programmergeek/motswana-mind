@@ -20,6 +20,7 @@
     "@stripe/stripe-js": "^3.3.0",
     "@tanstack/react-router": "^1.21.0",
     "@tanstack/router-devtools": "^1.21.1",
+    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "dotenv": "^16.4.5",
