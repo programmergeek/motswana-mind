@@ -18,13 +18,13 @@ interface Question {
   options: Option[];
 }
 
-export const Route = createFileRoute('/$topic_id/start_test')({
+export const Route = createFileRoute('/$subject_id/start_exam')({
     component: Quiz,
 });
 
 function Quiz() {
 
-	const { topic_id } = Route.useParams()
+	const { subject_id } = Route.useParams()
 
     const [questions, setQuestions] = useState<Question[]>([]);
     const [answers, setAnswers] = useState<{ [questionId: number]: number | null }>({});
@@ -37,10 +37,10 @@ function Quiz() {
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const quizDuration = 60; // 5 minutes (300 seconds)
 
-    const [topicName, setTopicName] = useState<string>("");
+    //const [subjectName, setSubjectName] = useState<string>("");
     
     useEffect(() => {
-        fetchTopicName();
+        // fetchSubjectName();
         if (quizStarted) {
             fetchQuestions();
             startTimer();
@@ -49,7 +49,7 @@ function Quiz() {
 
     const fetchQuestions = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/questions/test/${topic_id}`);
+            const response = await axios.get(`http://localhost:3333/questions/exam/${subject_id}`);
             const responseData = response.data as Question[]; // Type assertion
             setQuestions(responseData);
             //console.log(responseData);
@@ -58,16 +58,16 @@ function Quiz() {
         }
     };
     
-    const fetchTopicName = async () => {
-		try {
-			const response = await axios.get(`http://localhost:3333/topic/name/${topic_id}`);
-			const responseData = response.data;
-			setTopicName(responseData[0].topic_name);
-			//console.log(topicName);
-		} catch (error) {
-			console.error("Error fetching subtopic name:", error);
-		}
-	};
+    // const fetchSubjectName = async () => {
+	// 	try {
+	// 		const response = await axios.get(`http://localhost:3333/topic/name/${topic_id}`);
+	// 		const responseData = response.data;
+	// 		setTopicName(responseData[0].topic_name);
+	// 		//console.log(topicName);
+	// 	} catch (error) {
+	// 		console.error("Error fetching subtopic name:", error);
+	// 	}
+	// };
 
     const startTimer = () => {
         setTimeLeft(quizDuration);
@@ -146,11 +146,11 @@ function Quiz() {
     return (
 		<Layout>
 			<div>
-				<h1>Test</h1>
-                <h1>{topicName}</h1>
+				<h1>Exam</h1>
+                {/* <h1>{topicName}</h1> */}
                 <p>Time Limit: {timeLimit}</p>
 				{!quizStarted && !quizSubmitted && (
-					<button onClick={handleStartQuiz}>Start Test</button>
+					<button onClick={handleStartQuiz}>Start Exam</button>
 				)}
 				{quizStarted && !quizSubmitted && (
 					<>
@@ -195,11 +195,11 @@ function Quiz() {
 				{quizSubmitted && (
 					<div>
 						<h2>Quiz Score: {score} out of {totalQuestions} ({roundedPercentage})</h2>
-						<button onClick={handleRestartQuiz}>Restart Test</button>
+						<button onClick={handleRestartQuiz}>Restart Exam</button>
 						<button onClick={() => setShowAnswers(!showAnswers)}>Toggle Answers</button>
 						{showAnswers && (
 							<>
-								<h2>Review Test:</h2>
+								<h2>Review Exam:</h2>
 								{questions.map(question => (
 									<div key={question.question_id}>
 										<h3>{question.question_text}</h3>

@@ -34,7 +34,10 @@ function Quiz() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
 	const [shortAnswer] = useState<boolean>(true);
 
+	const [subTopicName, setSubTopicName] = useState<string>("");
+
     useEffect(() => {
+		fetchSubTopicName();
         if (quizStarted) {
             fetchQuestions();
         }
@@ -49,6 +52,17 @@ function Quiz() {
             console.error('Error fetching questions:', error);
         }
     };
+
+	const fetchSubTopicName = async () => {
+		try {
+			const response = await axios.get(`http://localhost:3333/sub_topic/name/${sub_topic_id}`);
+			const responseData = response.data;
+			setSubTopicName(responseData[0].sub_topic_name);
+			// console.log(subTopicName);
+		} catch (error) {
+			console.error("Error fetching subtopic name:", error);
+		}
+	};
 
     const handleStartQuiz = () => {
         setQuizStarted(true);
@@ -101,12 +115,18 @@ function Quiz() {
 		setCurrentQuestionIndex(0);
     };
 
+	const totalQuestions = questions.length;
+	const percentage = ((score ?? 0) / totalQuestions) * 100;
+	const roundedPercentage = `${percentage.toFixed(2)}%`;
+
     return (
 		<Layout>
 			<div>
-				<h1>Quiz</h1>
+				<h1>Exercise</h1>
+				<p>Time Limit: None</p>
+				<h1>{subTopicName}</h1>
 				{!quizStarted && !quizSubmitted && (
-					<button onClick={handleStartQuiz}>Start Quiz</button>
+					<button onClick={handleStartQuiz}>Start Exercise</button>
 				)}
 				{quizStarted && !quizSubmitted && (
 					<>
@@ -115,6 +135,7 @@ function Quiz() {
 						) : (
 							<>
 								<div key={questions[currentQuestionIndex].question_id}>
+									<p>Question {currentQuestionIndex + 1}/{questions.length}</p>
 									<h2>{questions[currentQuestionIndex].question_text}</h2>
 									<input
 										type="text"
@@ -127,7 +148,7 @@ function Quiz() {
 									<button onClick={handleBack}>Back</button>
 								)}
 								{currentQuestionIndex === questions.length - 1 && (
-									<button onClick={handleSubmitQuiz}>Submit Quiz</button>
+									<button onClick={handleSubmitQuiz}>Submit</button>
 								)}
 								{currentQuestionIndex < questions.length - 1 && (
 									<button onClick={handleNext}>Next</button>
@@ -139,12 +160,12 @@ function Quiz() {
 				)}
 				{quizSubmitted && (
 					<div>
-						<h2>Quiz Score: {score}</h2>
-						<button onClick={handleRestartQuiz}>Restart Quiz</button>
+						<h2>Quiz Score: {score} out of {totalQuestions} ({roundedPercentage})</h2>
+						<button onClick={handleRestartQuiz}>Restart Exercise</button>
 						<button onClick={() => setShowAnswers(!showAnswers)}>Toggle Answers</button>
 						{showAnswers && (
 							<>
-							<h2>Review Answers:</h2>
+							<h2>Review Exercise:</h2>
 							{questions.map(question => (
 								<div key={question.question_id}>
 									<h3>{question.question_text}</h3>
@@ -153,7 +174,7 @@ function Quiz() {
 											<p>Correct Answer: {question.options[0].option_text}</p>
 											<p>User's Answer: {answers[question.question_id]}</p>
 										</>
-									) : null} {/* Do not display for multiple-choice questions */}
+									) : null}
 								</div>
 							))}
 						</>

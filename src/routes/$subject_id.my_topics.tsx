@@ -58,6 +58,9 @@ function TopicsPage() {
                     </Card>
                 ))}
             </div>
+            <Link to="/$subject_id/start_exam" params={{ subject_id : (subject_id) as unknown as string }}>
+                <Button>Take Practice Exam</Button>
+            </Link>
         </Layout>
     );
 }

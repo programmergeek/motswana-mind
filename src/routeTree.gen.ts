@@ -17,6 +17,7 @@ import { Route as AssessmentoverviewImport } from './routes/assessment_overview'
 import { Route as IndexImport } from './routes/index'
 import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
 import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
+import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
 import { Route as SubjectidMytopicsImport } from './routes/$subject_id.my_topics'
 import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.start_exercise'
 
@@ -49,6 +50,11 @@ const TopicidSubtopicsRoute = TopicidSubtopicsImport.update({
 
 const TopicidStarttestRoute = TopicidStarttestImport.update({
   path: '/$topic_id/start_test',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SubjectidStartexamRoute = SubjectidStartexamImport.update({
+  path: '/$subject_id/start_exam',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -90,6 +96,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SubjectidMytopicsImport
       parentRoute: typeof rootRoute
     }
+    '/$subject_id/start_exam': {
+      preLoaderRoute: typeof SubjectidStartexamImport
+      parentRoute: typeof rootRoute
+    }
     '/$topic_id/start_test': {
       preLoaderRoute: typeof TopicidStarttestImport
       parentRoute: typeof rootRoute
@@ -110,6 +120,7 @@ export const routeTree = rootRoute.addChildren([
   MysubjectsRoute,
   SubtopicidStartexerciseRoute,
   SubjectidMytopicsRoute,
+  SubjectidStartexamRoute,
   TopicidStarttestRoute,
   TopicidSubtopicsRoute,
 ])
