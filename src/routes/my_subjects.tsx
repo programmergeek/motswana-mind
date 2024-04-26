@@ -1,3 +1,8 @@
+/*
+Author: Waseem Mosam
+Purpose: This file is used to create the subjects page for the user to view the subjects available to them.
+*/
+
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
@@ -24,7 +29,7 @@ function Subjects() {
         try {
             const response = await axios.get<Subject[]>('http://localhost:3333/subjects');
             setSubjects(response.data);
-            console.log(response.data);
+            //console.log(response.data);
         } catch (error) {
             console.error('Error fetching subjects:', error);
         }

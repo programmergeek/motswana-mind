@@ -1,3 +1,8 @@
+/*
+Author: Waseem Mosam
+Purpose: This file is used to create the topics page for the user to view the topics available to them.
+*/
+
 import { Link, createFileRoute } from '@tanstack/react-router'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -20,7 +25,7 @@ export const Route = createFileRoute("/$subject_id/my_topics")({
 
 function TopicsPage() {
     const { subject_id } = Route.useParams()
-    console.log('subject_id:', subject_id);
+    //console.log('subject_id:', subject_id);
     const [topics, setTopics] = useState<Topic[]>([]);
 
     useEffect(() => {
@@ -30,14 +35,14 @@ function TopicsPage() {
     const fetchTopics = async () => {
         try {
             const response = await axios.get<Topic[]>(`http://localhost:3333/topics/${subject_id}`);
-            console.log('Topics data:', response.data); // Log fetched data
+            //console.log('Topics data:', response.data); // Log fetched data
             setTopics(response.data);
         } catch (error) {
             console.error('Error fetching topics:', error);
         }
     };
 
-    console.log('Topics state:', topics); // Log topics state
+    //console.log('Topics state:', topics); // Log topics state
 
     return (
         <Layout>
@@ -52,15 +57,18 @@ function TopicsPage() {
                     <div key={topic.topic_id}>
                         <h2>{topic.topic_name}</h2>
                         <Link to="/$topic_id/sub_topics" params={{ topic_id : (topic.topic_id) as unknown as string }}>
-                            <Button>Start</Button>
+                            <Button className='float-right'>Start</Button>
                         </Link>
                     </div>
                     </Card>
                 ))}
-            </div>
+                <Card className='w-11/12 my-3 p-4'>
+                    <h2>Practice Examination</h2>
             <Link to="/$subject_id/start_exam" params={{ subject_id : (subject_id) as unknown as string }}>
-                <Button>Take Practice Exam</Button>
+                <Button className='float-right'>Take Practice Exam</Button>
             </Link>
+            </Card>
+            </div>
         </Layout>
     );
 }
