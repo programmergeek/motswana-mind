@@ -11,9 +11,45 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as SignupImport } from './routes/signup'
+import { Route as NumbersoperationsImport } from './routes/numbers&operations'
+import { Route as MathematicsImport } from './routes/mathematics'
+import { Route as LoginImport } from './routes/login'
+import { Route as LearnImport } from './routes/learn'
+import { Route as BillingImport } from './routes/billing'
 import { Route as IndexImport } from './routes/index'
 
 // Create/Update Routes
+
+const SignupRoute = SignupImport.update({
+  path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const NumbersoperationsRoute = NumbersoperationsImport.update({
+  path: '/numbers&operations',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MathematicsRoute = MathematicsImport.update({
+  path: '/mathematics',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LearnRoute = LearnImport.update({
+  path: '/learn',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BillingRoute = BillingImport.update({
+  path: '/billing',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const IndexRoute = IndexImport.update({
   path: '/',
@@ -28,11 +64,43 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/billing': {
+      preLoaderRoute: typeof BillingImport
+      parentRoute: typeof rootRoute
+    }
+    '/learn': {
+      preLoaderRoute: typeof LearnImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/mathematics': {
+      preLoaderRoute: typeof MathematicsImport
+      parentRoute: typeof rootRoute
+    }
+    '/numbers&operations': {
+      preLoaderRoute: typeof NumbersoperationsImport
+      parentRoute: typeof rootRoute
+    }
+    '/signup': {
+      preLoaderRoute: typeof SignupImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexRoute,
+  BillingRoute,
+  LearnRoute,
+  LoginRoute,
+  MathematicsRoute,
+  NumbersoperationsRoute,
+  SignupRoute,
+])
 
 /* prettier-ignore-end */
