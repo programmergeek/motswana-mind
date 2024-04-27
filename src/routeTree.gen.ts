@@ -13,6 +13,12 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as BillingImport } from './routes/billing'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
+import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
+import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
+import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
+import { Route as SubjectidMytopicsImport } from './routes/$subject_id.my_topics'
+import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.start_exercise'
 
 // Create/Update Routes
 
@@ -23,6 +29,36 @@ const BillingRoute = BillingImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProgresspageUseridRoute = ProgresspageUseridImport.update({
+  path: '/progress_page/$user_id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TopicidSubtopicsRoute = TopicidSubtopicsImport.update({
+  path: '/$topic_id/sub_topics',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const TopicidStarttestRoute = TopicidStarttestImport.update({
+  path: '/$topic_id/start_test',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SubjectidStartexamRoute = SubjectidStartexamImport.update({
+  path: '/$subject_id/start_exam',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SubjectidMytopicsRoute = SubjectidMytopicsImport.update({
+  path: '/$subject_id/my_topics',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SubtopicidStartexerciseRoute = SubtopicidStartexerciseImport.update({
+  path: '/$sub_topic_id/start_exercise',
   getParentRoute: () => rootRoute,
 } as any)
 

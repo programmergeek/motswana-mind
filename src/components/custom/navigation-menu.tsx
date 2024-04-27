@@ -61,7 +61,9 @@ const NavMenu: React.FC = () => {
       </div>
       <div id="user" className="flex justify-end pt-2 lg:pr-20">
         <div className="hidden gap-3 font-della lg:flex">
-          <Button className="w-fit align-middle">Login</Button>
+          <Link to="/login">
+            <Button className="w-fit align-middle">Login</Button>
+          </Link>
           <Button variant={"outline"}>Signup</Button>
         </div>
         <Button

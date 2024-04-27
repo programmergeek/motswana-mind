@@ -6,14 +6,14 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
-import { createFileRoute } from "@tanstack/react-router";
+import { Link, createFileRoute } from "@tanstack/react-router";
 import { Check, X } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Index() {
+export default function Index() {
   return (
     <Layout>
       <div>
@@ -30,7 +30,9 @@ function Index() {
                 Academic success is a quiz away Motswana child
               </p>
               <div className="flex gap-5">
-                <Button className="">Sign up</Button>
+                <Link to="/login">
+                  <Button className="">Sign up</Button>
+                </Link>
                 <Button variant={"secondary"} className="text-accent">
                   Learn more
                 </Button>
