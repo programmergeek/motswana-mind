@@ -21,6 +21,7 @@ import { useState } from "react";
 const NavMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
+    <>
     <div className="fixed top-0 grid h-16 w-full grid-cols-2 bg-white lg:grid-cols-3 shadow-lg shadow-white">
       <div id="logo" className="h-16 relative">
         <Link to="/">
@@ -70,7 +71,6 @@ const NavMenu: React.FC = () => {
             <Button className="w-fit align-middle">Login</Button>
           </Link>
           <Button variant={"outline"}>Signup</Button>
-          </Link>
         </div>
         <Button
           size={"icon"}
@@ -86,13 +86,13 @@ const NavMenu: React.FC = () => {
         style={{
           transform: isOpen ? "translateX(0)" : "translateX(100%)",
         }}
-      >
+        >
         <Button
           size={"icon"}
           variant={"ghost"}
           className="absolute right-5 top-5 rounded-full bg-accent focus:bg-accent lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
-        >
+          >
           <X color="#fff" />
         </Button>
         <ul className="text-white">
@@ -143,6 +143,7 @@ const NavMenu: React.FC = () => {
         </Link>
       </div>
     </div>
+  </>
   );
 };
 
