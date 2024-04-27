@@ -171,7 +171,7 @@ function Quiz() {
                     <Card className="w-7/12 max-w-6xl mx-auto my-14 bg-gray-200">
                     <CardHeader className="mb-4 md:mb-6">
                         <div className="flex justify-between items-center">
-                            <h2 className="text-2xl md:text-2xl font-bold">{subjectName} Examination</h2>
+                            <h2 className="ml-2 text-2xl md:text-2xl font-bold">{subjectName} Examination</h2>
                         </div>
                     </CardHeader>
                     <CardContent className=" flex grid-cols-1 md:grid-cols-3 md:gap-6">
