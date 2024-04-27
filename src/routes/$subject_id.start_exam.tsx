@@ -6,7 +6,7 @@ Purpose: This file is used to create the exnamination page for the user to compl
 // imports
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Layout from "@/components/layouts/main";
 import { Button } from "@/components/ui/button";
 import {
@@ -28,6 +28,14 @@ interface Question {
     question_id: number;
     question_text: string;
     options: Option[];
+}
+
+interface QuizResults {
+    assessment_name: string;
+    assessment_type: string;
+    user_id: number;
+    score: number;
+    date_taken: string;
 }
 
 // route to page
@@ -119,7 +127,17 @@ function Quiz() {
         setCurrentQuestionIndex(prevIndex => Math.min(prevIndex + 1, questions.length - 1));
     };
 
-    const handleSubmitQuiz = () => {
+    const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
+        try {
+            const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
+            // Optionally, you can return any data received from the server
+        } catch (error) {
+            console.error('Error submitting quiz results:', error);
+            throw error; // Optionally, you can handle the error further or re-throw it
+        }
+    };
+
+    const handleSubmitQuiz = async () => {
         // Grade the user's input
         if (timer) {
             clearInterval(timer); // Stop the timer when quiz is submitted
@@ -132,6 +150,34 @@ function Quiz() {
                 userScore++;
             }
         });
+
+        const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+
+        const totalQuestions = questions.length;
+        const percentage = ((userScore ?? 0) / totalQuestions) * 100;
+        const roundedPercentage = Number(percentage.toFixed(2));
+
+        try {
+            const quizResults: QuizResults = {
+                assessment_name: subjectName,
+                assessment_type: 'Exam',
+                user_id: 1, // Replace userId with the actual user ID
+                score: roundedPercentage,
+                date_taken: formattedDate,
+            };
+    
+            await submitQuizResults(quizResults);
+    
+            // Optionally, you can perform any additional actions after successful submission
+        } catch (error) {
+            console.error('Error handling quiz submission:', error);
+            // Optionally, display an error message to the user
+        }
+
         setScore(userScore);
         setQuizSubmitted(true);
     };

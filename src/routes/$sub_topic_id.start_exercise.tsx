@@ -7,7 +7,7 @@ Purpose: This file is used to create the exercise page for the user to complete 
 // imports
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from 'react';
-import axios from 'axios';
+import axios, { AxiosResponse } from 'axios';
 import Layout from "@/components/layouts/main";
 import {
 	Card,
@@ -29,6 +29,14 @@ interface Question {
 	question_id: number;
 	question_text: string;
 	options: Option[];
+}
+
+interface QuizResults {
+    assessment_name: string;
+    assessment_type: string;
+    user_id: number;
+    score: number;
+    date_taken: string;
 }
 
 // route to page
@@ -109,8 +117,18 @@ function Quiz() {
 		setCurrentQuestionIndex(prevIndex => Math.min(prevIndex + 1, questions.length - 1));
 	};
 
+	const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
+        try {
+            const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
+            // Optionally, you can return any data received from the server
+        } catch (error) {
+            console.error('Error submitting quiz results:', error);
+            throw error; // Optionally, you can handle the error further or re-throw it
+        }
+    };
+
 	// function to submit the assessment
-	const handleSubmitQuiz = () => {
+	const handleSubmitQuiz = async () => {
 		let userScore = 0;
 		questions.forEach(question => {
 			const userAnswer = (answers[question.question_id]).trim();
@@ -128,6 +146,32 @@ function Quiz() {
 				}
 			}
 		});
+		const currentDate = new Date();
+        const year = currentDate.getFullYear();
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const day = String(currentDate.getDate()).padStart(2, '0');
+        const formattedDate = `${year}-${month}-${day}`;
+
+        const totalQuestions = questions.length;
+        const percentage = ((userScore ?? 0) / totalQuestions) * 100;
+        const roundedPercentage = Number(percentage.toFixed(2));
+
+        try {
+            const quizResults: QuizResults = {
+                assessment_name: subTopicName,
+                assessment_type: 'Exercise',
+                user_id: 1, // Replace userId with the actual user ID
+                score: roundedPercentage,
+                date_taken: formattedDate,
+            };
+    
+            await submitQuizResults(quizResults);
+    
+            // Optionally, you can perform any additional actions after successful submission
+        } catch (error) {
+            console.error('Error handling quiz submission:', error);
+            // Optionally, display an error message to the user
+        }
 		setScore(userScore);
 		setQuizSubmitted(true);
 	};

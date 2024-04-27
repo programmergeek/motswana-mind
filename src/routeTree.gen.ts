@@ -14,6 +14,7 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as BillingImport } from './routes/billing'
 import { Route as IndexImport } from './routes/index'
+import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
 import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
 import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
 import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
@@ -34,6 +35,11 @@ const BillingRoute = BillingImport.update({
 
 const IndexRoute = IndexImport.update({
   path: '/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ProgresspageUseridRoute = ProgresspageUseridImport.update({
+  path: '/progress_page/$user_id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -98,6 +104,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TopicidSubtopicsImport
       parentRoute: typeof rootRoute
     }
+    '/progress_page/$user_id': {
+      preLoaderRoute: typeof ProgresspageUseridImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -112,6 +122,7 @@ export const routeTree = rootRoute.addChildren([
   SubjectidStartexamRoute,
   TopicidStarttestRoute,
   TopicidSubtopicsRoute,
+  ProgresspageUseridRoute,
 ])
 
 /* prettier-ignore-end */
