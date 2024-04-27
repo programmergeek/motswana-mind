@@ -14,11 +14,13 @@ import { Route as rootRoute } from './routes/__root'
 import { Route as StatisticsImport } from './routes/statistics'
 import { Route as SignupImport } from './routes/signup'
 import { Route as NumbersoperationsImport } from './routes/numbers&operations'
+import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as MeasuresImport } from './routes/measures'
 import { Route as MathematicsImport } from './routes/mathematics'
 import { Route as LoginImport } from './routes/login'
 import { Route as LearnImport } from './routes/learn'
 import { Route as GeometryImport } from './routes/geometry'
+import { Route as DashboardImport } from './routes/dashboard'
 import { Route as BillingImport } from './routes/billing'
 import { Route as AlgebraImport } from './routes/algebra'
 import { Route as IndexImport } from './routes/index'
@@ -46,6 +48,11 @@ const NumbersoperationsRoute = NumbersoperationsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const MysubjectsRoute = MysubjectsImport.update({
+  path: '/my_subjects',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const MeasuresRoute = MeasuresImport.update({
   path: '/measures',
   getParentRoute: () => rootRoute,
@@ -68,6 +75,11 @@ const LearnRoute = LearnImport.update({
 
 const GeometryRoute = GeometryImport.update({
   path: '/geometry',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -132,6 +144,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BillingImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
     '/geometry': {
       preLoaderRoute: typeof GeometryImport
       parentRoute: typeof rootRoute
@@ -152,6 +168,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MeasuresImport
       parentRoute: typeof rootRoute
     }
+    '/my_subjects': {
+      preLoaderRoute: typeof MysubjectsImport
+      parentRoute: typeof rootRoute
+    }
     '/numbers&operations': {
       preLoaderRoute: typeof NumbersoperationsImport
       parentRoute: typeof rootRoute
@@ -164,6 +184,30 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StatisticsImport
       parentRoute: typeof rootRoute
     }
+    '/$sub_topic_id/start_exercise': {
+      preLoaderRoute: typeof SubtopicidStartexerciseImport
+      parentRoute: typeof rootRoute
+    }
+    '/$subject_id/my_topics': {
+      preLoaderRoute: typeof SubjectidMytopicsImport
+      parentRoute: typeof rootRoute
+    }
+    '/$subject_id/start_exam': {
+      preLoaderRoute: typeof SubjectidStartexamImport
+      parentRoute: typeof rootRoute
+    }
+    '/$topic_id/start_test': {
+      preLoaderRoute: typeof TopicidStarttestImport
+      parentRoute: typeof rootRoute
+    }
+    '/$topic_id/sub_topics': {
+      preLoaderRoute: typeof TopicidSubtopicsImport
+      parentRoute: typeof rootRoute
+    }
+    '/progress_page/$user_id': {
+      preLoaderRoute: typeof ProgresspageUseridImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
@@ -173,14 +217,22 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AlgebraRoute,
   BillingRoute,
+  DashboardRoute,
   GeometryRoute,
   LearnRoute,
   LoginRoute,
   MathematicsRoute,
   MeasuresRoute,
+  MysubjectsRoute,
   NumbersoperationsRoute,
   SignupRoute,
   StatisticsRoute,
+  SubtopicidStartexerciseRoute,
+  SubjectidMytopicsRoute,
+  SubjectidStartexamRoute,
+  TopicidStarttestRoute,
+  TopicidSubtopicsRoute,
+  ProgresspageUseridRoute,
 ])
 
 /* prettier-ignore-end */
