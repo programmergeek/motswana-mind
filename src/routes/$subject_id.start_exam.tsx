@@ -10,7 +10,10 @@ import axios from 'axios';
 import Layout from "@/components/layouts/main";
 import { Button } from "@/components/ui/button";
 import {
-    Card
+    Card,
+    CardHeader,
+    CardContent,
+    CardFooter,
 } from "@/components/ui/card";
 
 // interface to store options for questions
@@ -47,6 +50,7 @@ function Quiz() {
     const [timeLeft, setTimeLeft] = useState<number | null>(null);
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
     const quizDuration = 600; // 10 minutes (600 seconds)
+    const [subjectName, setSubjectName] = useState<string>("");
 
     useEffect(() => {
         // fetchSubjectName();
@@ -67,16 +71,16 @@ function Quiz() {
         }
     };
 
-    // const fetchSubjectName = async () => {
-    // 	try {
-    // 		const response = await axios.get(`http://localhost:3333/topic/name/${topic_id}`);
-    // 		const responseData = response.data;
-    // 		setTopicName(responseData[0].topic_name);
-    // 		//console.log(topicName);
-    // 	} catch (error) {
-    // 		console.error("Error fetching subtopic name:", error);
-    // 	}
-    // };
+    const fetchSubjectName = async () => {
+    	try {
+    		const response = await axios.get(`http://localhost:3333//subject/name/${subject_id}`);
+    		const responseData = response.data;
+    		setSubjectName(responseData[0].subject_name);
+    		//console.log(topicName);
+    	} catch (error) {
+    		console.error("Error fetching subtopic name:", error);
+    	}
+    };
 
     const startTimer = () => {
         setTimeLeft(quizDuration);
@@ -152,24 +156,67 @@ function Quiz() {
     const hasTimeLimit = quizDuration !== null;
     const timeLimit = hasTimeLimit ? `${quizDuration / 60} minute(s)` : 'None';
 
+    const formatTime = (seconds: number | null): string => {
+        if (seconds === null) return '00:00';
+
+        const minutes = Math.floor(seconds / 60);
+        const remainingSeconds = seconds % 60;
+        return `${minutes}:${remainingSeconds < 10 ? '0' : ''}${remainingSeconds}`;
+    };
+
     return (
         <Layout>
             <div className="pt-10 flex flex-col items-center justify-center bg-[url(/pattern.jpeg)]">
                 {!quizStarted && !quizSubmitted && (
-                    <Card className="my-5 p-10 w-7/12 bg-gray-200">
-                        <Card className="p-5 my-5">
-                            <h1>{totalQuestions} questions</h1>
-                        </Card>
-                        <Card className="p-5 my-5">
-                            <h1>Exam</h1>
-                        </Card>
-                        <Card className="p-5 my-5">
-                            <p>Time Limit: {timeLimit}</p>
-                        </Card>
-                        <Button onClick={handleStartQuiz} className="float-right">
-                            Start Exam
-                        </Button>
-                    </Card>
+                    <Card className="w-6/12 max-w-6xl mx-auto my-14 bg-gray-200">
+                    <CardHeader className="mb-4 md:mb-6">
+                        <div className="flex justify-between items-center">
+                            <h2 className="text-2xl md:text-3xl font-bold">Mathematics</h2>
+                        </div>
+                    </CardHeader>
+                    <CardContent className=" flex grid-cols-1 md:grid-cols-3 md:gap-6">
+                        <div className="bg-white rounded-lg overflow-hidden shadow-lg dark:bg-gray-950 flex flex-col items-center justify-center w-[70%] p-7">
+                            <img
+                                alt="Card Image"
+                                className="w-[30%] h-[40%]"
+                                height="240"
+                                src="/icons/questions.png"
+                                width="400"
+                            />
+                            <div className="p-4 md:p-6">
+                                <h3 className="text-lg md:text-xl font-semibold mb-2">{totalQuestions} questions</h3>
+                            </div>
+                        </div>
+                        <div className="bg-white rounded-lg overflow-hidden shadow-lg dark:bg-gray-950 flex flex-col items-center justify-center w-[70%] p-7">
+                            <img
+                                alt="Card Image"
+                                className="w-[30%] h-[40%]"
+                                height="240"
+                                src="/icons/documents.png"
+                                width="400"
+                            />
+                            <div className="p-4 md:p-6">
+                                <h3 className="text-lg md:text-xl font-semibold mb-2">Exam</h3>
+
+                            </div>
+                        </div>
+                        <div className="bg-white rounded-lg overflow-hidden shadow-lg dark:bg-gray-950 flex flex-col items-center justify-center w-[70%] p-7">
+                            <img
+                                alt="Card Image"
+                                className="w-[30%] h-[42%]"
+                                height="240"
+                                src="/icons/clock.png"
+                                width="400"
+                            />
+                            <div className="p-4 md:p-6">
+                                <h3 className="text-lg md:text-xl font-semibold mb-2">{timeLimit}</h3>
+                            </div>
+                        </div>
+                    </CardContent>
+                    <CardFooter className="mt-4 md:mt-6 flex justify-end">
+                        <Button onClick={handleStartQuiz} className="h-12 w-22">Start Exam</Button>
+                    </CardFooter>
+                </Card>
                 )}
                 {quizStarted && !quizSubmitted && (
                     <>
@@ -177,37 +224,54 @@ function Quiz() {
                             <p>Loading...</p>
                         ) : (
                             <>
-                                <Card className="my-5 p-10 w-7/12 bg-gray-200">
-                                    <div key={questions[currentQuestionIndex].question_id}>
+                                <Card className="flex flex-col items-center justify-center w-6/12  mx-auto my-14 bg-transparent border-none">
+                                    <div className="w-[70%]  p-6 bg-white rounded-lg shadow-md dark:bg-gray-800" key={questions[currentQuestionIndex].question_id}>
+                                        <div className="flex items-center justify-between mb-6">
+                                            <div className="text-gray-500 dark:text-gray-400" >
+                                                Question <span className="font-bold">{currentQuestionIndex + 1}</span> of {questions.length}
+                                            </div>
+                                            <div className="bg-gray-200 dark:bg-gray-700 rounded-full px-3 py-1 text-sm font-medium text-gray-700 dark:text-gray-300">
+                                                <span className="font-bold">{formatTime(timeLeft)}</span>
+                                            </div>
+                                        </div>
+                                        <h2 className="text-2xl font-bold mb-4 dark:text-gray-200">{questions[currentQuestionIndex].question_text}</h2>
+                                        <div className="space-y-3">
+                                            <div className="flex items-center">
+                                                <ul>
+                                                    {questions[currentQuestionIndex].options.map(option => (
+                                                        <li key={option.option_id}>
+                                                            <input
+                                                                className="h-4 w-4 text-gray-900 focus:ring-gray-900 dark:text-gray-800 dark:focus:ring-gray-800"
+                                                                type="radio"
+                                                                name={`question_${questions[currentQuestionIndex].question_id}`}
+                                                                id={`option_${option.option_id}`}
+                                                                value={option.option_id}
+                                                                onChange={() =>
+                                                                    handleAnswerChange(
+                                                                        questions[currentQuestionIndex].question_id,
+                                                                        option.option_id
+                                                                    )
+                                                                }
+                                                                checked={
+                                                                    answers[questions[currentQuestionIndex].question_id] ===
+                                                                    option.option_id
+                                                                }
+                                                            />
+                                                            <label className="ml-2  text-sm font-medium text-gray-900 dark:text-gray-200" htmlFor={`option_${option.option_id}`}>
+                                                                {option.option_text}
+                                                            </label>
+                                                        </li>
+                                                    ))}
+                                                </ul>
+                                            </div>
 
-                                        <p>Question {currentQuestionIndex + 1}/{questions.length}</p>
-
-                                        <h2>{questions[currentQuestionIndex].question_text}</h2>
-                                        <ul>
-                                            {questions[currentQuestionIndex].options.map(option => (
-                                                <li key={option.option_id}>
-                                                    <input
-                                                        type="radio"
-                                                        name={`question_${questions[currentQuestionIndex].question_id}`}
-                                                        id={`option_${option.option_id}`}
-                                                        value={option.option_id}
-                                                        onChange={() => handleAnswerChange(questions[currentQuestionIndex].question_id, option.option_id)}
-                                                        checked={answers[questions[currentQuestionIndex].question_id] === option.option_id}
-                                                    />
-                                                    <label htmlFor={`option_${option.option_id}`}>{option.option_text}</label>
-                                                </li>
-                                            ))}
-                                        </ul>
+                                        </div>
+                                        <div className="flex gap-4 mt-6">
+                                            <Button onClick={handleBack} disabled={currentQuestionIndex === 0}>Back</Button>
+                                            <Button onClick={handleNext} disabled={currentQuestionIndex === questions.length - 1}>Next</Button>
+                                            <Button onClick={handleSubmitQuiz} className="ml-auto">Submit</Button>
+                                        </div>
                                     </div>
-                                    {currentQuestionIndex > 0 && (
-                                        <Button onClick={handleBack} className="my-5 mr-2">Back</Button>
-                                    )}
-                                    {currentQuestionIndex < questions.length - 1 && (
-                                        <Button onClick={handleNext} className="my-5 mr-4">Next</Button>
-                                    )}
-                                    <Button onClick={handleSubmitQuiz} className="my-5 mr-2">Submit</Button>
-
-                                    <p>Time left: {timeLeft} seconds</p>
                                 </Card>
                             </>
                         )}
