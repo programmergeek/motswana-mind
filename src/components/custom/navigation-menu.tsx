@@ -50,7 +50,7 @@ const NavMenu: React.FC = () => {
               </Link>
             </NavigationMenuItem>
             <NavigationMenuItem>
-              <Link to="/">
+              <Link to="/events">
                 <NavigationMenuLink className={navigationMenuTriggerStyle()}>
                   Events
                 </NavigationMenuLink>
@@ -113,7 +113,7 @@ const NavMenu: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="/">
+            <Link to="/events">
               <Button className="flex w-full justify-start gap-3 bg-accent text-base">
                 <CalendarDays />
                 Events
