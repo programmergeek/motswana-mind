@@ -21,11 +21,17 @@ import { useState } from "react";
 const NavMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="fixed top-0 grid h-14 w-full grid-cols-2 bg-white lg:grid-cols-3">
-      <div id="logo" className="pl-5 pt-4 lg:pl-20">
-        <p className="font-playfair">Motswana Mind</p>
+    <>
+    <div className="fixed top-0 grid h-16 w-full grid-cols-2 bg-white lg:grid-cols-3 shadow-lg shadow-white">
+      <div id="logo" className="h-16 relative">
+        <Link to="/">
+        <img 
+          src="/motswanamind-logo.png"
+          className="absolute object-fit size-32 top-[-30px] pl-3 left-5"
+        />
+        </Link>
       </div>
-      <div id="menu" className="hidden w-full place-items-center lg:grid">
+      <div id="menu" className="hidden w-full place-items-center lg:grid pt-2">
         <NavigationMenu>
           <NavigationMenuList className="flex gap-3 font-della">
             <NavigationMenuItem>
@@ -59,7 +65,7 @@ const NavMenu: React.FC = () => {
           </NavigationMenuList>
         </NavigationMenu>
       </div>
-      <div id="user" className="flex justify-end pt-2 lg:pr-20">
+      <div id="user" className="flex justify-end pt-4 lg:pr-20">
         <div className="hidden gap-3 font-della lg:flex">
           <Link to="/login">
             <Button className="w-fit align-middle">Login</Button>
@@ -80,13 +86,13 @@ const NavMenu: React.FC = () => {
         style={{
           transform: isOpen ? "translateX(0)" : "translateX(100%)",
         }}
-      >
+        >
         <Button
           size={"icon"}
           variant={"ghost"}
           className="absolute right-5 top-5 rounded-full bg-accent focus:bg-accent lg:hidden"
           onClick={() => setIsOpen(!isOpen)}
-        >
+          >
           <X color="#fff" />
         </Button>
         <ul className="text-white">
@@ -99,7 +105,7 @@ const NavMenu: React.FC = () => {
             </Link>
           </li>
           <li>
-            <Link to="/">
+            <Link to="/learn">
               <Button className="flex w-full justify-start gap-3 bg-accent text-base">
                 <BookText />
                 Learn
@@ -128,13 +134,16 @@ const NavMenu: React.FC = () => {
             <div>
               <UserCircle color="#fff" />
             </div>
+            <Link to="/login">
             <div className="grid h-full place-items-center font-semibold text-white">
               Login / Sign up
             </div>
+            </Link>
           </div>
         </Link>
       </div>
     </div>
+  </>
   );
 };
 
