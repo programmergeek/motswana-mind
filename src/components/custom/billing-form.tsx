@@ -2,11 +2,7 @@ import React, { useEffect, useState } from 'react'
 import Layout from '@/components/layouts/main'
 import { Link } from '@tanstack/react-router'
 import { PaymentElement, LinkAuthenticationElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { Button } from "@/components/ui/button"
-import { Label } from "@/components/ui/label"
-import { Input } from "@/components/ui/input"
-
-// import { linkAuthenticationElement } from '@stripe/stripe-js'
+import { Button } from '@/components/ui/button'
 
 /* billing-form component */
 const BillingForm: React.FC = () => {
@@ -44,7 +40,7 @@ const BillingForm: React.FC = () => {
 
   const handlePayment = async (event: MouseEvent) => {
     console.log('In handlePayment()')
-    console.log(elements?.getElement('cardExpiry'))
+    // console.log(elements?.getElement('cardExpiry'))
     event.preventDefault()
 
     if (!stripe || !elements) {      // if Stripe.js hasn't yet loaded
@@ -106,17 +102,6 @@ const BillingForm: React.FC = () => {
 
             {/* Show any error or success messages */}
             {message && <div className='pt-4' id='payment-message'>{ message }</div>}
-
-            {/* <CardElement
-                className="card"
-                options={{
-                  style: {
-                    base: {
-                      backgroundColor: "white"
-                    } 
-                  },
-                }}
-              /> */}
 
             <div className="flex justify-around my-5">
               <Link to="/">
