@@ -6,40 +6,173 @@ import {
   CardFooter,
   CardHeader,
 } from "@/components/ui/card";
+import { TypeAnimation } from 'react-type-animation';
+import { Link } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
-import { Check, X } from "lucide-react";
+import { Check, X, ArrowRight } from "lucide-react";
 
 export const Route = createFileRoute("/")({
   component: Index,
 });
 
-function Index() {
+export default function Index() {
   return (
     <Layout>
       <div>
-        <div className="px-0 xl:px-64">
+        <div className="px-0">
           <section
             id="hero"
-            className="h-[400px] rounded-b-[50px] bg-accent 2xl:h-[475px] 2xl:rounded-b-[75px]"
+            className="h-[605px] bg-[url('/wavyy-background.png')] bg-no-repeat bg-cover 2xl:h-[475px]"
           >
-            <div className="flex flex-col gap-5 px-10 py-16 2xl:container md:px-36 lg:px-32 lg:py-24 ">
-              <h1 className="font-playfair text-4xl text-white 2xl:text-7xl">
-                Making the Motswana Dream Possible through Education
-              </h1>
-              <p className="text-white">
-                Academic success is a quiz away Motswana child
-              </p>
-              <div className="flex gap-5">
-                <Button className="">Sign up</Button>
-                <Button variant={"secondary"} className="text-accent">
-                  Learn more
-                </Button>
+            
+            <div className="grid grid-cols-2 py-16 2xl:container md:px-36 md:pl-16 lg:pl-10 lg:pt-14 lg:pr-20">
+              <div className="">
+                <img 
+                  src="/schoolboy.png"
+                  className="h-[550px] w-2500px p-0"
+                />
+              </div>
+              <div className="">
+                <h1 className="font-playfair text-4xl text-black 2xl:text-7xl pt-40 pb-5">
+                  Making the Motswana Dream Possible through Education
+                </h1>
+                <TypeAnimation
+                  sequence={[
+                    // Same substring at the start will only be typed out once, initially
+                    'Academic success is a lesson away Motswana child',
+                    1000, // wait 1s before replacing "Mice" with "Hamsters"
+                    'Academic success is a quiz away Motswana child',
+                    1000,
+                    'Academic success is a test away Motswana child',
+                    1000,
+                    'Join Motswana Mind and experience academic excellence today',
+                    1000
+                  ]}
+                  wrapper="span"
+                  speed={50}
+                  style={{ fontSize: '20px', display: 'inline-block' }}
+                  repeat={Infinity}
+                />
+                
+                <div className="flex gap-5 pt-5">
+                <Link to="/signup">
+                  <Button className="">Sign up</Button>
+                </Link>
+                <Link to="/learn">
+                  <Button  className="text-white bg-accent gap-1">
+                    Learn more
+                  <ArrowRight />
+                  </Button>
+                </Link>
+                </div>
               </div>
             </div>
           </section>
         </div>
-        <section className="py-10 xl:px-64">
-          <div className="grid min-h-64 w-full grid-cols-1 gap-10 rounded-[50px] bg-gray-200 px-10 py-16 2xl:container sm:grid-cols-2 md:px-36 lg:px-32 lg:py-24 2xl:grid-cols-3">
+        <section className="pt-0 xl:px-10">
+          <div className=" min-h-64 w-full rounded-[50px] bg-[#020617] px-10 py-16 2xl:container  md:px-36 lg:px-32 lg:py-24 ">
+            <div className="px-24">
+              <h1
+             className="bg-gradient-to-br from-slate-300 to-slate-500 py-4 bg-clip-text text-center text-4xl font-medium tracking-tight text-transparent md:text-5xl"
+            >Discover what Motswana mind has for you!!!</h1>
+            </div>
+            <div className="flex flex-row gap-3 pt-10 justify-center">
+                <Button className="rounded-full">Numbers & Operations</Button>
+                <Button className="rounded-full">Geometry</Button>
+                <Button className="rounded-full">Measures</Button>
+              </div>
+              <div className="flex flex-row gap-3 pt-1 justify-center">
+                <Button className="rounded-full">Statistics</Button>
+                <Button className="rounded-full">Algebra</Button>
+              </div>
+          </div>
+        </section>
+
+        <section className="flex flex-col w-full justify-center items-center pt-20">
+          <img 
+          src="/what-we-offer.PNG"
+          className="h-[140px] w-[500px]"/>
+          <span className="text-[25px]">
+            A world of resources catered to the Motswana child
+          </span>
+          
+        </section>
+
+        <section className="h-[450px] bg-[#D9D9D9] mt-32">
+          <div className="flex flex-col justify-center items-center py-10">
+          <div className="text-center">
+            <p className="pb-5 font-playfair text-[60px] font-semibold">
+              Pricing
+            </p>
+            <p className="text-[25px] pb-5">
+              Get full access with our affordable payment plans
+            </p>
+          </div>
+          
+          <div className="flex flex-row gap-5 pt-10 justify-center">
+              <Card className="rounded-[30px] p-5 shadow-2xl">
+                <CardHeader>
+                  <div className="flex flex-col gap-3">
+                    <p className="text-center text-gray-600 pt-5  font-bold">Basic</p>
+                    <p className="text-center text-3xl">Free</p>
+                  </div>
+                </CardHeader>
+                <CardContent className="px-10">
+                  <div className="flex flex-col gap-2">
+                    <p className="flex gap-3">
+                      <Check /> Introductory content
+                    </p>
+                    <p className="flex gap-3">
+                      <X /> Full access to courses
+                    </p>
+                    <p className="flex gap-3">
+                      <Check /> Past papers
+                    </p>
+                    <p className="flex gap-3">
+                      <X /> Workshops and events
+                    </p>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
+                    Sign up
+                  </Button>
+                </CardFooter>
+              </Card>
+              <Card className="rounded-[30px] bg-accent p-10 shadow-2xl">
+                <CardHeader>
+                  <div className="flex flex-col gap-3">
+                    <p className="text-center text-white font-bold">Premium</p>
+                    <p className="text-center text-3xl text-white">P50/pm</p>
+                  </div>
+                </CardHeader>
+                <CardContent className="text-white">
+                  <div className="flex flex-col gap-2">
+                    <p className="flex gap-3">
+                      <Check /> Introductory content
+                    </p>
+                    <p className="flex gap-3">
+                      <Check /> Full access to courses
+                    </p>
+                    <p className="flex gap-3">
+                      <Check /> Past papers
+                    </p>
+                    <p className="flex gap-3">
+                      <Check /> Workshops and events
+                    </p>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
+                    Sign up
+                  </Button>
+                </CardFooter>
+              </Card>
+          </div>
+          </div>
+        </section>
+        <section className="py-10 xl:px-64 mt-64">
+          <div className="grid min-h-64 w-full grid-cols-1 gap-10 rounded-[50px] bg-gray px-10 py-16 2xl:container sm:grid-cols-2 md:px-36 lg:px-32 lg:py-24 2xl:grid-cols-3">
             <div className="flex gap-3">
               <img src="/icons/numbers.png" alt="Numbers" className="h-10" />
               <div>
@@ -122,99 +255,18 @@ function Index() {
               </div>
             </div>
           </div>
-        </section>
-        <section className="w-full bg-accent">
-          <div className="px-8 py-10 sm:px-16 xl:px-64">
-            <div className="grid grid-rows-[auto_auto_auto] gap-y-5 sm:grid-rows-[auto_auto] sm:gap-x-5 md:grid-cols-3 md:grid-rows-1">
-              <Card className="col-span-2 row-start-3 rounded-[30px] sm:col-span-1 sm:row-start-2 md:row-start-1">
-                <CardHeader>
-                  <div className="flex flex-col gap-3">
-                    <p className="text-center text-gray-600">Premium</p>
-                    <p className="text-center text-3xl">P50/pm</p>
-                  </div>
-                </CardHeader>
-                <CardContent>
-                  <div className="flex flex-col gap-2">
-                    <p className="flex gap-3">
-                      <Check /> Introductory content
-                    </p>
-                    <p className="flex gap-3">
-                      <Check /> Full access to courses
-                    </p>
-                    <p className="flex gap-3">
-                      <Check /> Past papers
-                    </p>
-                    <p className="flex gap-3">
-                      <Check /> Workshops and events
-                    </p>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
-                    Sign up
-                  </Button>
-                </CardFooter>
-              </Card>
-              <Card className="col-span-2 row-start-2 rounded-[30px] sm:col-span-1 md:row-start-1">
-                <CardHeader>
-                  <div className="flex flex-col gap-3">
-                    <p className="text-center text-gray-600">Basic</p>
-                    <p className="text-center text-3xl">Free</p>
-                  </div>
-                </CardHeader>
-                <CardContent className="px-10">
-                  <div className="flex flex-col gap-2">
-                    <p className="flex gap-3">
-                      <Check /> Introductory content
-                    </p>
-                    <p className="flex gap-3">
-                      <X /> Full access to courses
-                    </p>
-                    <p className="flex gap-3">
-                      <Check /> Past papers
-                    </p>
-                    <p className="flex gap-3">
-                      <X /> Workshops and events
-                    </p>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
-                    Sign up
-                  </Button>
-                </CardFooter>
-              </Card>
-              <div className="col-span-2 row-start-1 text-center font-playfair text-4xl font-semibold text-white md:text-end">
-                Get full access with our affordable payment plans
-              </div>
-            </div>
-          </div>
-        </section>
-        <section className="w-fit">
-          <div className="flex flex-col-reverse md:grid md:h-[600px] md:grid-cols-2">
-            <div className="">
-              <div className="grid h-full place-content-center gap-5 bg-[#BDE283] py-10">
-                <p className="font-playfair text-4xl font-semibold">
-                  Upcomming Events!!!
-                </p>
-                <Button className="w-fit font-della">View all</Button>
-              </div>
-            </div>
-            <div className="grid lg:grid-rows-2">
-              <div className="relative hidden overflow-hidden lg:block">
-                <img
-                  src="/pattern.jpeg"
-                  className="absolute -z-10 object-fill object-center"
-                />
-              </div>
-              <div className="grid place-content-center bg-[url(/pattern.jpeg)]  bg-cover bg-center lg:bg-none">
-                <p className="px-10 py-10 font-della text-lg  lg:text-xl">
-                  Motswana child hosts educational events that you would not
-                  want to miss out. Skip the FOMO and join us at one these
-                  exciting events.
-                </p>
-              </div>
-            </div>
+        </section>  
+        <section className="h-[550px] bg-[url('/gradient-bg.png')] bg-no-repeat bg-cover rounded-[50px] shadow-2xl mx-40 mt-20 mb-20">
+          <div className="flex flex-col justify-center items-center text-white pt-44">
+          <p className="font-playfair text-[60px] font-semibold">
+            Upcoming Events!!!
+          </p>
+          <p className="px-12 py-10 mx-60 font-della text-lg text-center lg:text-xl">
+            Motswana Mind hosts educational events that you would not
+            want to miss out. Skip the FOMO and join us at one these
+            exciting events.
+          </p>
+          <Button className="w-fit font-della bg-accent">View all</Button>
           </div>
         </section>
       </div>

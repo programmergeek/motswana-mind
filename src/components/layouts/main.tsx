@@ -11,7 +11,7 @@ const Layout: React.FC<LayoutProps> = ({ ...props }) => {
     <div className="grid h-screen grid-rows-[5vh_auto_auto]">
       <div></div>
       <NavMenu />
-      {props.children}
+        { props.children }
       <Footer />
     </div>
   );
