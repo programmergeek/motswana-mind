@@ -120,10 +120,9 @@ function Quiz() {
 	const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
         try {
             const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
-            // Optionally, you can return any data received from the server
         } catch (error) {
             console.error('Error submitting quiz results:', error);
-            throw error; // Optionally, you can handle the error further or re-throw it
+            throw error;
         }
     };
 
