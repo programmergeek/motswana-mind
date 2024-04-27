@@ -148,10 +148,10 @@ function Quiz() {
 			<div className="pt-10 flex flex-col items-center justify-center bg-[url(/pattern.jpeg)]">
 				{/* Display Assessment info */}
 				{!quizStarted && !quizSubmitted && (
-					<Card className="w-6/12 max-w-6xl mx-auto my-14 bg-gray-200">
+					<Card className="w-7/12 max-w-6xl mx-auto my-14 bg-gray-200">
 						<CardHeader className="mb-4 md:mb-6">
 							<div className="flex justify-between items-center">
-								<h2 className="text-2xl md:text-3xl font-bold">{subTopicName}</h2>
+								<h2 className="ml-2 text-2xl md:text-2xl font-bold">{subTopicName} Exercise</h2>
 							</div>
 						</CardHeader>
 						<CardContent className=" flex grid-cols-1 md:grid-cols-3 md:gap-6">
@@ -243,29 +243,35 @@ function Quiz() {
 				{quizSubmitted && (
 					// Display the score and correct answers
 					<Card className="my-5 p-10 w-6/12 bg-gray-200">
-						<div>
-							<h1 className="ml-4">Results - {subTopicName} Exercise</h1>
+						
+						<div >
+							<h1 className="ml-3 text-xl md:text-2xl font-bold mb-4">Results - {subTopicName} Exercise</h1>
 							<div>
 								<Card className="p-4 my-3">
-									<h2>Quiz Score: {score} out of {totalQuestions} ({roundedPercentage})</h2>
+								<p className="text-dark-500 dark:text-gray-400 mb-2 font-bold">Exercise Score:</p>
+                                    <p className="text-gray-600 dark:text-gray-400 mb-2">{score} out of {totalQuestions} ({roundedPercentage})</p>
 								</Card>
 							</div>
 							<Button onClick={handleRestartQuiz} className="my-5 mr-4">Restart Exercise</Button>
 							<Button onClick={() => setShowAnswers(!showAnswers)} className="my-5 mr-4">Toggle Answers</Button>
 							{showAnswers && (
 								<>
-									<h2>Review Exercise:</h2>
+								<div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8">
+								<h2 className="text-2xl md:text-3xl font-bold mb-4">Review</h2>
 									{questions.map(question => (
-										<div key={question.question_id}>
-											<h3>{question.question_text}</h3>
+										<div key={question.question_id} className="space-y-4 pb-4">
+											<h3 className="text-xl md:text-2xl font-bold mb-2">{question.question_text}</h3>
 											{shortAnswer ? ( // Display the correct answer
 												<>
-													<p>Correct Answer: {question.options[0].option_text}</p>
-													<p>User's Answer: {answers[question.question_id]}</p>
+												<div className="bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
+													<p className="text-gray-500 dark:text-gray-400 mb-2">Correct Answer: <span className="font-medium text-gray-700 dark:text-gray-300">{question.options[0].option_text}</span></p>
+													<p className="text-gray-500 dark:text-gray-400">Your Answer: <span className="font-medium text-gray-700 dark:text-gray-300">{answers[question.question_id]}</span></p>
+												</div>
 												</>
 											) : null}
 										</div>
 									))}
+									</div>
 								</>
 							)}
 						</div>

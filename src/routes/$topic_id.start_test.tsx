@@ -181,10 +181,10 @@ function Quiz() {
         <Layout>
             <div className="pt-10 flex-row items-center justify-center bg-[url(/pattern.jpeg)]">
                 {!quizStarted && !quizSubmitted && (
-                    <Card className="w-6/12 max-w-6xl mx-auto my-14 bg-gray-200">
+                    <Card className="w-7/12 max-w-6xl mx-auto my-14 bg-gray-200">
                         <CardHeader className="mb-4 md:mb-6">
                             <div className="flex justify-between items-center">
-                                <h2 className="text-2xl md:text-3xl font-bold">{topicName}</h2>
+                                <h2 className="ml-2 text-2xl md:text-2xl font-bold">{topicName} Test</h2>
                             </div>
                         </CardHeader>
                         <CardContent className=" flex grid-cols-1 md:grid-cols-3 md:gap-6">
@@ -293,18 +293,19 @@ function Quiz() {
                 {quizSubmitted && (
                     <Card className="my-5 p-10 w-6/12 bg-gray-200 mx-auto">
                         <div>
-                            <h1 className="ml-4">Results - {topicName} Test</h1>
+                            <h1 className="ml-3 text-xl md:text-2xl font-bold mb-4">Results - {topicName} Test</h1>
                             <div>
                                 <Card className="p-4 my-3">
-                                    <h2>Test Score: {score} out of {totalQuestions} ({roundedPercentage})</h2>
+                                    <p className="text-dark-500 dark:text-gray-400 mb-2 font-bold">Test Score:</p>
+                                    <p className="text-gray-600 dark:text-gray-400 mb-2">{score} out of {totalQuestions} ({roundedPercentage})</p>
                                 </Card>
                             </div>
                             <div>
                                 <Card className="p-4">
-                                    <p>Revision Recommendations:</p>
+                                    <p className="text-dark-500 dark:text-gray-400 mb-2 font-bold">Revision Recommendations:</p>
                                     <ul>
                                         {[...incorrectSubtopics].map((subtopic, index) => (
-                                            <li key={index}>{subtopic}</li>
+                                            <li key={index}><p className="text-gray-600 dark:text-gray-400 mb-2">- {subtopic}</p></li>
                                         ))}
                                     </ul>
                                 </Card>
@@ -315,24 +316,32 @@ function Quiz() {
                             </div>
                             {showAnswers && (
                                 <>
-                                    <h2>Review Test:</h2>
+                                <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8">
+                                    <h2 className="text-2xl md:text-3xl font-bold mb-4">Review</h2>
                                     {questions.map(question => (
-                                        <div key={question.question_id}>
-                                            <h3>{question.question_text}</h3>
-                                            <p>
-                                                Correct Answer: {question.options.find(option => option.is_correct)?.option_text}
-                                                {question.options.find(option => option.is_correct) && <span> </span>}
+                                        <div key={question.question_id} className="space-y-4 pb-4">
+                                            <h3 className="text-xl md:text-2xl font-bold mb-2">{question.question_text}</h3>
+                                            <div className="bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
+                                            <p className="text-gray-500 dark:text-gray-400 mb-2">
+                                                Correct Answer: <span className="font-medium text-gray-700 dark:text-gray-300">{question.options.find(option => option.is_correct)?.option_text}
+                                                {question.options.find(option => option.is_correct) && <span> </span>}</span>
                                             </p>
-                                            <ul>
+                                            </div>
+                                            <ul className="space-y-2">
                                                 {question.options.map(option => (
+                                                    <div className="bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
                                                     <li key={option.option_id}>
-                                                        <span>{option.option_text}</span>
-                                                        {answers[question.question_id] === option.option_id && <span> (Selected)</span>}
+                                                    <div className="flex items-center justify-between">
+                                                        <span className="text-gray-700 dark:text-gray-300">{option.option_text}</span>
+                                                        {answers[question.question_id] === option.option_id && <span className="font-medium text-gray-700 dark:text-gray-300"> Your answer</span>}
+                                                    </div>
                                                     </li>
+                                                    </div>
                                                 ))}
                                             </ul>
                                         </div>
                                     ))}
+                                    </div>
                                 </>
                             )}
                         </div>
