@@ -20,11 +20,13 @@ import { Route as MathematicsImport } from './routes/mathematics'
 import { Route as LoginImport } from './routes/login'
 import { Route as LearnImport } from './routes/learn'
 import { Route as GeometryImport } from './routes/geometry'
+import { Route as EventsImport } from './routes/events'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as BillingImport } from './routes/billing'
 import { Route as AlgebraImport } from './routes/algebra'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
+import { Route as EventsEventidImport } from './routes/events_.$event_id'
 import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
 import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
 import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
@@ -78,6 +80,11 @@ const GeometryRoute = GeometryImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const EventsRoute = EventsImport.update({
+  path: '/events',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const DashboardRoute = DashboardImport.update({
   path: '/dashboard',
   getParentRoute: () => rootRoute,
@@ -100,6 +107,11 @@ const IndexRoute = IndexImport.update({
 
 const ProgresspageUseridRoute = ProgresspageUseridImport.update({
   path: '/progress_page/$user_id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EventsEventidRoute = EventsEventidImport.update({
+  path: '/events/$event_id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -146,6 +158,10 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard': {
       preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/events': {
+      preLoaderRoute: typeof EventsImport
       parentRoute: typeof rootRoute
     }
     '/geometry': {
@@ -204,6 +220,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TopicidSubtopicsImport
       parentRoute: typeof rootRoute
     }
+    '/events/$event_id': {
+      preLoaderRoute: typeof EventsEventidImport
+      parentRoute: typeof rootRoute
+    }
     '/progress_page/$user_id': {
       preLoaderRoute: typeof ProgresspageUseridImport
       parentRoute: typeof rootRoute
@@ -218,6 +238,7 @@ export const routeTree = rootRoute.addChildren([
   AlgebraRoute,
   BillingRoute,
   DashboardRoute,
+  EventsRoute,
   GeometryRoute,
   LearnRoute,
   LoginRoute,
@@ -232,6 +253,7 @@ export const routeTree = rootRoute.addChildren([
   SubjectidStartexamRoute,
   TopicidStarttestRoute,
   TopicidSubtopicsRoute,
+  EventsEventidRoute,
   ProgresspageUseridRoute,
 ])
 
