@@ -2,19 +2,19 @@ import { createFileRoute } from '@tanstack/react-router'
 import Layout from "@/components/layouts/main";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute('/numbers&operations')({
-  component: Numop,
+export const Route = createFileRoute('/geometry')({
+  component: Geometry,
 })
 
-function Numop() {
+function Geometry() {
     return(
         <Layout>
             <div className="flex flex-col bg bg-[url('/chalkboard.jpeg')] bg-no-repeat bg-cover text-white ml-12 mt-12 mb-14 p-16 rounded-lg shadow-2xl h-[350px] w-[1250px]">
                 <p className="text-2xl font-playfair pb-5">
-                    Chapter 1
+                    Chapter 2
                 </p>
                 <p className="text-4xl font-playfair font-semibold pb-20">
-                    Numbers & operations
+                    Geometry
                 </p>
                 <div>
                 <Button className="px-12 text-base bg-accent">Start</Button>
@@ -27,21 +27,21 @@ function Numop() {
                 </p>
                 <p className="text-xl pb-5">
                 A comprehensive chapter that introduces the student to the world of 
-                numbers in their different forms and how to use those numbers in operations 
-                such as addition, subtraction, multiplication and division.
+                geometry that deals shapes, sizes, angles and dimensions of objects.
                 </p>
                 <p className="text-xl pb-20">
-                At the end of the chapter you will have an understanding of numbers, directed numbers,
-                use operations proficiently, apply the operations on fractions and decimals, show an
-                understanding of percentages, rates and ratios as well as apply money in real life scenarios. 
+                At the end of the chapter you will demonstrate skills on angles in 
+                2-dimensional shapes, have an understanding of 3-dimensional shapes 
+                and their properties as well as key concepts in transformational geometry 
+                and the coordinates of the cartesian plane.  
                 </p>
             </div>
 
             <div className="flex justify-center items-center pb-16">
             <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
+                <div className="bg-[#FFC924] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
-                        1.1 Whole numbers
+                        2.1 Angles
                     </p>
                 </div>
                 <div className="mt-10 ml-12">
@@ -52,22 +52,9 @@ function Numop() {
 
             <div className="flex justify-center items-center pb-16">
             <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
+                <div className="bg-[#FFC924] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
-                        1.2 Directed numbers
-                    </p>
-                </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
-                </div>
-            </div>
-            </div>
-
-            <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl  shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
-                    <p className="text-lg ml-3">
-                        1.3 Number operations
+                        2.2 Polygons
                     </p>
                 </div>
                 <div className="mt-10 ml-12">
@@ -78,9 +65,9 @@ function Numop() {
 
             <div className="flex justify-center items-center pb-16">
             <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
+                <div className="bg-[#FFC924] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
-                        1.4 Fractions
+                        2.3 Transformations
                     </p>
                 </div>
                 <div className="mt-10 ml-12">
@@ -91,9 +78,9 @@ function Numop() {
 
             <div className="flex justify-center items-center pb-16">
             <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
+                <div className="bg-[#FFC924] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
-                        1.5 Decimals
+                        2.4 Coordinate geometry
                     </p>
                 </div>
                 <div className="mt-10 ml-12">
@@ -102,51 +89,12 @@ function Numop() {
             </div>
             </div>
 
-            <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
-                    <p className="text-lg ml-3">
-                        1.6 Percentages
-                    </p>
-                </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
-                </div>
-            </div>
-            </div>
-
-            <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
-                    <p className="text-lg ml-3">
-                        1.7 Rates and Ratios
-                    </p>
-                </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
-                </div>
-            </div>
-            </div>
-
-            <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
-                    <p className="text-lg ml-3">
-                        1.8 Money
-                    </p>
-                </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
-                </div>
-            </div>
-            </div>
-            
             <div>
                 <p className="text-2xl font-playfair pt-10 pb-14 font-semibold text-center mx-96">
-                    Ready to test out your newly acquired knowledge on numbers and operations?
+                    Ready to test out your newly acquired knowledge on geometry?
                 </p>
                 <p className="text-xl pb-5 text-center">
-                    Take this 20 minute test to assess your skill on numbers and operations.
+                    Take this 20 minute test to assess your skill on geometry.
                 </p>
 
                 <div className="flex justify-center items-center pt-5 pb-10">

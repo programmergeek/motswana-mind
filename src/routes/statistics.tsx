@@ -2,19 +2,19 @@ import { createFileRoute } from '@tanstack/react-router'
 import Layout from "@/components/layouts/main";
 import { Button } from "@/components/ui/button";
 
-export const Route = createFileRoute('/numbers&operations')({
-  component: Numop,
+export const Route = createFileRoute('/statistics')({
+  component: Statistics,
 })
 
-function Numop() {
+function Statistics() {
     return(
         <Layout>
             <div className="flex flex-col bg bg-[url('/chalkboard.jpeg')] bg-no-repeat bg-cover text-white ml-12 mt-12 mb-14 p-16 rounded-lg shadow-2xl h-[350px] w-[1250px]">
                 <p className="text-2xl font-playfair pb-5">
-                    Chapter 1
+                    Chapter 4
                 </p>
                 <p className="text-4xl font-playfair font-semibold pb-20">
-                    Numbers & operations
+                    Statistics
                 </p>
                 <div>
                 <Button className="px-12 text-base bg-accent">Start</Button>
@@ -39,9 +39,9 @@ function Numop() {
 
             <div className="flex justify-center items-center pb-16">
             <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
+                <div className="bg-[#9450FF] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
-                        1.1 Whole numbers
+                        4.1 Graphs
                     </p>
                 </div>
                 <div className="mt-10 ml-12">
@@ -52,22 +52,9 @@ function Numop() {
 
             <div className="flex justify-center items-center pb-16">
             <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
+                <div className="bg-[#9450FF] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
-                        1.2 Directed numbers
-                    </p>
-                </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
-                </div>
-            </div>
-            </div>
-
-            <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl  shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
-                    <p className="text-lg ml-3">
-                        1.3 Number operations
+                        4.2 Measures of central tendency 
                     </p>
                 </div>
                 <div className="mt-10 ml-12">
@@ -78,9 +65,9 @@ function Numop() {
 
             <div className="flex justify-center items-center pb-16">
             <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
+                <div className="bg-[#9450FF] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
-                        1.4 Fractions
+                        4.2 Data collection and manipulation 
                     </p>
                 </div>
                 <div className="mt-10 ml-12">
@@ -91,9 +78,9 @@ function Numop() {
 
             <div className="flex justify-center items-center pb-16">
             <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
+                <div className="bg-[#9450FF] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
-                        1.5 Decimals
+                        4.4 Probability 
                     </p>
                 </div>
                 <div className="mt-10 ml-12">
@@ -102,51 +89,12 @@ function Numop() {
             </div>
             </div>
 
-            <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
-                    <p className="text-lg ml-3">
-                        1.6 Percentages
-                    </p>
-                </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
-                </div>
-            </div>
-            </div>
-
-            <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
-                    <p className="text-lg ml-3">
-                        1.7 Rates and Ratios
-                    </p>
-                </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
-                </div>
-            </div>
-            </div>
-
-            <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
-                <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
-                    <p className="text-lg ml-3">
-                        1.8 Money
-                    </p>
-                </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
-                </div>
-            </div>
-            </div>
-            
             <div>
                 <p className="text-2xl font-playfair pt-10 pb-14 font-semibold text-center mx-96">
-                    Ready to test out your newly acquired knowledge on numbers and operations?
+                    Ready to test out your newly acquired knowledge on statistics?
                 </p>
                 <p className="text-xl pb-5 text-center">
-                    Take this 20 minute test to assess your skill on numbers and operations.
+                    Take this 20 minute test to assess your skill on statistics.
                 </p>
 
                 <div className="flex justify-center items-center pt-5 pb-10">

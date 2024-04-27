@@ -110,35 +110,6 @@ function Index() {
           </div>
           
           <div className="flex flex-row gap-5 pt-10 justify-center">
-              <Card className="rounded-[30px] bg-accent p-10 shadow-2xl">
-                <CardHeader>
-                  <div className="flex flex-col gap-3">
-                    <p className="text-center text-white font-bold">Premium</p>
-                    <p className="text-center text-3xl text-white">P50/pm</p>
-                  </div>
-                </CardHeader>
-                <CardContent className="text-white">
-                  <div className="flex flex-col gap-2">
-                    <p className="flex gap-3">
-                      <Check /> Introductory content
-                    </p>
-                    <p className="flex gap-3">
-                      <Check /> Full access to courses
-                    </p>
-                    <p className="flex gap-3">
-                      <Check /> Past papers
-                    </p>
-                    <p className="flex gap-3">
-                      <Check /> Workshops and events
-                    </p>
-                  </div>
-                </CardContent>
-                <CardFooter>
-                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
-                    Sign up
-                  </Button>
-                </CardFooter>
-              </Card>
               <Card className="rounded-[30px] p-5 shadow-2xl">
                 <CardHeader>
                   <div className="flex flex-col gap-3">
@@ -159,6 +130,35 @@ function Index() {
                     </p>
                     <p className="flex gap-3">
                       <X /> Workshops and events
+                    </p>
+                  </div>
+                </CardContent>
+                <CardFooter>
+                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
+                    Sign up
+                  </Button>
+                </CardFooter>
+              </Card>
+              <Card className="rounded-[30px] bg-accent p-10 shadow-2xl">
+                <CardHeader>
+                  <div className="flex flex-col gap-3">
+                    <p className="text-center text-white font-bold">Premium</p>
+                    <p className="text-center text-3xl text-white">P50/pm</p>
+                  </div>
+                </CardHeader>
+                <CardContent className="text-white">
+                  <div className="flex flex-col gap-2">
+                    <p className="flex gap-3">
+                      <Check /> Introductory content
+                    </p>
+                    <p className="flex gap-3">
+                      <Check /> Full access to courses
+                    </p>
+                    <p className="flex gap-3">
+                      <Check /> Past papers
+                    </p>
+                    <p className="flex gap-3">
+                      <Check /> Workshops and events
                     </p>
                   </div>
                 </CardContent>
