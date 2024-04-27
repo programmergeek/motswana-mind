@@ -25,14 +25,15 @@ const Billing: React.FC = () => {
 		} catch (error) {
 			console.error('Error:', error)
 		}
-	}
+	};
 
 	useEffect(() => {
 		retrieveClientSecret()
   }, []);
+	
 
 	const options = {
-		clientSecret
+		clientSecret,
 	};
 
 	return (
