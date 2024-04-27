@@ -3,6 +3,7 @@ Author: Waseem Mosam
 Purpose: This file is used to create the test page for the user to complete the test.
 */
 
+// imports
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useState } from 'react';
 import axios, { AxiosResponse } from 'axios';
@@ -13,23 +14,24 @@ import {
     CardFooter,
     CardHeader
 } from "@/components/ui/card";
-
 import Layout from "@/components/layouts/main";
 
 
-
+// interface to store question options
 interface Option {
     option_id: number;
     option_text: string;
     is_correct: boolean;
 }
 
+// interface to store questions
 interface Question {
     question_id: number;
     question_text: string;
     options: Option[];
 }
 
+// interface to store quiz results
 interface QuizResults {
     assessment_name: string;
     assessment_type: string;
@@ -38,14 +40,16 @@ interface QuizResults {
     date_taken: string;
 }
 
+// route to page
 export const Route = createFileRoute('/$topic_id/start_test')({
     component: Quiz,
 });
 
 function Quiz() {
 
-    const { topic_id } = Route.useParams()
+    const { topic_id } = Route.useParams() // path parameter
 
+    // state variables 
     const [questions, setQuestions] = useState<Question[]>([]);
     const [answers, setAnswers] = useState<{ [questionId: number]: number | null }>({});
     const [score, setScore] = useState<number | null>(null);
@@ -55,9 +59,8 @@ function Quiz() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
     const [timeLeft, setTimeLeft] = useState<number | null>(null);
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-    const quizDuration = 600; // 10 minutes (600 seconds)
+    const quizDuration = 900; // (900 seconds)
     const [topicName, setTopicName] = useState<string>("");
-
     const [incorrectSubtopics, setIncorrectSubtopics] = useState<Set<string>>(new Set());
 
 
@@ -69,6 +72,7 @@ function Quiz() {
         }
     }, [quizStarted]);
 
+    // function to retrieve questions
     const fetchQuestions = async () => {
         try {
             const response = await axios.get(`http://localhost:3333/questions/test/${topic_id}`);
@@ -80,6 +84,7 @@ function Quiz() {
         }
     };
 
+    // function to retrieve topic name by topic id
     const fetchTopicName = async () => {
         try {
             const response = await axios.get(`http://localhost:3333/topic/name/${topic_id}`);
@@ -91,8 +96,7 @@ function Quiz() {
         }
     };
 
-
-
+    // timer for quiz
     const startTimer = () => {
         setTimeLeft(quizDuration);
         const newTimer = setInterval(() => {
@@ -111,10 +115,12 @@ function Quiz() {
         setTimer(newTimer);
     };
 
+    // function to handle restarting the quiz
     const handleStartQuiz = () => {
         setQuizStarted(true);
     };
 
+    // function to handle answer changes
     const handleAnswerChange = (questionId: number, optionId: number) => {
         setAnswers(prevAnswers => ({
             ...prevAnswers,
@@ -122,6 +128,7 @@ function Quiz() {
         }));
     };
 
+    // functions to handle navigation of the quiz
     const handleBack = () => {
         setCurrentQuestionIndex(prevIndex => Math.max(prevIndex - 1, 0));
     };
@@ -130,6 +137,7 @@ function Quiz() {
         setCurrentQuestionIndex(prevIndex => Math.min(prevIndex + 1, questions.length - 1));
     };
 
+    // function to submit quiz results to db
     const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
         try {
             const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
@@ -140,8 +148,8 @@ function Quiz() {
         }
     };
 
+    // function to handle submitting the quiz
     const handleSubmitQuiz = async () => {
-        // Grade the user's input
         if (timer) {
             clearInterval(timer); // Stop the timer when quiz is submitted
         }
@@ -163,57 +171,62 @@ function Quiz() {
             }
         }
 
+        // get current date
         const currentDate = new Date();
         const year = currentDate.getFullYear();
         const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
         const day = String(currentDate.getDate()).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
 
+        // get quiz score as percentage
         const totalQuestions = questions.length;
         const percentage = ((userScore ?? 0) / totalQuestions) * 100;
         const roundedPercentage = Number(percentage.toFixed(2));
 
+        // make request to submit results
         try {
             const quizResults: QuizResults = {
                 assessment_name: topicName,
                 assessment_type: 'Test',
-                user_id: 1, // Replace userId with the actual user ID
+                user_id: 1, 
                 score: roundedPercentage,
                 date_taken: formattedDate,
             };
     
             await submitQuizResults(quizResults);
     
-            // Optionally, you can perform any additional actions after successful submission
         } catch (error) {
             console.error('Error handling quiz submission:', error);
-            // Optionally, display an error message to the user
         }
         setScore(userScore);
         setQuizSubmitted(true);
         setIncorrectSubtopics(incorrectSubtopics);
     };
 
+    // function to handle restarting of the quiz
     const handleRestartQuiz = () => {
         setQuizStarted(false);
         setQuizSubmitted(false);
         setQuestions([]);
         setAnswers({});
         setScore(null);
-        setShowAnswers(false); // Reset showAnswers state
+        setShowAnswers(false);
         setCurrentQuestionIndex(0);
         if (timer) {
-            clearInterval(timer); // Stop the timer when quiz is restarted
+            clearInterval(timer);
         }
     };
 
+    // calculate score as percentage
     const totalQuestions = questions.length;
     const percentage = ((score ?? 0) / totalQuestions) * 100;
     const roundedPercentage = `${percentage.toFixed(2)}%`;
 
+    // get time limit
     const hasTimeLimit = quizDuration !== null;
     const timeLimit = hasTimeLimit ? `${quizDuration / 60} minute(s)` : 'None';
 
+    // format the time output
     const formatTime = (seconds: number | null): string => {
         if (seconds === null) return '00:00';
 
@@ -224,6 +237,7 @@ function Quiz() {
 
     return (
         <Layout>
+            {/* Display general info */}
             <div className="pt-10 flex-row items-center justify-center bg-[url(/pattern.jpeg)]">
                 {!quizStarted && !quizSubmitted && (
                     <Card className="w-7/12 max-w-6xl mx-auto my-14 bg-gray-200">
@@ -278,6 +292,7 @@ function Quiz() {
                 )}
                 {quizStarted && !quizSubmitted && (
                     <>
+                    {/* Display questions and options */}
                         {questions.length === 0 ? (
                             <p>Loading...</p>
                         ) : (
@@ -296,6 +311,7 @@ function Quiz() {
                                         <div className="space-y-3">
                                             <div className="flex items-center">
                                                 <ul>
+                                                    {/* Display options */}
                                                     {questions[currentQuestionIndex].options.map(option => (
                                                         <li key={option.option_id}>
                                                             <input
@@ -324,6 +340,7 @@ function Quiz() {
                                             </div>
 
                                         </div>
+                                        {/* Navigational buttons for the quiz */}
                                         <div className="flex gap-4 mt-6">
                                             <Button onClick={handleBack} disabled={currentQuestionIndex === 0}>Back</Button>
                                             <Button onClick={handleNext} disabled={currentQuestionIndex === questions.length - 1}>Next</Button>
@@ -337,6 +354,7 @@ function Quiz() {
                 )}
                 {quizSubmitted && (
                     <Card className="my-5 p-10 w-6/12 bg-gray-200 mx-auto">
+                        {/* Display results */}
                         <div>
                             <h1 className="ml-3 text-xl md:text-2xl font-bold mb-4">Results - {topicName} Test</h1>
                             <div>
@@ -361,6 +379,7 @@ function Quiz() {
                             </div>
                             {showAnswers && (
                                 <>
+                                {/* Review section */}
                                 <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8">
                                     <h2 className="text-2xl md:text-3xl font-bold mb-4">Review</h2>
                                     {questions.map(question => (

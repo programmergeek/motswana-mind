@@ -3,28 +3,32 @@ Author: Waseem Mosam
 Purpose: This file is used to create the subjects page for the user to view the subjects available to them.
 */
 
+// imports
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-
 import Layout from "@/components/layouts/main";
 
+// interface to store subjects
 interface Subject {
     subject_id: number;
     subject_name: string;
 }
 
+// route to page
 export const Route = createFileRoute("/my_subjects")({
     component: Subjects,
   });
 
 function Subjects() {
+    // state variables
     const [subjects, setSubjects] = useState<Subject[]>([]);
 
     useEffect(() => {
         fetchSubjects();
     }, []);
 
+    // function to fetch subjects
     const fetchSubjects = async () => {
         try {
             const response = await axios.get<Subject[]>('http://localhost:3333/subjects');
@@ -37,8 +41,8 @@ function Subjects() {
 
     return (
         <Layout>
-            
             <div>
+                {/* Display subjects */}
                 <h1>Subjects</h1>
                 {subjects.map(subject => (
                     <div key={subject.subject_id}>

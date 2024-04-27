@@ -3,42 +3,43 @@ Author: Waseem Mosam
 Purpose: This file is used to create the topics page for the user to view the topics available to them.
 */
 
+// imports
 import { Link, createFileRoute } from '@tanstack/react-router'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-
 import {
     Card,
 } from "@/components/ui/card";
-
 import { Button } from "@/components/ui/button";
-
 import Layout from "@/components/layouts/main";
+
+// interface to store topics
 interface Topic {
     topic_id: number;
     topic_name: string;
     topic_image: string;
 }
 
+// route to page
 export const Route = createFileRoute("/$subject_id/my_topics")({
     component: TopicsPage,
 });
 
 function TopicsPage() {
-    const { subject_id } = Route.useParams()
-    //console.log('subject_id:', subject_id);
-    const [topics, setTopics] = useState<Topic[]>([]);
+    const { subject_id } = Route.useParams() // path parameter
 
+    // state variables
+    const [topics, setTopics] = useState<Topic[]>([]); 
     //const [subtopicNames, setSubtopicNames] = useState<{ [topicId: string]: string }>({});
 
     useEffect(() => {
         fetchTopics();
     }, []);
 
+    // function to fetch topic names
     const fetchTopics = async () => {
         try {
             const response = await axios.get<Topic[]>(`http://localhost:3333/topics/${subject_id}`);
-            //console.log('Topics data:', response.data); // Log fetched data
             setTopics(response.data);
             //fetchSubtopicNames(response.data);
         } catch (error) {
@@ -65,6 +66,7 @@ function TopicsPage() {
 
     return (
         <Layout>
+            {/* Display general info about subject */}
             <div className='mt-12 ml-32'>
                 <img src="/math.png" className="h-[400px] w-[1100px] rounded-3xl shadow-2xl" />
             </div>
@@ -80,7 +82,7 @@ function TopicsPage() {
                     jcvsjcjscbkshksckshcoscss
                 </p>
             </div>
-
+            {/* Display subject topics */}
             <div className='flex flex-col justify-center items-center pb-16'>
                 {topics.map((topic, index) => (
 

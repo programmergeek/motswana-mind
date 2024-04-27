@@ -30,6 +30,7 @@ interface Question {
     options: Option[];
 }
 
+// interface to store quiz results
 interface QuizResults {
     assessment_name: string;
     assessment_type: string;
@@ -68,6 +69,7 @@ function Quiz() {
         }
     }, [quizStarted]);
 
+    // function to fetch questions from DB
     const fetchQuestions = async () => {
         try {
             const response = await axios.get(`http://localhost:3333/questions/exam/${subject_id}`);
@@ -79,6 +81,7 @@ function Quiz() {
         }
     };
 
+    // function to fetch subject name by subject id
     const fetchSubjectName = async () => {
     	try {
     		const response = await axios.get(`http://localhost:3333/subject/name/${subject_id}`);
@@ -90,13 +93,14 @@ function Quiz() {
     	}
     };
 
+    // starts timer for assessment
     const startTimer = () => {
         setTimeLeft(quizDuration);
         const newTimer = setInterval(() => {
             setTimeLeft(prevTime => {
                 if (prevTime === 0) {
                     clearInterval(newTimer);
-                    handleSubmitQuiz(); // Automatically submit quiz when time runs out
+                    handleSubmitQuiz(); // automatically submit quiz when time runs out
                     return 0;
                 }
                 if (prevTime !== null) {
@@ -108,10 +112,12 @@ function Quiz() {
         setTimer(newTimer);
     };
 
+    // function to start quiz
     const handleStartQuiz = () => {
         setQuizStarted(true);
     };
 
+    // function to allow changing of answers
     const handleAnswerChange = (questionId: number, optionId: number) => {
         setAnswers(prevAnswers => ({
             ...prevAnswers,
@@ -119,6 +125,7 @@ function Quiz() {
         }));
     };
 
+    // functions to navigate quiz
     const handleBack = () => {
         setCurrentQuestionIndex(prevIndex => Math.max(prevIndex - 1, 0));
     };
@@ -127,20 +134,20 @@ function Quiz() {
         setCurrentQuestionIndex(prevIndex => Math.min(prevIndex + 1, questions.length - 1));
     };
 
+    // function to submit quiz results to DB
     const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
         try {
             const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
-            // Optionally, you can return any data received from the server
         } catch (error) {
             console.error('Error submitting quiz results:', error);
-            throw error; // Optionally, you can handle the error further or re-throw it
+            throw error; 
         }
     };
 
+    // function to handle submission of quiz
     const handleSubmitQuiz = async () => {
-        // Grade the user's input
         if (timer) {
-            clearInterval(timer); // Stop the timer when quiz is submitted
+            clearInterval(timer); // stop the timer when quiz is submitted
         }
         let userScore = 0;
         questions.forEach(question => {
@@ -151,57 +158,61 @@ function Quiz() {
             }
         });
 
+        // to get current date
         const currentDate = new Date();
         const year = currentDate.getFullYear();
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
         const day = String(currentDate.getDate()).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
 
+        // to calculate score as percentage
         const totalQuestions = questions.length;
         const percentage = ((userScore ?? 0) / totalQuestions) * 100;
         const roundedPercentage = Number(percentage.toFixed(2));
 
+        // makes request to submit results
         try {
             const quizResults: QuizResults = {
                 assessment_name: subjectName,
                 assessment_type: 'Exam',
-                user_id: 1, // Replace userId with the actual user ID
+                user_id: 1, 
                 score: roundedPercentage,
                 date_taken: formattedDate,
             };
     
             await submitQuizResults(quizResults);
-    
-            // Optionally, you can perform any additional actions after successful submission
         } catch (error) {
             console.error('Error handling quiz submission:', error);
-            // Optionally, display an error message to the user
         }
 
         setScore(userScore);
         setQuizSubmitted(true);
     };
 
+    // function to handle restarting the quiz
     const handleRestartQuiz = () => {
         setQuizStarted(false);
         setQuizSubmitted(false);
         setQuestions([]);
         setAnswers({});
         setScore(null);
-        setShowAnswers(false); // Reset showAnswers state
+        setShowAnswers(false); 
         setCurrentQuestionIndex(0);
         if (timer) {
-            clearInterval(timer); // Stop the timer when quiz is restarted
+            clearInterval(timer);
         }
     };
 
+    // to calculate score as percentage
     const totalQuestions = questions.length;
     const percentage = ((score ?? 0) / totalQuestions) * 100;
     const roundedPercentage = `${percentage.toFixed(2)}%`;
 
+    // to calculate formatted time limit
     const hasTimeLimit = quizDuration !== null;
     const timeLimit = hasTimeLimit ? `${quizDuration / 60} minute(s)` : 'None';
 
+    // formatted time limit display
     const formatTime = (seconds: number | null): string => {
         if (seconds === null) return '00:00';
 
@@ -212,6 +223,7 @@ function Quiz() {
 
     return (
         <Layout>
+            {/* Display general information */}
             <div className="pt-10 flex flex-col items-center justify-center bg-[url(/pattern.jpeg)]">
                 {!quizStarted && !quizSubmitted && (
                     <Card className="w-7/12 max-w-6xl mx-auto my-14 bg-gray-200">
@@ -270,6 +282,7 @@ function Quiz() {
                             <p>Loading...</p>
                         ) : (
                             <>
+                            {/* Display questions and options */}
                                 <Card className="flex flex-col items-center justify-center w-6/12  mx-auto my-14 bg-transparent border-none">
                                     <div className="w-[70%]  p-6 bg-white rounded-lg shadow-md dark:bg-gray-800" key={questions[currentQuestionIndex].question_id}>
                                         <div className="flex items-center justify-between mb-6">
@@ -284,6 +297,7 @@ function Quiz() {
                                         <div className="space-y-3">
                                             <div className="flex items-center">
                                                 <ul>
+                                                    {/* Display options */}
                                                     {questions[currentQuestionIndex].options.map(option => (
                                                         <li key={option.option_id}>
                                                             <input
@@ -312,6 +326,7 @@ function Quiz() {
                                             </div>
 
                                         </div>
+                                        {/* Navigational buttons for quiz */}
                                         <div className="flex gap-4 mt-6">
                                             <Button onClick={handleBack} disabled={currentQuestionIndex === 0}>Back</Button>
                                             <Button onClick={handleNext} disabled={currentQuestionIndex === questions.length - 1}>Next</Button>
@@ -324,6 +339,7 @@ function Quiz() {
                     </>
                 )}
                 {quizSubmitted && (
+                    // Displays quiz results
                     <Card className="my-5 p-10 w-6/12 bg-gray-200">
                         <div>
                             <h1 className="ml-3 text-xl md:text-2xl font-bold mb-4">Practice Examination Results</h1>
@@ -333,10 +349,12 @@ function Quiz() {
                                     <p className="text-gray-600 dark:text-gray-400 mb-2">{score} out of {totalQuestions} ({roundedPercentage})</p>
                                 </Card>
                             </div>
+                            {/* Buttons to restart and toggle answers to quiz */}
                             <Button onClick={handleRestartQuiz} className="my-5 mr-2">Restart Exam</Button>
                             <Button onClick={() => setShowAnswers(!showAnswers)} className="my-5 mr-2">Toggle Answers</Button>
                             {showAnswers && (
                                 <>
+                                {/* Review answers */}
                                     <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8">
                                     <h2 className="text-2xl md:text-3xl font-bold mb-4">Review</h2>
                                     {questions.map(question => (

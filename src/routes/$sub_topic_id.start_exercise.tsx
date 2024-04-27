@@ -31,6 +31,7 @@ interface Question {
 	options: Option[];
 }
 
+// interface to store quiz results
 interface QuizResults {
     assessment_name: string;
     assessment_type: string;
@@ -117,6 +118,7 @@ function Quiz() {
 		setCurrentQuestionIndex(prevIndex => Math.min(prevIndex + 1, questions.length - 1));
 	};
 
+	// function to save assessment details on DB
 	const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
         try {
             const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
@@ -133,7 +135,7 @@ function Quiz() {
 			const userAnswer = (answers[question.question_id]).trim();
 			const correctAnswer = (question.options[0].option_text).trim();
 
-			if (/^\d*\.?\d+$/.test(correctAnswer)) { // Check if the correct answer is a number
+			if (/^\d*\.?\d+$/.test(correctAnswer)) { // check if the correct answer is a number
 				let answer = Number(userAnswer);
 				let correct = Number(correctAnswer);
 				if (answer === correct) {
@@ -145,31 +147,33 @@ function Quiz() {
 				}
 			}
 		});
+
+		// to retrieve formatted current date
 		const currentDate = new Date();
         const year = currentDate.getFullYear();
-        const month = String(currentDate.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+        const month = String(currentDate.getMonth() + 1).padStart(2, '0');
         const day = String(currentDate.getDate()).padStart(2, '0');
         const formattedDate = `${year}-${month}-${day}`;
 
+		// to calculate assessment score as percentage
         const totalQuestions = questions.length;
         const percentage = ((userScore ?? 0) / totalQuestions) * 100;
         const roundedPercentage = Number(percentage.toFixed(2));
 
+		// make request to submit results
         try {
             const quizResults: QuizResults = {
                 assessment_name: subTopicName,
                 assessment_type: 'Exercise',
-                user_id: 1, // Replace userId with the actual user ID
+                user_id: 1, 
                 score: roundedPercentage,
                 date_taken: formattedDate,
             };
     
             await submitQuizResults(quizResults);
     
-            // Optionally, you can perform any additional actions after successful submission
         } catch (error) {
             console.error('Error handling quiz submission:', error);
-            // Optionally, display an error message to the user
         }
 		setScore(userScore);
 		setQuizSubmitted(true);
@@ -270,6 +274,7 @@ function Quiz() {
 											</div>
 
 										</div>
+										{/* Navigation buttons for quiz */}
 										<div className="flex gap-4 mt-6">
 											<Button onClick={handleBack} disabled={currentQuestionIndex === 0}>Back</Button>
 											<Button onClick={handleNext} disabled={currentQuestionIndex === questions.length - 1}>Next</Button>
@@ -295,8 +300,10 @@ function Quiz() {
                                     <p className="text-gray-600 dark:text-gray-400 mb-2">{score} out of {totalQuestions} ({roundedPercentage})</p>
 								</Card>
 							</div>
+							{/* Buttons to restart quiz and toggle answers */}
 							<Button onClick={handleRestartQuiz} className="my-5 mr-4">Restart Exercise</Button>
 							<Button onClick={() => setShowAnswers(!showAnswers)} className="my-5 mr-4">Toggle Answers</Button>
+							{/* Quiz review section */}
 							{showAnswers && (
 								<>
 								<div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8">
