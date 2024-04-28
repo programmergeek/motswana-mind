@@ -11,12 +11,17 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as StatisticsImport } from './routes/statistics'
+import { Route as SignupImport } from './routes/signup'
+import { Route as NumbersoperationsImport } from './routes/numbers&operations'
 import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as LoginImport } from './routes/login'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as BillingImport } from './routes/billing'
+import { Route as AlgebraImport } from './routes/algebra'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
+import { Route as EventsEventidImport } from './routes/events_.$event_id'
 import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
 import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
 import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
@@ -24,6 +29,21 @@ import { Route as SubjectidMytopicsImport } from './routes/$subject_id.my_topics
 import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.start_exercise'
 
 // Create/Update Routes
+
+const StatisticsRoute = StatisticsImport.update({
+  path: '/statistics',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignupRoute = SignupImport.update({
+  path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const NumbersoperationsRoute = NumbersoperationsImport.update({
+  path: '/numbers&operations',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const MysubjectsRoute = MysubjectsImport.update({
   path: '/my_subjects',
@@ -45,6 +65,11 @@ const BillingRoute = BillingImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AlgebraRoute = AlgebraImport.update({
+  path: '/algebra',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -52,6 +77,11 @@ const IndexRoute = IndexImport.update({
 
 const ProgresspageUseridRoute = ProgresspageUseridImport.update({
   path: '/progress_page/$user_id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EventsEventidRoute = EventsEventidImport.update({
+  path: '/events/$event_id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -88,6 +118,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof IndexImport
       parentRoute: typeof rootRoute
     }
+    '/algebra': {
+      preLoaderRoute: typeof AlgebraImport
+      parentRoute: typeof rootRoute
+    }
     '/billing': {
       preLoaderRoute: typeof BillingImport
       parentRoute: typeof rootRoute
@@ -102,6 +136,18 @@ declare module '@tanstack/react-router' {
     }
     '/my_subjects': {
       preLoaderRoute: typeof MysubjectsImport
+      parentRoute: typeof rootRoute
+    }
+    '/numbers&operations': {
+      preLoaderRoute: typeof NumbersoperationsImport
+      parentRoute: typeof rootRoute
+    }
+    '/signup': {
+      preLoaderRoute: typeof SignupImport
+      parentRoute: typeof rootRoute
+    }
+    '/statistics': {
+      preLoaderRoute: typeof StatisticsImport
       parentRoute: typeof rootRoute
     }
     '/$sub_topic_id/start_exercise': {
@@ -124,6 +170,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TopicidSubtopicsImport
       parentRoute: typeof rootRoute
     }
+    '/events/$event_id': {
+      preLoaderRoute: typeof EventsEventidImport
+      parentRoute: typeof rootRoute
+    }
     '/progress_page/$user_id': {
       preLoaderRoute: typeof ProgresspageUseridImport
       parentRoute: typeof rootRoute
@@ -135,15 +185,20 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
+  AlgebraRoute,
   BillingRoute,
   DashboardRoute,
   LoginRoute,
   MysubjectsRoute,
+  NumbersoperationsRoute,
+  SignupRoute,
+  StatisticsRoute,
   SubtopicidStartexerciseRoute,
   SubjectidMytopicsRoute,
   SubjectidStartexamRoute,
   TopicidStarttestRoute,
   TopicidSubtopicsRoute,
+  EventsEventidRoute,
   ProgresspageUseridRoute,
 ])
 

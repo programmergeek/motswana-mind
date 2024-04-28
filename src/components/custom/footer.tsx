@@ -1,17 +1,20 @@
-import { Facebook, Instagram, MailOpen, Phone } from "lucide-react";
+import { Facebook, Instagram, MailOpen, Phone, Copyright } from "lucide-react";
 
 const Footer: React.FC = () => {
   return (
-    <div className="grid w-full grid-cols-[60vw_auto] bg-neutral-800 px-5 py-10 text-white xl:px-52">
-      <div className="grid grid-rows-[200px_auto]">
-        <p className="pt-5 text-3xl font-bold xl:w-5/12">
+    <div>
+    <div className="grid w-full grid-cols-4 bg-neutral-800 px-5 py-10 text-white xl:px-10">
+      <div className="col-span-2">
+        <p className="pt-5 text-3xl font-bold xl:w-full">
           Let's explore{" "}
           <span className="font-finger-paint font-normal">
             Number & Operations
           </span>{" "}
           together
         </p>
-        <div className="mt-5 w-full">
+      </div>
+
+        <div className="mt-5 pl-16">
           <p className="text-xl">Contact Info</p>
           <div className="mt-5 flex flex-col gap-3">
             <p className="flex gap-5">
@@ -28,15 +31,23 @@ const Footer: React.FC = () => {
             </p>
           </div>
         </div>
-      </div>
+      
       <div>
-        <p className="pt-5 text-xl">Quick Links</p>
-        <div className="mt-5 flex flex-col gap-3">
+        
+        <div className="mt-5 flex flex-col gap-3 pl-16">
+          <p className=" text-xl">Quick Links</p>
           <p>Home</p>
           <p>Learn</p>
           <p>Resources</p>
           <p>Events</p>
         </div>
+      </div>
+
+      
+    </div>
+      <div className="w-full bg-black p-3 text-white flex justify-center">
+        <Copyright />
+        <p className="">2024 Motswana Mind</p>
       </div>
     </div>
   );
