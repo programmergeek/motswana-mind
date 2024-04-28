@@ -59,7 +59,7 @@ function Quiz() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
     const [timeLeft, setTimeLeft] = useState<number | null>(null);
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-    const quizDuration = 900; // (900 seconds)
+    const quizDuration = 1200; // (1200 seconds) => 20 minutes
     const [topicName, setTopicName] = useState<string>("");
     const [incorrectSubtopics, setIncorrectSubtopics] = useState<Set<string>>(new Set());
 

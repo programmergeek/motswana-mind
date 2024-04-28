@@ -12,6 +12,8 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as MysubjectsImport } from './routes/my_subjects'
+import { Route as LoginImport } from './routes/login'
+import { Route as DashboardImport } from './routes/dashboard'
 import { Route as BillingImport } from './routes/billing'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
@@ -25,6 +27,16 @@ import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.s
 
 const MysubjectsRoute = MysubjectsImport.update({
   path: '/my_subjects',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -80,6 +92,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BillingImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
     '/my_subjects': {
       preLoaderRoute: typeof MysubjectsImport
       parentRoute: typeof rootRoute
@@ -116,6 +136,8 @@ declare module '@tanstack/react-router' {
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
   BillingRoute,
+  DashboardRoute,
+  LoginRoute,
   MysubjectsRoute,
   SubtopicidStartexerciseRoute,
   SubjectidMytopicsRoute,
