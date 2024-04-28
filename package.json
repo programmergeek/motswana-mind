@@ -22,7 +22,6 @@
     "@tanstack/react-router": "^1.21.0",
     "@tanstack/router-devtools": "^1.31.1",
     "axios": "^1.6.8",
-    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "framer-motion": "^11.1.7",
