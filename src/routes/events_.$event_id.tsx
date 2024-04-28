@@ -7,6 +7,7 @@ import Layout from "@/components/layouts/main";
 import { Calendar } from "lucide-react";
 import { format } from "date-fns";
 import { Button } from "@/components/ui/button";
+import { Link } from "@tanstack/react-router";
 
 const EventPage: React.FC = () => {
   const { event_id } = Route.useParams();
@@ -15,7 +16,7 @@ const EventPage: React.FC = () => {
     queryKey: ["event", event_id],
     queryFn: async () => {
       const data = await axios.get<Event>(
-        `http://localhost:3081/api/events/${event_id}`,
+        `http://10.0.19.248:3081/api/events/${event_id}`,
       );
       return data.data;
     },
@@ -23,10 +24,10 @@ const EventPage: React.FC = () => {
 
   return (
     <Layout>
-      <div className="grid grid-cols-[65%_auto] gap-5 bg-[url(/Backgroud.png)] xl:mt-10 xl:px-10 xl:pt-10">
+      <div className="grid px-2 mt-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-[65%_auto] gap-5 bg-[url(/Backgroud.png)] xl:mt-10 xl:px-10 xl:pt-10 pb-10">
         {eventdata.data ? (
           <>
-            <div className="rounded-lg bg-white">
+            <div className=" border border-black rounded-lg bg-white">
               <img
                 src={eventdata.data?.thumbnail ?? Math}
                 alt="event thumbnail"
@@ -57,9 +58,11 @@ const EventPage: React.FC = () => {
                     ? "Free"
                     : `P ${eventdata.data.price}`}
                 </p>
-                <Button className="w-full rounded-lg bg-[#029390] font-inter font-semibold hover:bg-[#029390]/90">
-                  Buy Ticket
-                </Button>
+                <Link to="/billing">
+                  <Button className="w-full rounded-lg bg-[#029390] font-inter font-semibold hover:bg-[#029390]/90">
+                    Buy Ticket
+                  </Button>
+                </Link>
               </div>
             </div>
           </>

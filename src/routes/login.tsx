@@ -7,6 +7,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import useAuth from "../hooks/useAuth.tsx";
 import Dashboard from "./dashboard.tsx"
+import Index from "./index.tsx"
 
 /**
  * Login component.
@@ -34,16 +35,11 @@ export const Route = createFileRoute("/login")({
 export function SignIn(){
 
   const isLogin = useAuth();
-  return isLogin ? <Dashboard/> : <Public />;
+  return isLogin ? <Dashboard/> : <Index />;
 }
 
-/**
- * Public component.
- * @component
- * @returns {JSX.Element} The rendered Public component.
- */
-export const Public = () => {
-  return <div>You are logged out.</div>;
-};
+export function  SignOut(){
+  
+}
 
 

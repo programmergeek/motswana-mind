@@ -42,11 +42,11 @@ const BillingForm: React.FC = () => {
 
   const sendNotification = async (event: any) => {
     try {
-      await fetch('http://localhost:4242/send-notification', {
+      await fetch('http://10.0.19.248:4242/send-notification', {
         method: 'POST',
         mode: 'cors',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ amount: email }),
+        body: JSON.stringify({ email: email }),
       })
       .then((res) => res.json())
     } catch (error) {
@@ -67,7 +67,7 @@ const BillingForm: React.FC = () => {
     const { error } = await stripe.confirmPayment({
       elements,
       confirmParams: {
-        return_url: 'http://localhost:4242/success',      // payment completion page
+        return_url: 'http://10.0.19.248:4242/success',      // payment completion page
       },
     });
 

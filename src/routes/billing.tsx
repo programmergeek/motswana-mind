@@ -14,11 +14,11 @@ const Billing: React.FC = () => {
 
 	const retrieveClientSecret = async () => {
 		try {
-			const response = await fetch('http://localhost:4242/create-payment-intent', {
+			const response = await fetch('http://10.0.19.248:4242/create-payment-intent', {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ amount: 250 }),
+				body: JSON.stringify({ amount: 500 }),
 			})
 			.then((res) => res.json())
 			.then((data) => setClientSecret(data.clientSecret))

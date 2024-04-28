@@ -57,7 +57,7 @@ function TopicsPage() {
     // function to fetch topic names
     const fetchTopics = async () => {
         try {
-            const response = await axios.get<Topic[]>(`http://localhost:3333/topics/${subject_id}`);
+            const response = await axios.get<Topic[]>(`http://10.0.19.248:3333/topics/${subject_id}`);
             setTopics(response.data);
             await fetchSubTopics();
             //fetchSubtopicNames(response.data);
@@ -69,7 +69,7 @@ function TopicsPage() {
     // fetch all sub topic names and their topic IDs
     const fetchSubTopics = async () => {
         try {
-            const response = await axios.get('http://localhost:3333/sub_topic_names');
+            const response = await axios.get('http://10.0.19.248:3333/sub_topic_names');
             const subTopicsData: SubTopic[] = response.data;
             const subTopicsMap: { [topicId: string]: string[] } = {};
             subTopicsData.forEach(subTopic => {
@@ -86,7 +86,7 @@ function TopicsPage() {
 
     const fetchSubjectDetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/subject_details/${subject_id}`);
+            const response = await axios.get(`http://10.0.19.248:3333/subject_details/${subject_id}`);
             console.log('Subject details:', response.data);
             setSubjectDetails(response.data[0]); // Assuming there's only one set of details
         } catch (error) {

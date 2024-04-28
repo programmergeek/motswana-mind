@@ -31,7 +31,7 @@ function Subjects() {
     // function to fetch subjects
     const fetchSubjects = async () => {
         try {
-            const response = await axios.get<Subject[]>('http://localhost:3333/subjects');
+            const response = await axios.get<Subject[]>('http://10.0.19.248:3333/subjects');
             setSubjects(response.data);
             //console.log(response.data);
         } catch (error) {

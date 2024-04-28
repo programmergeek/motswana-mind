@@ -20,9 +20,10 @@ import { useState } from "react";
 
 const NavMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
   return (
     <>
-      <div className="fixed top-0 grid h-16 w-full grid-cols-2 bg-white shadow-lg shadow-white lg:grid-cols-3">
+      <div className="hidden fixed top-0 z-20 md:grid h-16 w-full grid-cols-2 bg-white shadow-md shadow-white lg:grid-cols-3">
         <div id="logo" className="relative h-16">
           <Link to="/">
             <img
@@ -33,47 +34,55 @@ const NavMenu: React.FC = () => {
         </div>
         <div
           id="menu"
-          className="hidden w-full place-items-center pt-2 lg:grid"
+          className="w-full place-items-center pt-2 grid"
         >
           <NavigationMenu>
-            <NavigationMenuList className="flex gap-3 font-della">
+            <NavigationMenuList className="flex gap-3 text-5xl font-bold">
               <NavigationMenuItem>
                 <Link to="/">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
+                    <p>
                     Home
+                    </p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/">
+                <Link to="/learn">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
+                    <p>
                     Learn
+                    </p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/">
+                <Link to="/events">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
+                    <p>
                     Events
+                    </p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/">
+                <Link to="/" className="text-black">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
+                    <p>
                     Resources
+                    </p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -82,9 +91,17 @@ const NavMenu: React.FC = () => {
         </div>
         <div id="user" className="flex justify-end pt-4 lg:pr-20">
           <div className="hidden gap-3 font-della lg:flex">
-            <Link to="/login">
-              <Button className="w-fit align-middle">Login</Button>
+            {isAuthenticated ? (
+              <>
+              <Link to="/">
+              <Button onClick={() => setIsAuthenticated(false)} className="w-fit align-middle">Logout</Button>
             </Link>
+              </>
+            ) : (
+            <Link to="/login">
+              <Button onClick={() => setIsAuthenticated(true)} className="w-fit align-middle">Login</Button>
+            </Link>
+          )}
             <Button variant={"outline"}>Signup</Button>
           </div>
           <Button

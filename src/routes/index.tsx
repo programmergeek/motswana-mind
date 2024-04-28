@@ -134,16 +134,18 @@ export default function Index() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
-                    Sign up
-                  </Button>
+                  <Link className="w-full rounded-[15px] bg-[#1E88E5] text-center text-base font-semibold">
+                    <Button className="bg-[#1E88E5] rounded-[15px] w-full">
+                      Sign up
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
               <Card className="rounded-[30px] bg-accent p-10 shadow-2xl">
                 <CardHeader>
                   <div className="flex flex-col gap-3">
                     <p className="text-center text-white font-bold">Premium</p>
-                    <p className="text-center text-3xl text-white">P50/pm</p>
+                    <p className="text-center text-3xl text-white">P70/pm</p>
                   </div>
                 </CardHeader>
                 <CardContent className="text-white">
@@ -158,14 +160,16 @@ export default function Index() {
                       <Check /> Past papers
                     </p>
                     <p className="flex gap-3">
-                      <Check /> Workshops and events
+                      <X /> Workshops and events
                     </p>
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Button className="w-full rounded-[15px] bg-[#1E88E5] text-base font-semibold">
-                    Sign up
-                  </Button>
+                  <Link to="/billing" className="w-full rounded-[15px] bg-[#1E88E5] text-center text-base font-semibold">
+                    <Button className="bg-[#1E88E5] rounded-[15px] w-full">
+                      Sign up
+                    </Button>
+                  </Link>
                 </CardFooter>
               </Card>
           </div>

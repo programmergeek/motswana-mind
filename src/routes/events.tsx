@@ -5,13 +5,13 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import axios from "axios";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react";
-import Math from "../../public/math.png";
+import Math from "../../public/math thumbnail.png";
 
 const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
   const events = useQuery({
     queryKey: ["events"],
     queryFn: async () => {
-      const data = await axios.get<Event[]>("http://localhost:3081/api/events");
+      const data = await axios.get<Event[]>(`http://10.0.19.248:3081/api/events`);
       console.log(data.data);
       return data.data;
     },
@@ -54,7 +54,7 @@ const EventCard: React.FC<Event> = ({ ...props }) => {
       ) : (
         ""
       )}
-      <div className="space-y-3 rounded-b-2xl border bg-black px-8 py-8 text-white">
+      <div className="space-y-3 border bg-black px-8 py-8 text-white">
         <p className="text-center font-inter text-2xl font-semibold">
           {" "}
           {props.title}{" "}
@@ -75,9 +75,11 @@ const EventCard: React.FC<Event> = ({ ...props }) => {
           >
             <Button className="bg-black">View Event</Button>
           </Link>
-          <Button className="w-full rounded-lg bg-[#029390] font-inter font-semibold hover:bg-[#029390]/90">
-            Buy Ticket
-          </Button>
+          <Link to="/billing">
+            <Button className="w-full rounded-lg bg-[#029390] font-inter font-semibold hover:bg-[#029390]/90">
+              Buy Ticket
+            </Button>
+          </Link>
         </div>
       </div>
     </div>
