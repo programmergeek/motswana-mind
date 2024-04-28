@@ -39,7 +39,7 @@
     "react-router-dom": "^6.22.3",
     "react-type-animation": "^3.2.0",
     "stripe": "^15.3.0",
-    "tailwind-merge": "^2.3.0",http:localhost:5174/*
+    "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
   },
