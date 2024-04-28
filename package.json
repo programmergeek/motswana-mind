@@ -23,14 +23,13 @@
     "@tanstack/router-cli": "^1.30.0",
     "@tanstack/router-devtools": "^1.31.1",
     "axios": "^1.6.8",
-    "axios": "^1.6.8",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "date-fns": "^3.6.0",
     "dotenv": "^16.4.5",
     "framer-motion": "^11.1.7",
     "input": "^1.0.1",
     "keycloak-js": "^24.0.3",
-    "date-fns": "^3.6.0",
     "lucide-react": "^0.360.0",
     "next": "^14.2.3",
     "react": "^18.2.0",
@@ -40,7 +39,7 @@
     "react-router-dom": "^6.22.3",
     "react-type-animation": "^3.2.0",
     "stripe": "^15.3.0",
-    "tailwind-merge": "^2.3.0",http:localhost:5174/*
+    "tailwind-merge": "^2.3.0",
     "tailwindcss-animate": "^1.0.7",
     "zod": "^3.22.4"
   },
@@ -60,7 +59,7 @@
     "postcss": "^8.4.38",
     "prettier": "^3.2.5",
     "prettier-plugin-tailwindcss": "^0.5.12",
-    "tailwindcss": "^3.4.1",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5.2.2",
     "vite": "^5.2.7"
   }
