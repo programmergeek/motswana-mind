@@ -11,6 +11,9 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as MysubjectsImport } from './routes/my_subjects'
+import { Route as LoginImport } from './routes/login'
+import { Route as DashboardImport } from './routes/dashboard'
 import { Route as BillingImport } from './routes/billing'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
@@ -21,6 +24,21 @@ import { Route as SubjectidMytopicsImport } from './routes/$subject_id.my_topics
 import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.start_exercise'
 
 // Create/Update Routes
+
+const MysubjectsRoute = MysubjectsImport.update({
+  path: '/my_subjects',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LoginRoute = LoginImport.update({
+  path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const BillingRoute = BillingImport.update({
   path: '/billing',
@@ -74,11 +92,59 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BillingImport
       parentRoute: typeof rootRoute
     }
+    '/dashboard': {
+      preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/login': {
+      preLoaderRoute: typeof LoginImport
+      parentRoute: typeof rootRoute
+    }
+    '/my_subjects': {
+      preLoaderRoute: typeof MysubjectsImport
+      parentRoute: typeof rootRoute
+    }
+    '/$sub_topic_id/start_exercise': {
+      preLoaderRoute: typeof SubtopicidStartexerciseImport
+      parentRoute: typeof rootRoute
+    }
+    '/$subject_id/my_topics': {
+      preLoaderRoute: typeof SubjectidMytopicsImport
+      parentRoute: typeof rootRoute
+    }
+    '/$subject_id/start_exam': {
+      preLoaderRoute: typeof SubjectidStartexamImport
+      parentRoute: typeof rootRoute
+    }
+    '/$topic_id/start_test': {
+      preLoaderRoute: typeof TopicidStarttestImport
+      parentRoute: typeof rootRoute
+    }
+    '/$topic_id/sub_topics': {
+      preLoaderRoute: typeof TopicidSubtopicsImport
+      parentRoute: typeof rootRoute
+    }
+    '/progress_page/$user_id': {
+      preLoaderRoute: typeof ProgresspageUseridImport
+      parentRoute: typeof rootRoute
+    }
   }
 }
 
 // Create and export the route tree
 
-export const routeTree = rootRoute.addChildren([IndexRoute, BillingRoute])
+export const routeTree = rootRoute.addChildren([
+  IndexRoute,
+  BillingRoute,
+  DashboardRoute,
+  LoginRoute,
+  MysubjectsRoute,
+  SubtopicidStartexerciseRoute,
+  SubjectidMytopicsRoute,
+  SubjectidStartexamRoute,
+  TopicidStarttestRoute,
+  TopicidSubtopicsRoute,
+  ProgresspageUseridRoute,
+])
 
 /* prettier-ignore-end */

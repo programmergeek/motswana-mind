@@ -13,6 +13,8 @@ const BillingForm: React.FC = () => {
   const stripe = useStripe()
   const elements = useElements()
 
+  const [email, setEmail] = useState('')
+
   // const clientSecret = new URLSearchParams(window.location.search).get(
   //   'payment_intent_client_secret'
   // );
@@ -38,9 +40,23 @@ const BillingForm: React.FC = () => {
   //   }
   // });
 
-  const handlePayment = async (event: MouseEvent) => {
+  const sendNotification = async (event: any) => {
+    try {
+      await fetch('http://localhost:4242/send-notification', {
+        method: 'POST',
+        mode: 'cors',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ amount: email }),
+      })
+      .then((res) => res.json())
+    } catch (error) {
+      console.error('Error:', error)
+    }
+  };
+  
+  const handlePayment = async (event: any) => {
     console.log('In handlePayment()')
-    // console.log(elements?.getElement('cardExpiry'))
+    
     event.preventDefault()
 
     if (!stripe || !elements) {      // if Stripe.js hasn't yet loaded
@@ -66,6 +82,7 @@ const BillingForm: React.FC = () => {
     setIsLoading(false)
   };
 
+
   const paymentElementOptions = {
     layout: "auto"
   };
@@ -85,7 +102,7 @@ const BillingForm: React.FC = () => {
           </h5>
 
           <form id="payment-form" onSubmit={ handlePayment }>
-            <LinkAuthenticationElement />
+            <LinkAuthenticationElement onChange={ (event: any) => setEmail(event.value.email) } />
             
             {/* <div className='mb-3'>
               <Label className='font-normal text-left'>Email</Label>
@@ -108,7 +125,7 @@ const BillingForm: React.FC = () => {
                 <Button type="submit">Cancel payment</Button>
               </Link>
               
-              <Button type='submit' className='bg-purple-700' disabled={!stripe || loading || isLoading}>Subscribe now</Button>
+              <Button type='submit' className='bg-purple-700' onClick={ sendNotification } disabled={!stripe || loading || isLoading}>Subscribe now</Button>
               
             </div>
           </form>
