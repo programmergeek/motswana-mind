@@ -5,6 +5,7 @@ import { Link, createFileRoute } from "@tanstack/react-router";
 import axios from "axios";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react";
+import Math from "../../public/math.png";
 
 const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
   const events = useQuery({
@@ -18,7 +19,7 @@ const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
 
   return (
     <Layout>
-      <div className="min-h-screen">
+      <div className="min-h-screen bg-[url(/Backgroud.png)]">
         {!(events.isFetching || events.isPending) ? (
           <div className="py-10">
             <Events events={events.data as Event[]} />
@@ -46,15 +47,15 @@ const EventCard: React.FC<Event> = ({ ...props }) => {
     <div className="">
       {props.thumbnail ? (
         <img
-          src={props.thumbnail}
+          src={props.thumbnail ? props.thumbnail : Math}
           alt="event thumbnail"
           className="rounded-t-2xl"
         />
       ) : (
         ""
       )}
-      <div className="space-y-3 rounded-b-2xl border px-8 py-12">
-        <p className="text-center font-inter text-xl font-semibold">
+      <div className="space-y-3 rounded-b-2xl border bg-black px-8 py-8 text-white">
+        <p className="text-center font-inter text-2xl font-semibold">
           {" "}
           {props.title}{" "}
         </p>
@@ -67,14 +68,17 @@ const EventCard: React.FC<Event> = ({ ...props }) => {
             <span>{format(new Date(props.startTime), "dd MMMM, HH:mm")}</span>
           </p>
         </div>
-        <Link
-          to={`/events/$event_id`}
-          params={{ event_id: props.id as unknown as string }}
-        >
-          <Button className="w-full rounded-full bg-blue-500 font-inter font-semibold hover:bg-blue-600">
-            View Event
+        <div className="flex gap-3">
+          <Link
+            to={`/events/$event_id`}
+            params={{ event_id: props.id as unknown as string }}
+          >
+            <Button className="bg-black">View Event</Button>
+          </Link>
+          <Button className="w-full rounded-lg bg-[#029390] font-inter font-semibold hover:bg-[#029390]/90">
+            Buy Ticket
           </Button>
-        </Link>
+        </div>
       </div>
     </div>
   );
