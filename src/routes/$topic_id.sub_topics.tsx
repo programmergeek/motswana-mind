@@ -72,6 +72,7 @@ function SubTopicsPage() {
                     </Link>
                 </Card>
             </div>
+            
         </Layout>
     );
 }

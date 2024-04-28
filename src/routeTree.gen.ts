@@ -15,8 +15,10 @@ import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as LoginImport } from './routes/login'
 import { Route as DashboardImport } from './routes/dashboard'
 import { Route as BillingImport } from './routes/billing'
+import { Route as AlgebraImport } from './routes/algebra'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
+import { Route as EventsEventidImport } from './routes/events_.$event_id'
 import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
 import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
 import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
@@ -45,6 +47,11 @@ const BillingRoute = BillingImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const AlgebraRoute = AlgebraImport.update({
+  path: '/algebra',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const IndexRoute = IndexImport.update({
   path: '/',
   getParentRoute: () => rootRoute,
@@ -52,6 +59,11 @@ const IndexRoute = IndexImport.update({
 
 const ProgresspageUseridRoute = ProgresspageUseridImport.update({
   path: '/progress_page/$user_id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EventsEventidRoute = EventsEventidImport.update({
+  path: '/events/$event_id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -86,6 +98,10 @@ declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
     '/': {
       preLoaderRoute: typeof IndexImport
+      parentRoute: typeof rootRoute
+    }
+    '/algebra': {
+      preLoaderRoute: typeof AlgebraImport
       parentRoute: typeof rootRoute
     }
     '/billing': {
