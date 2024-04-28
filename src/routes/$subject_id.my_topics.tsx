@@ -97,7 +97,7 @@ function TopicsPage() {
     return (
         <Layout>
             {/* Display general info about subject */}
-            <div className='mt-12 ml-32'>
+            <div className='mt-12 grid place-items-center'>
                 <img src={subjectDetails?.subject_banner} className="h-[400px] w-[1100px] rounded-3xl shadow-2xl" />
             </div>
             <div className='flex flex-col justify-center items-center pl-40 pr-52 pt-24 pb-16'>

@@ -63,14 +63,17 @@ const NavMenu: React.FC = () => {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    Resources
+                    Events
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/events">
-                  <NavigationMenuLink className={navigationMenuTriggerStyle()}>
-                    Events
+                <Link to="/">
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    Resources
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
