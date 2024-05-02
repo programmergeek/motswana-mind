@@ -41,7 +41,7 @@ function ProgressPage(){
     // function to fetch results from DB
     const fetchResults = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/progress/${user_id}`);
+            const response = await axios.get(`http://10.0.19.248:3333/progress/${user_id}`);
             const responseData = response.data as Result[]; // Type assertion
             setResults(responseData);
             //console.log(responseData);

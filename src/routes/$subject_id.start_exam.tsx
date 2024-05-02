@@ -58,7 +58,7 @@ function Quiz() {
     const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
     const [timeLeft, setTimeLeft] = useState<number | null>(null);
     const [timer, setTimer] = useState<NodeJS.Timeout | null>(null);
-    const quizDuration = 600; // 10 minutes (600 seconds)
+    const quizDuration = 1800; // 30 minutes (1800 seconds)
     const [subjectName, setSubjectName] = useState<string>("");
 
     useEffect(() => {
@@ -72,7 +72,7 @@ function Quiz() {
     // function to fetch questions from DB
     const fetchQuestions = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/questions/exam/${subject_id}`);
+            const response = await axios.get(`http://10.0.19.248:3333/questions/exam/${subject_id}`);
             const responseData = response.data as Question[]; // Type assertion
             setQuestions(responseData);
             //console.log(responseData);
@@ -84,7 +84,7 @@ function Quiz() {
     // function to fetch subject name by subject id
     const fetchSubjectName = async () => {
     	try {
-    		const response = await axios.get(`http://localhost:3333/subject/name/${subject_id}`);
+    		const response = await axios.get(`http://10.0.19.248:3333/subject/name/${subject_id}`);
     		const responseData = response.data;
     		setSubjectName(responseData[0].subject_name);
     		//console.log(topicName);
@@ -137,7 +137,7 @@ function Quiz() {
     // function to submit quiz results to DB
     const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
         try {
-            const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
+            const response: AxiosResponse<void> = await axios.post<void>('http://10.0.19.248:3333/assessment_results', quizResults);
         } catch (error) {
             console.error('Error submitting quiz results:', error);
             throw error; 
@@ -351,7 +351,7 @@ function Quiz() {
                             </div>
                             {/* Buttons to restart and toggle answers to quiz */}
                             <Button onClick={handleRestartQuiz} className="my-5 mr-2">Restart Exam</Button>
-                            <Button onClick={() => setShowAnswers(!showAnswers)} className="my-5 mr-2">Toggle Answers</Button>
+                            <Button onClick={() => setShowAnswers(!showAnswers)} className="my-5 mr-2" disabled={true}>Toggle Answers</Button>
                             {showAnswers && (
                                 <>
                                 {/* Review answers */}

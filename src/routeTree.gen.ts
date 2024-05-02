@@ -18,6 +18,7 @@ import { Route as ResourcesImport } from './routes/resources'
 import { Route as PastpapersImport } from './routes/pastpapers'
 import { Route as NumbersoperationsImport } from './routes/numbers&operations'
 import { Route as MysubjectsImport } from './routes/my_subjects'
+import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as MeasuresImport } from './routes/measures'
 import { Route as MathematicsImport } from './routes/mathematics'
 import { Route as LoginImport } from './routes/login'
@@ -30,6 +31,7 @@ import { Route as BillingImport } from './routes/billing'
 import { Route as AlgebraImport } from './routes/algebra'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
+import { Route as EventsEventidImport } from './routes/events_.$event_id'
 import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
 import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
 import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
@@ -65,6 +67,11 @@ const PastpapersRoute = PastpapersImport.update({
 
 const NumbersoperationsRoute = NumbersoperationsImport.update({
   path: '/numbers&operations',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MysubjectsRoute = MysubjectsImport.update({
+  path: '/my_subjects',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -130,6 +137,11 @@ const IndexRoute = IndexImport.update({
 
 const ProgresspageUseridRoute = ProgresspageUseridImport.update({
   path: '/progress_page/$user_id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EventsEventidRoute = EventsEventidImport.update({
+  path: '/events/$event_id',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -210,6 +222,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MysubjectsImport
       parentRoute: typeof rootRoute
     }
+    '/my_subjects': {
+      preLoaderRoute: typeof MysubjectsImport
+      parentRoute: typeof rootRoute
+    }
     '/numbers&operations': {
       preLoaderRoute: typeof NumbersoperationsImport
       parentRoute: typeof rootRoute
@@ -275,6 +291,7 @@ export const routeTree = rootRoute.addChildren([
   LoginRoute,
   MathematicsRoute,
   MeasuresRoute,
+  MysubjectsRoute,
   MysubjectsRoute,
   NumbersoperationsRoute,
   PastpapersRoute,
