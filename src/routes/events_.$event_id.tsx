@@ -16,7 +16,7 @@ const EventPage: React.FC = () => {
     queryKey: ["event", event_id],
     queryFn: async () => {
       const data = await axios.get<Event>(
-        `http://10.0.19.248:3081/api/events/${event_id}`,
+        `http://0.0.0.0:3081/api/events/${event_id}`,
       );
       return data.data;
     },
@@ -24,10 +24,10 @@ const EventPage: React.FC = () => {
 
   return (
     <Layout>
-      <div className="grid px-2 mt-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-[65%_auto] gap-5 bg-[url(/Backgroud.png)] xl:mt-10 xl:px-10 xl:pt-10 pb-10">
+      <div className="mt-10 grid grid-cols-1 gap-5 bg-[url(/Backgroud.png)] px-2 pb-10 md:grid-cols-2 lg:grid-cols-[65%_auto] xl:mt-10 xl:px-10 xl:pt-10">
         {eventdata.data ? (
           <>
-            <div className=" border border-black rounded-lg bg-white">
+            <div className=" rounded-lg border border-black bg-white">
               <img
                 src={eventdata.data?.thumbnail ?? Math}
                 alt="event thumbnail"
