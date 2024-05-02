@@ -1,8 +1,8 @@
-import React, { useEffect, useState } from 'react'
-import Layout from '@/components/layouts/main'
-import { Link } from '@tanstack/react-router'
-import { PaymentElement, LinkAuthenticationElement, useElements, useStripe } from '@stripe/react-stripe-js'
-import { Button } from '@/components/ui/button'
+// /* import React, { useEffect, useState } from 'react'
+// import Layout from '@/components/layouts/main'
+// import { Link } from '@tanstack/react-router'
+// import { PaymentElement, LinkAuthenticationElement, useElements, useStripe } from '@stripe/react-stripe-js'
+// import { Button } from '@/components/ui/button'
 
 /* billing-form component */
 const BillingForm: React.FC = () => {
@@ -146,4 +146,4 @@ const BillingForm: React.FC = () => {
 	)
 };
 
-export default BillingForm
+// // export default BillingForm */

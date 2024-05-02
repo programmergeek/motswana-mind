@@ -3,12 +3,12 @@ import { Facebook, Instagram, MailOpen, Phone, Copyright } from "lucide-react";
 const Footer: React.FC = () => {
   return (
     <div>
-    <div className="grid w-full grid-cols-4 bg-neutral-800 px-5 py-10 text-white xl:px-10">
+    <div className="grid w-full md:grid-cols-2 lg:grid-cols-4 bg-neutral-800 px-5 py-10 text-white xl:px-10">
       <div className="col-span-2">
         <p className="pt-5 text-3xl font-bold xl:w-full">
           Let's explore{" "}
           <span className="font-finger-paint font-normal">
-            Number & Operations
+            Mathematics
           </span>{" "}
           together
         </p>

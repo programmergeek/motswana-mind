@@ -168,7 +168,7 @@ function Quiz() {
         // to calculate score as percentage
         const totalQuestions = questions.length;
         const percentage = ((userScore ?? 0) / totalQuestions) * 100;
-        const roundedPercentage = Number(percentage.toFixed(2));
+        const roundedPercentage = Number(percentage.toFixed(0));
 
         // makes request to submit results
         try {
@@ -206,7 +206,7 @@ function Quiz() {
     // to calculate score as percentage
     const totalQuestions = questions.length;
     const percentage = ((score ?? 0) / totalQuestions) * 100;
-    const roundedPercentage = `${percentage.toFixed(2)}%`;
+    const roundedPercentage = `${percentage.toFixed(0)}%`;
 
     // to calculate formatted time limit
     const hasTimeLimit = quizDuration !== null;
@@ -293,7 +293,7 @@ function Quiz() {
                                                 <span className="font-bold">{formatTime(timeLeft)}</span>
                                             </div>
                                         </div>
-                                        <h2 className="text-2xl font-bold mb-4 dark:text-gray-200">{questions[currentQuestionIndex].question_text}</h2>
+                                        <h2 className="text-xl font-bold mb-4 dark:text-gray-200">{questions[currentQuestionIndex].question_text}</h2>
                                         <div className="space-y-3">
                                             <div className="flex items-center">
                                                 <ul>
@@ -317,7 +317,7 @@ function Quiz() {
                                                                     option.option_id
                                                                 }
                                                             />
-                                                            <label className="ml-2  text-sm font-medium text-gray-900 dark:text-gray-200" htmlFor={`option_${option.option_id}`}>
+                                                            <label className="ml-2  text-lg font-medium text-gray-900 dark:text-gray-200" htmlFor={`option_${option.option_id}`}>
                                                                 {option.option_text}
                                                             </label>
                                                         </li>
@@ -351,38 +351,7 @@ function Quiz() {
                             </div>
                             {/* Buttons to restart and toggle answers to quiz */}
                             <Button onClick={handleRestartQuiz} className="my-5 mr-2">Restart Exam</Button>
-                            <Button onClick={() => setShowAnswers(!showAnswers)} className="my-5 mr-2" disabled={true}>Toggle Answers</Button>
-                            {showAnswers && (
-                                <>
-                                {/* Review answers */}
-                                    <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8">
-                                    <h2 className="text-2xl md:text-3xl font-bold mb-4">Review</h2>
-                                    {questions.map(question => (
-                                        <div key={question.question_id} className="space-y-4 pb-4">
-                                            <h3 className="text-xl md:text-2xl font-bold mb-2">{question.question_text}</h3>
-                                            <div className="bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
-                                            <p className="text-gray-500 dark:text-gray-400 mb-2">
-                                                Correct Answer: <span className="font-medium text-gray-700 dark:text-gray-300">{question.options.find(option => option.is_correct)?.option_text}
-                                                {question.options.find(option => option.is_correct) && <span> </span>}</span>
-                                            </p>
-                                            </div>
-                                            <ul className="space-y-2">
-                                                {question.options.map(option => (
-                                                    <div className="bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
-                                                    <li key={option.option_id}>
-                                                    <div className="flex items-center justify-between">
-                                                        <span className="text-gray-700 dark:text-gray-300">{option.option_text}</span>
-                                                        {answers[question.question_id] === option.option_id && <span className="font-medium text-gray-700 dark:text-gray-300"> Your answer</span>}
-                                                    </div>
-                                                    </li>
-                                                    </div>
-                                                ))}
-                                            </ul>
-                                        </div>
-                                    ))}
-                                    </div>
-                                </>
-                            )}
+                            
                         </div>
                     </Card>
                 )}

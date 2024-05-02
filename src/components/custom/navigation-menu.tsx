@@ -16,13 +16,50 @@ import {
   UserCircle,
   X,
 } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import axios from 'axios';
+import keycloak from "@/keycloakConfig";
+
 
 const NavMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [authenticated, setAuthenticated] = useState(false);
+
+/*
+  useEffect(() => {
+    checkAuth();
+    console.log("Is it authenticated? "+ authenticated);
+  }, [authenticated]);
+ 
+  const checkAuth = async () => {
+    try{
+      const response = await axios.get(`http://localhost:8888/api/auth/status`);
+      const data = response.data;
+      console.log("Response: " + data);
+      setAuthenticated(data.authenticated);
+      8/api/auth/status`);
+      const data = response.data;
+      console.log("Response: " + data);
+      setAuthenticated(data.authenticated);
+      
+    }
+    catch(error){
+      console.error('Error fetching authentication status:', error);
+    }
+  };
+
+    try{
+      if (response){
+        setAuthenticated(false)
+      }
+    } catch(error){
+      console.error('Error logging out:', error)
+    }
+  }; */
+
   return (
     <>
-      <div className="fixed top-0 grid h-16 w-full grid-cols-2 bg-white shadow-lg shadow-white lg:grid-cols-3">
+      <div className="hidden fixed top-0 z-20 md:grid h-16 w-full grid-cols-2 bg-white shadow-md shadow-white lg:grid-cols-3">
         <div id="logo" className="relative h-16">
           <Link to="/">
             <img
@@ -33,47 +70,55 @@ const NavMenu: React.FC = () => {
         </div>
         <div
           id="menu"
-          className="hidden w-full place-items-center pt-2 lg:grid"
+          className="w-full place-items-center pt-2 grid"
         >
           <NavigationMenu>
-            <NavigationMenuList className="flex gap-3 font-della">
+            <NavigationMenuList className="flex gap-3 text-5xl font-bold">
               <NavigationMenuItem>
                 <Link to="/">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
+                    <p>
                     Home
+                    </p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/">
+                <Link to="/learn">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
+                    <p>
                     Learn
+                    </p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/">
+                <Link to="/events">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
+                    <p>
                     Events
+                    </p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/">
+                <Link to="/" className="text-black">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
+                    <p>
                     Resources
+                    </p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -82,9 +127,17 @@ const NavMenu: React.FC = () => {
         </div>
         <div id="user" className="flex justify-end pt-4 lg:pr-20">
           <div className="hidden gap-3 font-della lg:flex">
+            {authenticated ? (
+              <>
+              <Link to="/learn">
+              <Button className="w-fit align-middle">Logout</Button>
+            </Link>
+              </>
+            ) : (
             <Link to="/login">
               <Button className="w-fit align-middle">Login</Button>
             </Link>
+          )}
             <Button variant={"outline"}>Signup</Button>
           </div>
           <Button
@@ -128,7 +181,7 @@ const NavMenu: React.FC = () => {
               </Link>
             </li>
             <li>
-              <Link to="/">
+              <Link to="/resources">
                 <Button className="flex w-full justify-start gap-3 bg-accent text-base">
                   <Glasses />
                   Resources

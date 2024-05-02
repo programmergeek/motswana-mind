@@ -26,14 +26,14 @@ function Learn() {
                 </div>
 
                 <div className="flex justify-center items-center pt-24">
-                    <img 
+                    <a href="#subjects"><img 
                         src="/down-arrow.png"
                         className="size-14 animate-bounce"
-                    />
+                    /></a>
                 </div>
     
             </div>
-            <div className="flex flex-row gap-5 justify-center items-center mb-10" >
+            <div className="flex flex-row gap-5 justify-center items-center mb-10" id="subjects" >
             <Card className="rounded-[30px] shadow-2xl">
                 <CardHeader>
                   <img

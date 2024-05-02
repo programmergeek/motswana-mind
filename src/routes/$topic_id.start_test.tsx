@@ -181,7 +181,7 @@ function Quiz() {
         // get quiz score as percentage
         const totalQuestions = questions.length;
         const percentage = ((userScore ?? 0) / totalQuestions) * 100;
-        const roundedPercentage = Number(percentage.toFixed(2));
+        const roundedPercentage = Number(percentage.toFixed(0));
 
         // make request to submit results
         try {
@@ -220,7 +220,7 @@ function Quiz() {
     // calculate score as percentage
     const totalQuestions = questions.length;
     const percentage = ((score ?? 0) / totalQuestions) * 100;
-    const roundedPercentage = `${percentage.toFixed(2)}%`;
+    const roundedPercentage = `${percentage.toFixed(0)}%`;
 
     // get time limit
     const hasTimeLimit = quizDuration !== null;
@@ -307,7 +307,7 @@ function Quiz() {
                                                 <span className="font-bold">{formatTime(timeLeft)}</span>
                                             </div>
                                         </div>
-                                        <h2 className="text-2xl font-bold mb-4 dark:text-gray-200">{questions[currentQuestionIndex].question_text}</h2>
+                                        <h2 className="text-xl font-bold mb-4 dark:text-gray-200">{questions[currentQuestionIndex].question_text}</h2>
                                         <div className="space-y-3">
                                             <div className="flex items-center">
                                                 <ul>
@@ -331,7 +331,7 @@ function Quiz() {
                                                                     option.option_id
                                                                 }
                                                             />
-                                                            <label className="ml-2  text-sm font-medium text-gray-900 dark:text-gray-200" htmlFor={`option_${option.option_id}`}>
+                                                            <label className="ml-2  text-lg font-medium text-gray-900 dark:text-gray-200" htmlFor={`option_${option.option_id}`}>
                                                                 {option.option_text}
                                                             </label>
                                                         </li>
@@ -382,9 +382,9 @@ function Quiz() {
                                 {/* Review section */}
                                 <div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8">
                                     <h2 className="text-2xl md:text-3xl font-bold mb-4">Review</h2>
-                                    {questions.map(question => (
+                                    {questions.map((question, index) => (
                                         <div key={question.question_id} className="space-y-4 pb-4">
-                                            <h3 className="text-xl md:text-2xl font-bold mb-2">{question.question_text}</h3>
+                                            <h3 className="text-xl md:text-xl font-bold mb-2 mt-4">Q{index+1}. {question.question_text}</h3>
                                             <div className="bg-gray-200 dark:bg-gray-700 rounded-lg p-4">
                                             <p className="text-gray-500 dark:text-gray-400 mb-2">
                                                 Correct Answer: <span className="font-medium text-gray-700 dark:text-gray-300">{question.options.find(option => option.is_correct)?.option_text}

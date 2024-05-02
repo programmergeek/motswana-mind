@@ -63,7 +63,7 @@ function Quiz() {
 	// variables to calculate the score
 	const totalQuestions = questions.length;
 	const percentage = ((score ?? 0) / totalQuestions) * 100;
-	const roundedPercentage = `${percentage.toFixed(2)}%`;
+	const roundedPercentage = `${percentage.toFixed(0)}%`;
 
 	// useEffect to fetch data
 	useEffect(() => {
@@ -158,7 +158,7 @@ function Quiz() {
 		// to calculate assessment score as percentage
         const totalQuestions = questions.length;
         const percentage = ((userScore ?? 0) / totalQuestions) * 100;
-        const roundedPercentage = Number(percentage.toFixed(2));
+        const roundedPercentage = Number(percentage.toFixed(0));
 
 		// make request to submit results
         try {
@@ -261,7 +261,7 @@ function Quiz() {
 											</div>
 
 										</div>
-										<h2 className="text-2xl font-bold mb-4 dark:text-gray-200">{questions[currentQuestionIndex].question_text}</h2>
+										<h2 className="text-xl font-bold mb-4 dark:text-gray-200">{questions[currentQuestionIndex].question_text}</h2>
 										<div className="space-y-3">
 											<div className="flex items-center">
 												<input
@@ -296,7 +296,7 @@ function Quiz() {
 							<h1 className="ml-3 text-xl md:text-2xl font-bold mb-4">Results - {subTopicName} Exercise</h1>
 							<div>
 								<Card className="p-4 my-3">
-								<p className="text-dark-500 dark:text-gray-400 mb-2 font-bold">Exercise Score:</p>
+								<p className="text-dark-500 dark:text-gray-400 mb-2 font-bold">Score:</p>
                                     <p className="text-gray-600 dark:text-gray-400 mb-2">{score} out of {totalQuestions} ({roundedPercentage})</p>
 								</Card>
 							</div>
@@ -308,9 +308,9 @@ function Quiz() {
 								<>
 								<div className="bg-gray-100 dark:bg-gray-800 rounded-lg p-6 md:p-8">
 								<h2 className="text-2xl md:text-3xl font-bold mb-4">Review</h2>
-									{questions.map(question => (
+									{questions.map((question, index) => (
 										<div key={question.question_id} className="space-y-4 pb-4">
-											<h3 className="text-xl md:text-2xl font-bold mb-2">{question.question_text}</h3>
+											<h3 className="text-xl md:text-xl font-bold mb-2 mt-4">Q{index+1}.  {question.question_text}</h3>
 											{shortAnswer ? ( // Display the correct answer
 												<>
 												<div className="bg-gray-200 dark:bg-gray-700 rounded-lg p-4">

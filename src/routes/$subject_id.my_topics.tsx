@@ -7,9 +7,6 @@ Purpose: This file is used to create the topics page for the user to view the to
 import { Link, createFileRoute } from '@tanstack/react-router'
 import axios from 'axios';
 import { useEffect, useState } from 'react';
-import {
-    Card,
-} from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import Layout from "@/components/layouts/main";
 
@@ -112,7 +109,7 @@ function TopicsPage() {
             <div className='flex flex-col justify-center items-center pb-16'>
                 {topics.map((topic, index) => (
 
-                    <div className="bg-[#FF56C2] p-16 rounded-3xl shadow-2xl w-[70%] my-4" key={topic.topic_id}>
+                    <div className="bg-[#BDE283] p-16 rounded-3xl shadow-2xl w-[70%] my-4" key={topic.topic_id}>
                         <div className="flex gap-3">
 
                             <div>

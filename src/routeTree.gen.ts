@@ -19,7 +19,12 @@ import { Route as NumbersoperationsImport } from './routes/numbers&operations'
 import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as MeasuresImport } from './routes/measures'
 import { Route as MathematicsImport } from './routes/mathematics'
+import { Route as MeasuresImport } from './routes/measures'
+import { Route as MathematicsImport } from './routes/mathematics'
 import { Route as LoginImport } from './routes/login'
+import { Route as LearnImport } from './routes/learn'
+import { Route as GeometryImport } from './routes/geometry'
+import { Route as EventsImport } from './routes/events'
 import { Route as LearnImport } from './routes/learn'
 import { Route as GeometryImport } from './routes/geometry'
 import { Route as EventsImport } from './routes/events'
@@ -34,6 +39,7 @@ import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
 import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
 import { Route as SubjectidMytopicsImport } from './routes/$subject_id.my_topics'
 import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.start_exercise'
+import { Route as SubtopicidContentImport } from './routes/$sub_topic_id.content'
 
 // Create/Update Routes
 
@@ -77,8 +83,33 @@ const MathematicsRoute = MathematicsImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const MeasuresRoute = MeasuresImport.update({
+  path: '/measures',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MathematicsRoute = MathematicsImport.update({
+  path: '/mathematics',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const LoginRoute = LoginImport.update({
   path: '/login',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LearnRoute = LearnImport.update({
+  path: '/learn',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const GeometryRoute = GeometryImport.update({
+  path: '/geometry',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EventsRoute = EventsImport.update({
+  path: '/events',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -152,6 +183,11 @@ const SubtopicidStartexerciseRoute = SubtopicidStartexerciseImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const SubtopicidContentRoute = SubtopicidContentImport.update({
+  path: '/$sub_topic_id/content',
+  getParentRoute: () => rootRoute,
+} as any)
+
 // Populate the FileRoutesByPath interface
 
 declare module '@tanstack/react-router' {
@@ -166,6 +202,18 @@ declare module '@tanstack/react-router' {
     }
     '/dashboard': {
       preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/events': {
+      preLoaderRoute: typeof EventsImport
+      parentRoute: typeof rootRoute
+    }
+    '/geometry': {
+      preLoaderRoute: typeof GeometryImport
+      parentRoute: typeof rootRoute
+    }
+    '/learn': {
+      preLoaderRoute: typeof LearnImport
       parentRoute: typeof rootRoute
     }
     '/events': {
@@ -257,6 +305,9 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AlgebraRoute,
   DashboardRoute,
+  EventsRoute,
+  GeometryRoute,
+  LearnRoute,
   EventsRoute,
   GeometryRoute,
   LearnRoute,

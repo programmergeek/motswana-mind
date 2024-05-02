@@ -10,10 +10,10 @@ export const Route = createFileRoute('/mathematics')({
 function Mathematics() {
   return (
     <Layout>
-        <div className="mt-12 ml-32">
+        <div className="mt-24 ml-32">
           <img
             src="/math.png"
-            className="h-[400px] w-[1100px] rounded-3xl shadow-2xl"
+            className="h-[450px] w-[1100px] rounded-3xl shadow-2xl"
           />
         </div>
 
@@ -183,7 +183,7 @@ function Mathematics() {
                   the mathematics curriculum. Covering everything you learnt from the chapters.
                 </p>
 
-                <div className="flex justify-center items-center pt-5 pb-16">
+                <div className="flex justify-center items-center pt-5 pb-20">
                     <div className="bg-[#f1f1f1] flex rounded-3xl shadow-2xl w-[800px] p-16">
                     <div>
                         <div className="flex flex-col">
