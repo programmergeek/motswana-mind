@@ -71,3 +71,5 @@ function Subjects() {
 }
 
 export default Subjects;
+
+export default Subjects;

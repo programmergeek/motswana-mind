@@ -1,30 +1,31 @@
-import React, { useEffect, useState, useRef } from "react";
-import Keycloak from "keycloak-js";
+// import { useEffect, useState, useRef } from "react";
+// import Keycloak from "keycloak-js";
 
+// const client = new Keycloak({
+//     url: 'http://10.0.18.86:8081',
+//     realm: 'motswana-mind',
+//     clientId: 'motswana-mind',
+// });
 
-const client = new Keycloak({
-    url: 'http://10.0.18.86:8081/',
-    realm: 'motswana-mind',
-    clientId: 'motswana-mind',
-});
+// const useAuth = () => {
+//     const isRun = useRef(false);
+//     const [token, setToken] = useState<any>(null);
+//     const [isLogin, setLogin] = useState(false);
 
-const useAuth = () => {
-    const isRun = useRef(false);
-    const [isLogin, setLogin] = useState(false);
+//     useEffect(() => {
 
-    useEffect(() => {
-        if(isRun.current) return;
+//         if(isRun.current) return;
 
-        isRun.current = true;
-        client.init({ 
-            onLoad: "login-required",
-        }).then((res) => setLogin(res)).catch((err) => {
-            console.error("Keycloak client initialization failed:", err);
-        });
-    }, []);
+//         isRun.current = true;
+//         client.init({ 
+//             onLoad: "login-required"
+//         }).then((res) => {
+//             setLogin(res);
+//             setToken(client.token);
+//         });
+//     }, []);
 
-    //console.log('isLogin is' + isLogin);
-    return isLogin;
-};
+//     return [isLogin, token];
+// };
 
-export default useAuth;
+// export default useAuth;

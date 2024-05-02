@@ -12,9 +12,13 @@
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as StudentdashboardImport } from './routes/student_dashboard'
+import { Route as StudentdashboardImport } from './routes/student_dashboard'
 import { Route as StatisticsImport } from './routes/statistics'
 import { Route as SignupImport } from './routes/signup'
+import { Route as ResourcesImport } from './routes/resources'
+import { Route as PastpapersImport } from './routes/pastpapers'
 import { Route as NumbersoperationsImport } from './routes/numbers&operations'
+import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as MeasuresImport } from './routes/measures'
 import { Route as MathematicsImport } from './routes/mathematics'
@@ -23,6 +27,7 @@ import { Route as LearnImport } from './routes/learn'
 import { Route as GeometryImport } from './routes/geometry'
 import { Route as EventsImport } from './routes/events'
 import { Route as DashboardImport } from './routes/dashboard'
+import { Route as ContentImport } from './routes/content'
 import { Route as BillingImport } from './routes/billing'
 import { Route as AlgebraImport } from './routes/algebra'
 import { Route as IndexImport } from './routes/index'
@@ -42,6 +47,11 @@ const StudentdashboardRoute = StudentdashboardImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const StudentdashboardRoute = StudentdashboardImport.update({
+  path: '/student_dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const StatisticsRoute = StatisticsImport.update({
   path: '/statistics',
   getParentRoute: () => rootRoute,
@@ -52,8 +62,23 @@ const SignupRoute = SignupImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
+const ResourcesRoute = ResourcesImport.update({
+  path: '/resources',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PastpapersRoute = PastpapersImport.update({
+  path: '/pastpapers',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const NumbersoperationsRoute = NumbersoperationsImport.update({
   path: '/numbers&operations',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MysubjectsRoute = MysubjectsImport.update({
+  path: '/my_subjects',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -94,6 +119,11 @@ const EventsRoute = EventsImport.update({
 
 const DashboardRoute = DashboardImport.update({
   path: '/dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const ContentRoute = ContentImport.update({
+  path: '/content',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -168,6 +198,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BillingImport
       parentRoute: typeof rootRoute
     }
+    '/content': {
+      preLoaderRoute: typeof ContentImport
+      parentRoute: typeof rootRoute
+    }
     '/dashboard': {
       preLoaderRoute: typeof DashboardImport
       parentRoute: typeof rootRoute
@@ -200,8 +234,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MysubjectsImport
       parentRoute: typeof rootRoute
     }
+    '/my_subjects': {
+      preLoaderRoute: typeof MysubjectsImport
+      parentRoute: typeof rootRoute
+    }
     '/numbers&operations': {
       preLoaderRoute: typeof NumbersoperationsImport
+      parentRoute: typeof rootRoute
+    }
+    '/pastpapers': {
+      preLoaderRoute: typeof PastpapersImport
+      parentRoute: typeof rootRoute
+    }
+    '/resources': {
+      preLoaderRoute: typeof ResourcesImport
       parentRoute: typeof rootRoute
     }
     '/signup': {
@@ -240,10 +286,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TopicidSubtopicsImport
       parentRoute: typeof rootRoute
     }
-    '/events/$event_id': {
-      preLoaderRoute: typeof EventsEventidImport
-      parentRoute: typeof rootRoute
-    }
     '/progress_page/$user_id': {
       preLoaderRoute: typeof ProgresspageUseridImport
       parentRoute: typeof rootRoute
@@ -257,6 +299,7 @@ export const routeTree = rootRoute.addChildren([
   IndexRoute,
   AlgebraRoute,
   BillingRoute,
+  ContentRoute,
   DashboardRoute,
   EventsRoute,
   GeometryRoute,
@@ -265,7 +308,10 @@ export const routeTree = rootRoute.addChildren([
   MathematicsRoute,
   MeasuresRoute,
   MysubjectsRoute,
+  MysubjectsRoute,
   NumbersoperationsRoute,
+  PastpapersRoute,
+  ResourcesRoute,
   SignupRoute,
   StatisticsRoute,
   StudentdashboardRoute,
@@ -275,7 +321,6 @@ export const routeTree = rootRoute.addChildren([
   SubjectidStartexamRoute,
   TopicidStarttestRoute,
   TopicidSubtopicsRoute,
-  EventsEventidRoute,
   ProgresspageUseridRoute,
 ])
 

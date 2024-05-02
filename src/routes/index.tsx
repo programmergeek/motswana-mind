@@ -10,6 +10,12 @@ import { TypeAnimation } from 'react-type-animation';
 import { Link } from "@tanstack/react-router";
 import { createFileRoute } from "@tanstack/react-router";
 import { Check, X, ArrowRight } from "lucide-react";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion"
 
 export const Route = createFileRoute("/")({
   component: Index,
@@ -88,23 +94,75 @@ export default function Index() {
           </div>
         </section>
 
-        <section className="flex flex-col w-full justify-center items-center pt-20">
+        <section className="flex flex-col justify-center items-center pt-20">
           <img 
           src="/what-we-offer.PNG"
           className="h-[140px] w-[500px]"/>
-          <span className="text-[25px]">
+          <span className="text-2xl mb-16">
             A world of resources catered to the Motswana child
           </span>
+
+          <div className="flex flex-row gap-5 mx-5">
+            <div className="flex gap-3 bg-[#f1f1f1] rounded-3xl p-7 ">
+              <img 
+                src="./online-lesson.png"
+                className="size-20"
+              />
+              <p className="text-2xl py-5 pr-10">Lessons</p>
+            </div>
+            <div className="flex gap-3 bg-[#f1f1f1] rounded-3xl p-7">
+              <img 
+                src="./quiz.png"
+                className="size-20"
+              />
+              <p className="text-2xl py-5 pr-10">Quizzes</p>
+            </div>
+            <div className="flex gap-3 bg-[#f1f1f1] rounded-3xl p-7">
+              <img 
+                  src="./workshop.png"
+                  className="size-20"
+                />
+              <p className="text-2xl py-5">Educational events</p>
+            </div>
+            <div className="flex gap-3 bg-[#f1f1f1] rounded-3xl p-7">
+              <img 
+                  src="./documents.png"
+                  className="size-20"
+                />
+              <p className="text-2xl py-5">Past papers</p>
+            </div>
+            <div className="flex gap-3 bg-[#f1f1f1] rounded-3xl p-7">
+              <img 
+                  src="./bulb.png"
+                  className="size-20"
+                />
+              <p className="text-2xl py-5">Exam tips & Study guides</p>
+            </div>
+          </div>
           
+        </section>
+
+        <section className="h-[550px] bg-[url('/gradient-bg.png')] bg-no-repeat bg-cover rounded-[50px] shadow-2xl mx-28 mt-32 mb-20">
+          <div className="flex flex-col justify-center items-center text-white pt-44">
+          <p className="font-playfair text-5xl font-semibold">
+            Upcoming Events!!!
+          </p>
+          <p className="px-12 py-10 mx-60 font-della text-lg text-center lg:text-xl">
+            Motswana Mind hosts educational events that you would not
+            want to miss out. Skip the FOMO and join us at one these
+            exciting events.
+          </p>
+          <Button className="w-fit font-della bg-accent">View all</Button>
+          </div>
         </section>
 
         <section className="h-[450px] bg-[#D9D9D9] mt-32">
           <div className="flex flex-col justify-center items-center py-10">
           <div className="text-center">
-            <p className="pb-5 font-playfair text-[60px] font-semibold">
+            <p className="mt-10 pb-7 font-playfair text-5xl font-semibold">
               Pricing
             </p>
-            <p className="text-[25px] pb-5">
+            <p className="text-2xl pb-5">
               Get full access with our affordable payment plans
             </p>
           </div>
@@ -175,16 +233,31 @@ export default function Index() {
           </div>
           </div>
         </section>
-        <section className="py-10 xl:px-64 mt-64">
-          <div className="grid min-h-64 w-full grid-cols-1 gap-10 rounded-[50px] bg-gray px-10 py-16 2xl:container sm:grid-cols-2 md:px-36 lg:px-32 lg:py-24 2xl:grid-cols-3">
-            <div className="flex gap-3">
+
+        <div className="bg-opacity-10 backdrop-blur-md rounded-lg p-4 bg-white mt-72 pt-28 pb-28">
+          <div className="flex flex-col justify-center items-center">
+          <p className="pb-16 font-playfair text-5xl font-semibold">Explore subjects offered</p>
+          <p className="text-2xl text-center pb-16 mx-44">From squares and circles, to adding and multipying, rounding off, calculating the mean 
+            of a data set, to learning how to draw a pie chart, being able tell what time it is 
+            telling what the probability of an event happening to calculating what the percentage increase
+            or decrease is. An adveture waiting to be undertaken.
+          </p>
+          </div>
+        <Accordion type="single" collapsible className="w-full px-72">
+      <AccordionItem value="item-1">
+        <AccordionTrigger>
+        <div className="flex gap-3">
               <img src="/icons/numbers.png" alt="Numbers" className="h-10" />
-              <div>
+              
                 <p className="text-xl">
                   <span className="font-bold">Chapter 1</span> Numbers &
                   Operations
                 </p>
-                <ul className="mt-5 flex flex-col gap-2 pl-5 font-medium">
+              
+        </div>
+        </AccordionTrigger>
+        <AccordionContent>
+               <ul className="mt-5 flex flex-col gap-2 pl-5 font-medium">
                   <li>1.1 Whole Numbers</li>
                   <li>1.2 Directed Numbers</li>
                   <li>1.3 Number Operations</li>
@@ -194,32 +267,42 @@ export default function Index() {
                   <li>1.7 Rates and Ratios</li>
                   <li>1.8 Money</li>
                 </ul>
-              </div>
-            </div>
-            <div className="flex gap-3">
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-2">
+        <AccordionTrigger>
+        <div className="flex gap-3">
               <img src="/icons/geometry.png" alt="Geometry" className="h-10" />
-              <div className="">
+              
                 <p className="text-xl">
                   <span className="font-bold">Chapter 2</span> Geometry
                 </p>
+        </div>
+        </AccordionTrigger>
+        <AccordionContent>
                 <ul className="mt-5 flex flex-col gap-2 pl-5 font-medium">
                   <li>2.1 Angles</li>
                   <li>2.2 Polygons</li>
                   <li>2.3 Transformations</li>
                   <li>2.4 Coordinate Geometry</li>
                 </ul>
-              </div>
-            </div>
-            <div className="flex gap-3">
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-3">
+        <AccordionTrigger>
+        <div className="flex gap-3">
               <img
                 src="/icons/measuring-tape.png"
                 alt="measuring tape"
                 className="h-10"
               />
-              <div>
+             
                 <p className="text-xl">
                   <span className="font-bold">Chapter 3</span> Measures
                 </p>
+        </div>
+        </AccordionTrigger>
+        <AccordionContent>
                 <ul className="mt-5 flex flex-col gap-2 pl-5 font-medium">
                   <li>3.1 Length</li>
                   <li>3.2 Area</li>
@@ -227,52 +310,50 @@ export default function Index() {
                   <li>3.4 Volume</li>
                   <li>3.5 Time</li>
                 </ul>
-              </div>
-            </div>
-            <div className="flex gap-3">
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-4">
+        <AccordionTrigger>
+        <div className="flex gap-3">
               <img
                 src="/icons/analytics.png"
                 alt="Analytics"
                 className="h-10"
               />
-              <div>
+              
                 <p className="text-xl">
                   <span className="font-bold">Chapter 4</span> Statistics
                 </p>
+        </div>
+        </AccordionTrigger>
+        <AccordionContent>
                 <ul className="mt-5 flex flex-col gap-2 pl-5 font-medium">
                   <li>4.1 Graph</li>
                   <li>4.2 Measures of central tendency</li>
                   <li>4.3 Data collection and manipulation</li>
                   <li>4.4 Probability</li>
                 </ul>
-              </div>
-            </div>
-            <div className="flex gap-3">
+        </AccordionContent>
+      </AccordionItem>
+      <AccordionItem value="item-5">
+        <AccordionTrigger>
+        <div className="flex gap-3">
               <img src="/icons/graph.png" alt="Graph" className="h-10" />
-              <div>
+              
                 <p className="text-xl">
                   <span className="font-bold">Chapter 5</span> Algebra
                 </p>
+          </div>
+        </AccordionTrigger>
+        <AccordionContent>
                 <ul className="mt-5 flex flex-col gap-2 pl-5 font-medium">
                   <li>5.1 Algebra</li>
                 </ul>
-              </div>
-            </div>
-          </div>
-        </section>  
-        <section className="h-[550px] bg-[url('/gradient-bg.png')] bg-no-repeat bg-cover rounded-[50px] shadow-2xl mx-40 mt-20 mb-20">
-          <div className="flex flex-col justify-center items-center text-white pt-44">
-          <p className="font-playfair text-[60px] font-semibold">
-            Upcoming Events!!!
-          </p>
-          <p className="px-12 py-10 mx-60 font-della text-lg text-center lg:text-xl">
-            Motswana Mind hosts educational events that you would not
-            want to miss out. Skip the FOMO and join us at one these
-            exciting events.
-          </p>
-          <Button className="w-fit font-della bg-accent">View all</Button>
-          </div>
-        </section>
+        </AccordionContent>
+      </AccordionItem>
+    </Accordion>
+    
+        </div>
       </div>
     </Layout>
   );

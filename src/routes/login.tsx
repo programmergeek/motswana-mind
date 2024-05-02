@@ -5,9 +5,6 @@
  */
 
 import { createFileRoute } from "@tanstack/react-router";
-import useAuth from "../hooks/useAuth.tsx";
-import Dashboard from "./dashboard.tsx"
-import Index from "./index.tsx"
 
 /**
  * Login component.
@@ -33,13 +30,7 @@ export const Route = createFileRoute("/login")({
  * @returns {JSX.Element} The rendered Sign in component.
  */
 export function SignIn(){
-
-  const isLogin = useAuth();
-  return isLogin ? <Dashboard/> : <Index />;
-}
-
-export function  SignOut(){
-  
+  return window.location.href = 'http://10.0.19.248:8888/login';
 }
 
 
