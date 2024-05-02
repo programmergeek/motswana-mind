@@ -20,7 +20,7 @@ const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
 
   return (
     <Layout>
-      <div className="bg-[url(/Backgroud.png)]">
+      <div className=" bg-[url(/Backgroud.png)] px-5">
         {!(events.isFetching || events.isPending) ? (
           <div className="py-10">
             <Events events={events.data as Event[]} />
@@ -35,7 +35,7 @@ const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
 
 const Events: React.FC<{ events: Event[] }> = ({ ...props }) => {
   return (
-    <Masonry columnsCount={3} gutter="10px">
+    <Masonry columnsCount={3} gutter="16px">
       {props.events.map((event) => {
         return <EventCard key={event.id} {...event} />;
       })}

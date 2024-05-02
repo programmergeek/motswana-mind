@@ -48,8 +48,40 @@ const EventPage: React.FC = () => {
                     )}
                   </span>
                 </p>
-                <p className="py-3">{eventdata.data.description}</p>
+                <div className="py-3">
+                  {JSON.stringify(eventdata.data.description)
+                    .split("\\n")
+                    .map((line, index) => (
+                      <p key={index} className="pb-1">
+                        {`${line.replace(/(\\"|")/g, "")}`}
+                      </p>
+                    ))}
+                </div>
               </div>
+              {eventdata.data.Instructors &&
+              eventdata.data.Instructors.FirstName ? (
+                <div className="p-5">
+                  <p className="py-2 text-2xl font-semibold">
+                    Instructor Profile
+                  </p>
+                  <p className="py-2 text-lg font-semibold">
+                    {" "}
+                    {eventdata.data.Instructors.FirstName}{" "}
+                    {eventdata.data.Instructors.LastName}{" "}
+                  </p>
+                  {JSON.stringify(
+                    eventdata.data.Instructors.InstructorDescription,
+                  )
+                    .split("\\n")
+                    .map((line, index) => (
+                      <p key={index} className="pb-1">
+                        {`${line.replace(/(\\"|")/g, "")}`}
+                      </p>
+                    ))}
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="relative">
               <div className="sticky top-52 min-w-36 rounded-lg bg-white p-5 shadow-lg">
