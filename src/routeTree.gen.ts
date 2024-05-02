@@ -11,14 +11,24 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as StatisticsImport } from './routes/statistics'
+import { Route as SignupImport } from './routes/signup'
+import { Route as SelectsubjectsImport } from './routes/select_subjects'
+import { Route as PaymentreceiptImport } from './routes/paymentreceipt'
+import { Route as NumbersoperationsImport } from './routes/numbers&operations'
 import { Route as MysubjectsImport } from './routes/my_subjects'
+import { Route as MeasuresImport } from './routes/measures'
+import { Route as MathematicsImport } from './routes/mathematics'
 import { Route as LoginImport } from './routes/login'
+import { Route as LearnImport } from './routes/learn'
+import { Route as GeometryImport } from './routes/geometry'
+import { Route as EventsImport } from './routes/events'
 import { Route as DashboardImport } from './routes/dashboard'
-import { Route as BillingImport } from './routes/billing'
 import { Route as AlgebraImport } from './routes/algebra'
 import { Route as IndexImport } from './routes/index'
 import { Route as ProgresspageUseridImport } from './routes/progress_page.$user_id'
 import { Route as EventsEventidImport } from './routes/events_.$event_id'
+import { Route as BillingTotalImport } from './routes/billing.$total'
 import { Route as TopicidSubtopicsImport } from './routes/$topic_id.sub_topics'
 import { Route as TopicidStarttestImport } from './routes/$topic_id.start_test'
 import { Route as SubjectidStartexamImport } from './routes/$subject_id.start_exam'
@@ -27,8 +37,43 @@ import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.s
 
 // Create/Update Routes
 
+const StatisticsRoute = StatisticsImport.update({
+  path: '/statistics',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SignupRoute = SignupImport.update({
+  path: '/signup',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SelectsubjectsRoute = SelectsubjectsImport.update({
+  path: '/select_subjects',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const PaymentreceiptRoute = PaymentreceiptImport.update({
+  path: '/paymentreceipt',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const NumbersoperationsRoute = NumbersoperationsImport.update({
+  path: '/numbers&operations',
+  getParentRoute: () => rootRoute,
+} as any)
+
 const MysubjectsRoute = MysubjectsImport.update({
   path: '/my_subjects',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MeasuresRoute = MeasuresImport.update({
+  path: '/measures',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const MathematicsRoute = MathematicsImport.update({
+  path: '/mathematics',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -37,13 +82,23 @@ const LoginRoute = LoginImport.update({
   getParentRoute: () => rootRoute,
 } as any)
 
-const DashboardRoute = DashboardImport.update({
-  path: '/dashboard',
+const LearnRoute = LearnImport.update({
+  path: '/learn',
   getParentRoute: () => rootRoute,
 } as any)
 
-const BillingRoute = BillingImport.update({
-  path: '/billing',
+const GeometryRoute = GeometryImport.update({
+  path: '/geometry',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const EventsRoute = EventsImport.update({
+  path: '/events',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const DashboardRoute = DashboardImport.update({
+  path: '/dashboard',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -64,6 +119,11 @@ const ProgresspageUseridRoute = ProgresspageUseridImport.update({
 
 const EventsEventidRoute = EventsEventidImport.update({
   path: '/events/$event_id',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const BillingTotalRoute = BillingTotalImport.update({
+  path: '/billing/$total',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -104,20 +164,56 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AlgebraImport
       parentRoute: typeof rootRoute
     }
-    '/billing': {
-      preLoaderRoute: typeof BillingImport
-      parentRoute: typeof rootRoute
-    }
     '/dashboard': {
       preLoaderRoute: typeof DashboardImport
+      parentRoute: typeof rootRoute
+    }
+    '/events': {
+      preLoaderRoute: typeof EventsImport
+      parentRoute: typeof rootRoute
+    }
+    '/geometry': {
+      preLoaderRoute: typeof GeometryImport
+      parentRoute: typeof rootRoute
+    }
+    '/learn': {
+      preLoaderRoute: typeof LearnImport
       parentRoute: typeof rootRoute
     }
     '/login': {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
+    '/mathematics': {
+      preLoaderRoute: typeof MathematicsImport
+      parentRoute: typeof rootRoute
+    }
+    '/measures': {
+      preLoaderRoute: typeof MeasuresImport
+      parentRoute: typeof rootRoute
+    }
     '/my_subjects': {
       preLoaderRoute: typeof MysubjectsImport
+      parentRoute: typeof rootRoute
+    }
+    '/numbers&operations': {
+      preLoaderRoute: typeof NumbersoperationsImport
+      parentRoute: typeof rootRoute
+    }
+    '/paymentreceipt': {
+      preLoaderRoute: typeof PaymentreceiptImport
+      parentRoute: typeof rootRoute
+    }
+    '/select_subjects': {
+      preLoaderRoute: typeof SelectsubjectsImport
+      parentRoute: typeof rootRoute
+    }
+    '/signup': {
+      preLoaderRoute: typeof SignupImport
+      parentRoute: typeof rootRoute
+    }
+    '/statistics': {
+      preLoaderRoute: typeof StatisticsImport
       parentRoute: typeof rootRoute
     }
     '/$sub_topic_id/start_exercise': {
@@ -140,6 +236,14 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TopicidSubtopicsImport
       parentRoute: typeof rootRoute
     }
+    '/billing/$total': {
+      preLoaderRoute: typeof BillingTotalImport
+      parentRoute: typeof rootRoute
+    }
+    '/events/$event_id': {
+      preLoaderRoute: typeof EventsEventidImport
+      parentRoute: typeof rootRoute
+    }
     '/progress_page/$user_id': {
       preLoaderRoute: typeof ProgresspageUseridImport
       parentRoute: typeof rootRoute
@@ -151,15 +255,27 @@ declare module '@tanstack/react-router' {
 
 export const routeTree = rootRoute.addChildren([
   IndexRoute,
-  BillingRoute,
+  AlgebraRoute,
   DashboardRoute,
+  EventsRoute,
+  GeometryRoute,
+  LearnRoute,
   LoginRoute,
+  MathematicsRoute,
+  MeasuresRoute,
   MysubjectsRoute,
+  NumbersoperationsRoute,
+  PaymentreceiptRoute,
+  SelectsubjectsRoute,
+  SignupRoute,
+  StatisticsRoute,
   SubtopicidStartexerciseRoute,
   SubjectidMytopicsRoute,
   SubjectidStartexamRoute,
   TopicidStarttestRoute,
   TopicidSubtopicsRoute,
+  BillingTotalRoute,
+  EventsEventidRoute,
   ProgresspageUseridRoute,
 ])
 

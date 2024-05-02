@@ -11,6 +11,9 @@ const stripe = loadStripe(
 
 const Billing: React.FC = () => {
 	const [clientSecret, setClientSecret] = useState('')
+	const {total} = Route.useParams()
+	let conv = parseInt(total)      // converting parameter total to a number
+	conv /= 70      // determine number of five dollars in pula
 
 	const retrieveClientSecret = async () => {
 		try {
@@ -18,10 +21,10 @@ const Billing: React.FC = () => {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ amount: 250 }),
+				body: JSON.stringify({ amount: (500 * conv) }),
 			})
-			.then((res) => res.json())
-			.then((data) => setClientSecret(data.clientSecret))
+				.then((res) => res.json())
+				.then((data) => setClientSecret(data.clientSecret))
 		} catch (error) {
 			console.error('Error:', error)
 		}
@@ -29,8 +32,7 @@ const Billing: React.FC = () => {
 
 	useEffect(() => {
 		retrieveClientSecret()
-  }, []);
-	
+	}, []);
 
 	const options = {
 		clientSecret,
@@ -39,7 +41,7 @@ const Billing: React.FC = () => {
 	return (
 		<div>
 			{clientSecret && (
-				<Elements stripe={ stripe } options={ options }>
+				<Elements stripe={stripe} options={options}>
 					<BillingForm />
 				</Elements>
 			)}
@@ -47,6 +49,6 @@ const Billing: React.FC = () => {
 	)
 };
 
-export const Route = createFileRoute("/billing")({
+export const Route = createFileRoute('/billing/$total')({
 	component: Billing,
 });
