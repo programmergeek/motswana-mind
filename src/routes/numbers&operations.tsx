@@ -2,6 +2,7 @@ import { createFileRoute } from '@tanstack/react-router'
 import Layout from "@/components/layouts/main";
 import { Button } from "@/components/ui/button";
 
+
 export const Route = createFileRoute('/numbers&operations')({
   component: Numop,
 })
@@ -38,14 +39,32 @@ function Numop() {
             </div>
 
             <div className="flex justify-center items-center pb-16">
-            <div className="outline h-[300px] w-[1000px] rounded-3xl shadow-2xl">
+            <div className="outline h-[400px] w-[1000px] rounded-3xl shadow-2xl">
                 <div className="bg-[#FF56C2] rounded-t-3xl p-4 border-b-black">
                     <p className="text-lg ml-3">
                         1.1 Whole numbers
                     </p>
                 </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/article.png"
+                        className="size-12"
+                    />
+                    <a href="/content" className="text-xl pt-2">Article</a>
+                </div>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/video-camera.png"
+                        className="size-12"
+                    />
+                    <a href="/content" className="text-xl pt-2">Video</a>
+                </div>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/quiz.png"
+                        className="size-12"
+                    />
+                    <a href="/$sub_topic_id/start_exercise" className="text-xl pt-2">Quiz</a>
                 </div>
             </div>
             </div>
@@ -57,8 +76,12 @@ function Numop() {
                         1.2 Directed numbers
                     </p>
                 </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/quiz.png"
+                        className="size-12"
+                    />
+                    <a href="/$sub_topic_id/start_exercise" className="text-xl pt-2">Quiz</a>
                 </div>
             </div>
             </div>
@@ -70,8 +93,12 @@ function Numop() {
                         1.3 Number operations
                     </p>
                 </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/quiz.png"
+                        className="size-12"
+                    />
+                    <a href="/$sub_topic_id/start_exercise" className="text-xl pt-2">Quiz</a>
                 </div>
             </div>
             </div>
@@ -83,8 +110,12 @@ function Numop() {
                         1.4 Fractions
                     </p>
                 </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/quiz.png"
+                        className="size-12"
+                    />
+                    <a href="/$sub_topic_id/start_exercise" className="text-xl pt-2">Quiz</a>
                 </div>
             </div>
             </div>
@@ -96,8 +127,12 @@ function Numop() {
                         1.5 Decimals
                     </p>
                 </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/quiz.png"
+                        className="size-12"
+                    />
+                    <a href="/$sub_topic_id/start_exercise" className="text-xl pt-2">Quiz</a>
                 </div>
             </div>
             </div>
@@ -109,8 +144,12 @@ function Numop() {
                         1.6 Percentages
                     </p>
                 </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/quiz.png"
+                        className="size-12"
+                    />
+                    <a href="/$sub_topic_id/start_exercise" className="text-xl pt-2">Quiz</a>
                 </div>
             </div>
             </div>
@@ -122,8 +161,12 @@ function Numop() {
                         1.7 Rates and Ratios
                     </p>
                 </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/quiz.png"
+                        className="size-12"
+                    />
+                    <a href="/$sub_topic_id/start_exercise" className="text-xl pt-2">Quiz</a>
                 </div>
             </div>
             </div>
@@ -135,8 +178,12 @@ function Numop() {
                         1.8 Money
                     </p>
                 </div>
-                <div className="mt-10 ml-12">
-                    <p>Quiz</p>
+                <div className="mt-10 ml-12 flex gap-5">
+                    <img
+                        src="/quiz.png"
+                        className="size-12"
+                    />
+                    <a href="/$sub_topic_id/start_exercise" className="text-xl pt-2">Quiz</a>
                 </div>
             </div>
             </div>

@@ -74,7 +74,6 @@ function ProgressPage(){
 
 
     return(
-        <Layout>
             <div className="flex pt-10 bg-[url(/pattern.jpeg)] bg-cover">
                 <Card className="container mx-auto px-4 py-12 md:px-6 lg:px-8 w-[70%] bg-white my-10">
                     <div className="mb-8">
@@ -102,6 +101,7 @@ function ProgressPage(){
                     </div>
                 </Card>
             </div>
-        </Layout>
     );
 }
+
+export default ProgressPage;

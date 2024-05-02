@@ -8,7 +8,7 @@ const Footer: React.FC = () => {
         <p className="pt-5 text-3xl font-bold xl:w-full">
           Let's explore{" "}
           <span className="font-finger-paint font-normal">
-            Number & Operations
+            Mathematics
           </span>{" "}
           together
         </p>

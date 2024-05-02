@@ -7,7 +7,6 @@ Purpose: This file is used to create the subjects page for the user to view the 
 import { Link, createFileRoute } from '@tanstack/react-router'
 import { useEffect, useState } from 'react';
 import axios from 'axios';
-import Layout from "@/components/layouts/main";
 
 // interface to store subjects
 interface Subject {
@@ -40,7 +39,7 @@ function Subjects() {
     };
 
     return (
-        <Layout>
+        
             <div>
                 {/* Display subjects */}
                 <h1>Subjects</h1>
@@ -54,6 +53,8 @@ function Subjects() {
                 ))}
             </div>
 
-        </Layout>
+        
     );
 }
+
+export default Subjects;
