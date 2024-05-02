@@ -4,6 +4,12 @@
 // import { PaymentElement, LinkAuthenticationElement, useElements, useStripe } from '@stripe/react-stripe-js'
 // import { Button } from '@/components/ui/button'
 
+import { LinkAuthenticationElement, PaymentElement, useElements, useStripe } from "@stripe/react-stripe-js";
+import Layout from "../layouts/main";
+import { Button } from "../ui/button";
+import { Link } from "@tanstack/react-router";
+import { useState } from "react";
+
 /* billing-form component */
 const BillingForm: React.FC = () => {
 	const [loading, setLoading] = useState(false)
@@ -146,4 +152,4 @@ const BillingForm: React.FC = () => {
 	)
 };
 
-// // export default BillingForm */
+ export default BillingForm 

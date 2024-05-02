@@ -122,9 +122,8 @@ function ProgressPage(){
                     </div>
                 </Card>
             </div>
+            </Layout>
     );
 }
-
-export default ProgressPage;
 
 export default ProgressPage;
