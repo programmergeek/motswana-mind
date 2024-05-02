@@ -16,7 +16,7 @@ const EventPage: React.FC = () => {
     queryKey: ["event", event_id],
     queryFn: async () => {
       const data = await axios.get<Event>(
-        `http://10.0.19.248:3081/api/events/${event_id}`,
+        `http://0.0.0.0:3081/api/events/${event_id}`,
       );
       return data.data;
     },
@@ -24,10 +24,10 @@ const EventPage: React.FC = () => {
 
   return (
     <Layout>
-      <div className="grid px-2 mt-10 grid-cols-1 md:grid-cols-2 lg:grid-cols-[65%_auto] gap-5 bg-[url(/Backgroud.png)] xl:mt-10 xl:px-10 xl:pt-10 pb-10">
+      <div className="mt-10 grid grid-cols-1 gap-5 bg-[url(/Backgroud.png)] px-2 pb-10 md:grid-cols-2 lg:grid-cols-[65%_auto] xl:mt-10 xl:px-10 xl:pt-10">
         {eventdata.data ? (
           <>
-            <div className=" border border-black rounded-lg bg-white">
+            <div className=" rounded-lg border border-black bg-white">
               <img
                 src={eventdata.data?.thumbnail ?? Math}
                 alt="event thumbnail"
@@ -48,8 +48,40 @@ const EventPage: React.FC = () => {
                     )}
                   </span>
                 </p>
-                <p className="py-3">{eventdata.data.description}</p>
+                <div className="py-3">
+                  {JSON.stringify(eventdata.data.description)
+                    .split("\\n")
+                    .map((line, index) => (
+                      <p key={index} className="pb-1">
+                        {`${line.replace(/(\\"|")/g, "")}`}
+                      </p>
+                    ))}
+                </div>
               </div>
+              {eventdata.data.Instructors &&
+              eventdata.data.Instructors.FirstName ? (
+                <div className="p-5">
+                  <p className="py-2 text-2xl font-semibold">
+                    Instructor Profile
+                  </p>
+                  <p className="py-2 text-lg font-semibold">
+                    {" "}
+                    {eventdata.data.Instructors.FirstName}{" "}
+                    {eventdata.data.Instructors.LastName}{" "}
+                  </p>
+                  {JSON.stringify(
+                    eventdata.data.Instructors.InstructorDescription,
+                  )
+                    .split("\\n")
+                    .map((line, index) => (
+                      <p key={index} className="pb-1">
+                        {`${line.replace(/(\\"|")/g, "")}`}
+                      </p>
+                    ))}
+                </div>
+              ) : (
+                ""
+              )}
             </div>
             <div className="relative">
               <div className="sticky top-52 min-w-36 rounded-lg bg-white p-5 shadow-lg">

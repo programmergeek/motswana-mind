@@ -6,12 +6,13 @@ import axios from "axios";
 import { format } from "date-fns";
 import { Calendar } from "lucide-react";
 import Math from "../../public/math thumbnail.png";
+import Masonry from "react-responsive-masonry";
 
 const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
   const events = useQuery({
     queryKey: ["events"],
     queryFn: async () => {
-      const data = await axios.get<Event[]>(`http://10.0.19.248:3081/api/events`);
+      const data = await axios.get<Event[]>(`http://0.0.0.0:3081/api/events`);
       console.log(data.data);
       return data.data;
     },
@@ -19,7 +20,7 @@ const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
 
   return (
     <Layout>
-      <div className="min-h-screen bg-[url(/Backgroud.png)]">
+      <div className=" bg-[url(/Backgroud.png)] px-5">
         {!(events.isFetching || events.isPending) ? (
           <div className="py-10">
             <Events events={events.data as Event[]} />
@@ -34,34 +35,30 @@ const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
 
 const Events: React.FC<{ events: Event[] }> = ({ ...props }) => {
   return (
-    <div className="container grid grid-cols-3">
+    <Masonry columnsCount={3} gutter="16px">
       {props.events.map((event) => {
         return <EventCard key={event.id} {...event} />;
       })}
-    </div>
+    </Masonry>
   );
 };
 
 const EventCard: React.FC<Event> = ({ ...props }) => {
   return (
     <div className="">
-      {props.thumbnail ? (
-        <img
-          src={props.thumbnail ? props.thumbnail : Math}
-          alt="event thumbnail"
-          className="rounded-t-2xl"
-        />
-      ) : (
-        ""
-      )}
-      <div className="space-y-3 border bg-black px-8 py-8 text-white">
+      <img
+        src={props.thumbnail ? props.thumbnail : Math}
+        alt="event thumbnail"
+        className="rounded-t-2xl"
+      />
+      <div className="space-y-3 rounded-b-lg bg-[#57C28D] px-4 py-5 text-white shadow-lg">
         <p className="text-center font-inter text-2xl font-semibold">
           {" "}
           {props.title}{" "}
         </p>
         <div className="space-y-2 pb-5">
-          <p className="text-center">{props.location}</p>{" "}
-          <p className="flex justify-center gap-2 text-[#1E88E5]">
+          <p className="text-center font-semibold">{props.location}</p>{" "}
+          <p className="flex justify-center gap-2 font-semibold text-[#C0FCF9]">
             <span>
               <Calendar />
             </span>
@@ -71,11 +68,11 @@ const EventCard: React.FC<Event> = ({ ...props }) => {
         <div className="flex gap-3">
           <Link
             to={`/events/$event_id`}
-            params={{ event_id: props.id as unknown as string }}
+            params={{ event_id: String(props.id) }}
           >
             <Button className="bg-black">View Event</Button>
           </Link>
-          <Link to="/billing">
+          <Link to="/billing" className="w-full">
             <Button className="w-full rounded-lg bg-[#029390] font-inter font-semibold hover:bg-[#029390]/90">
               Buy Ticket
             </Button>
