@@ -8,4 +8,11 @@ export interface Event {
   capacity: number;
   price: number;
   thumbnail?: string;
+  Instructors?: Instructor;
+}
+
+export interface Instructor {
+  FirstName?: string;
+  LastName?: string;
+  InstructorDescription?: string;
 }
