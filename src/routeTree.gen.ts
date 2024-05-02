@@ -11,6 +11,7 @@
 // Import Routes
 
 import { Route as rootRoute } from './routes/__root'
+import { Route as StudentdashboardImport } from './routes/student_dashboard'
 import { Route as StatisticsImport } from './routes/statistics'
 import { Route as SignupImport } from './routes/signup'
 import { Route as NumbersoperationsImport } from './routes/numbers&operations'
@@ -35,6 +36,11 @@ import { Route as SubtopicidStartexerciseImport } from './routes/$sub_topic_id.s
 import { Route as SubtopicidContentImport } from './routes/$sub_topic_id.content'
 
 // Create/Update Routes
+
+const StudentdashboardRoute = StudentdashboardImport.update({
+  path: '/student_dashboard',
+  getParentRoute: () => rootRoute,
+} as any)
 
 const StatisticsRoute = StatisticsImport.update({
   path: '/statistics',
@@ -206,6 +212,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof StatisticsImport
       parentRoute: typeof rootRoute
     }
+    '/student_dashboard': {
+      preLoaderRoute: typeof StudentdashboardImport
+      parentRoute: typeof rootRoute
+    }
     '/$sub_topic_id/content': {
       preLoaderRoute: typeof SubtopicidContentImport
       parentRoute: typeof rootRoute
@@ -258,6 +268,7 @@ export const routeTree = rootRoute.addChildren([
   NumbersoperationsRoute,
   SignupRoute,
   StatisticsRoute,
+  StudentdashboardRoute,
   SubtopicidContentRoute,
   SubtopicidStartexerciseRoute,
   SubjectidMytopicsRoute,

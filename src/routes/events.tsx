@@ -100,3 +100,5 @@ interface Event {
 export const Route = createFileRoute("/events")({
   component: EventsPage,
 });
+
+export default EventsPage;

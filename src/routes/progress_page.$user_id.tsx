@@ -48,7 +48,7 @@ function ProgressPage(){
             setResults(responseData);
             //console.log(responseData);
         } catch (error) {
-            console.error('Error fetching questions:', error);
+            console.error('Error fetching results:', error);
         }
     };
 
@@ -125,3 +125,5 @@ function ProgressPage(){
         </Layout>
     );
 }
+
+export default ProgressPage;
