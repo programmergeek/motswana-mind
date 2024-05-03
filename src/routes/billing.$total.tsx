@@ -12,12 +12,13 @@ const stripe = loadStripe(
 const Billing: React.FC = () => {
 	const [clientSecret, setClientSecret] = useState('')
 	const {total} = Route.useParams()
+	console.log(total)
 	let conv = parseInt(total)      // converting parameter total to a number
 	conv /= 70      // determine number of five dollars in pula
 
 	const retrieveClientSecret = async () => {
 		try {
-			const response = await fetch('http://localhost:4242/create-payment-intent', {
+			const response = await fetch('http://10.0.19.248:4242/create-payment-intent', {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
@@ -42,7 +43,7 @@ const Billing: React.FC = () => {
 		<div>
 			{clientSecret && (
 				<Elements stripe={stripe} options={options}>
-					<BillingForm />
+					<BillingForm total={total} />
 				</Elements>
 			)}
 		</div>

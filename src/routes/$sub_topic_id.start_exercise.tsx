@@ -76,7 +76,7 @@ function Quiz() {
 	// fetch questions from the database for the exercise
 	const fetchQuestions = async () => {
 		try {
-			const response = await axios.get(`http://localhost:3333/questions/exercise/${sub_topic_id}`);
+			const response = await axios.get(`http://10.0.19.248:3333/questions/exercise/${sub_topic_id}`);
 			const responseData = response.data as Question[];
 			setQuestions(responseData); // set the questions
 		} catch (error) {
@@ -87,7 +87,7 @@ function Quiz() {
 	// fetch the sub topic name
 	const fetchSubTopicName = async () => {
 		try {
-			const response = await axios.get(`http://localhost:3333/sub_topic/name/${sub_topic_id}`);
+			const response = await axios.get(`http://10.0.19.248:3333/sub_topic/name/${sub_topic_id}`);
 			const responseData = response.data;
 			setSubTopicName(responseData[0].sub_topic_name); // set the sub topic name
 			// console.log(subTopicName);
@@ -121,7 +121,7 @@ function Quiz() {
 	// function to save assessment details on DB
 	const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
         try {
-            const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
+            const response: AxiosResponse<void> = await axios.post<void>('http://10.0.19.248:3333/assessment_results', quizResults);
         } catch (error) {
             console.error('Error submitting quiz results:', error);
             throw error;
@@ -198,7 +198,7 @@ function Quiz() {
 					<Card className="w-7/12 max-w-6xl mx-auto my-14 bg-gray-200">
 						<CardHeader className="mb-4 md:mb-6">
 							<div className="flex justify-between items-center">
-								<h2 className="ml-2 text-2xl md:text-2xl font-bold">{subTopicName} Exercise</h2>
+								<h2 className="ml-2 text-2xl md:text-2xl font-bold">{subTopicName}</h2>
 							</div>
 						</CardHeader>
 						<CardContent className=" flex grid-cols-1 md:grid-cols-3 md:gap-6">

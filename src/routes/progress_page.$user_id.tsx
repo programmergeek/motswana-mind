@@ -43,7 +43,7 @@ function ProgressPage(){
     // function to fetch results from DB
     const fetchResults = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/progress/${user_id}`);
+            const response = await axios.get(`http://10.0.19.248:3333/progress/${user_id}`);
             const responseData = response.data as Result[]; // Type assertion
             setResults(responseData);
             //console.log(responseData);
@@ -55,7 +55,7 @@ function ProgressPage(){
     // function to fetch user's fullname by their user id
     const fetchUserName = async () => {
     	try {
-    		const response = await axios.get(`http://localhost:3333/users/name/${user_id}`);
+    		const response = await axios.get(`http://10.0.19.248:3333/users/name/${user_id}`);
     		const responseData = response.data;
     		setUsersName(responseData[0].fullname);
     	} catch (error) {
@@ -66,7 +66,7 @@ function ProgressPage(){
     // function to fetch user's average score
     const fetchAverageScore = async () => {
     	try {
-    		const response = await axios.get(`http://localhost:3333/average_score/${user_id}`);
+    		const response = await axios.get(`http://10.0.19.248:3333/average_score/${user_id}`);
     		const responseData = response.data;
     		setAverageScore(Math.round(responseData[0].avg));
     	} catch (error) {
@@ -102,7 +102,7 @@ function ProgressPage(){
                                             <p className="text-gray-500 dark:text-gray-400">{result.assessment_type}</p>
                                         </div>
                                         <div className="text-right">
-                                            <p className="text-xl font-bold text-black-600 dark:text-black-400">{result.score}</p>
+                                            <p className="text-xl font-bold text-black-600 dark:text-black-400">{result.score}%</p>
                                             <p className="text-gray-500 dark:text-gray-400">{formatDate(result.date_taken)}</p>
                                         </div>
                                     </div>
@@ -115,7 +115,7 @@ function ProgressPage(){
                                     <h3 className="text-lg font-semibold text-black-600 dark:text-black-400">Student's Average Score:</h3>
                                 </div>
                                 <div className="text-right">
-                                    <p className="text-2xl font-bold text-black-600 dark:text-black-400">{averageScore}</p>                
+                                    <p className="text-2xl font-bold text-black-600 dark:text-black-400">{averageScore}%</p>                
                                 </div>
                             </div>
                         </div>

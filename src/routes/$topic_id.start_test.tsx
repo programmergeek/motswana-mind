@@ -75,7 +75,7 @@ function Quiz() {
     // function to retrieve questions
     const fetchQuestions = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/questions/test/${topic_id}`);
+            const response = await axios.get(`http://10.0.19.248:3333/questions/test/${topic_id}`);
             const responseData = response.data as Question[]; // Type assertion
             setQuestions(responseData);
             //console.log(responseData);
@@ -87,7 +87,7 @@ function Quiz() {
     // function to retrieve topic name by topic id
     const fetchTopicName = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/topic/name/${topic_id}`);
+            const response = await axios.get(`http://10.0.19.248:3333/topic/name/${topic_id}`);
             const responseData = response.data;
             setTopicName(responseData[0].topic_name);
             //console.log(topicName);
@@ -140,7 +140,7 @@ function Quiz() {
     // function to submit quiz results to db
     const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
         try {
-            const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
+            const response: AxiosResponse<void> = await axios.post<void>('http://10.0.19.248:3333/assessment_results', quizResults);
             // Optionally, you can return any data received from the server
         } catch (error) {
             console.error('Error submitting quiz results:', error);
@@ -163,7 +163,7 @@ function Quiz() {
             if (userAnswer !== null && correctOption && userAnswer === correctOption.option_id) {
                 userScore++;
             } else {
-                const response = await axios.get(`http://localhost:3333/sub_topic_name/question/${question.question_id}`);
+                const response = await axios.get(`http://10.0.19.248:3333/sub_topic_name/question/${question.question_id}`);
                 const subtopicName = response.data[0].sub_topic_name;
                 //console.log(response.data[0].sub_topic_name)
                 incorrectSubtopics.add(subtopicName);
@@ -243,7 +243,7 @@ function Quiz() {
                     <Card className="w-7/12 max-w-6xl mx-auto my-14 bg-gray-200">
                         <CardHeader className="mb-4 md:mb-6">
                             <div className="flex justify-between items-center">
-                                <h2 className="ml-2 text-2xl md:text-2xl font-bold">{topicName} Test</h2>
+                                <h2 className="ml-2 text-2xl md:text-2xl font-bold">{topicName}</h2>
                             </div>
                         </CardHeader>
                         <CardContent className=" flex grid-cols-1 md:grid-cols-3 md:gap-6">

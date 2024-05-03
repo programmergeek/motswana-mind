@@ -72,7 +72,7 @@ function Quiz() {
     // function to fetch questions from DB
     const fetchQuestions = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/questions/exam/${subject_id}`);
+            const response = await axios.get(`http://10.0.19.248:3333/questions/exam/${subject_id}`);
             const responseData = response.data as Question[]; // Type assertion
             setQuestions(responseData);
             //console.log(responseData);
@@ -84,7 +84,7 @@ function Quiz() {
     // function to fetch subject name by subject id
     const fetchSubjectName = async () => {
     	try {
-    		const response = await axios.get(`http://localhost:3333/subject/name/${subject_id}`);
+    		const response = await axios.get(`http://10.0.19.248:3333/subject/name/${subject_id}`);
     		const responseData = response.data;
     		setSubjectName(responseData[0].subject_name);
     		//console.log(topicName);
@@ -137,7 +137,7 @@ function Quiz() {
     // function to submit quiz results to DB
     const submitQuizResults = async (quizResults: QuizResults): Promise<void> => {
         try {
-            const response: AxiosResponse<void> = await axios.post<void>('http://localhost:3333/assessment_results', quizResults);
+            const response: AxiosResponse<void> = await axios.post<void>('http://10.0.19.248:3333/assessment_results', quizResults);
         } catch (error) {
             console.error('Error submitting quiz results:', error);
             throw error; 
@@ -229,7 +229,7 @@ function Quiz() {
                     <Card className="w-7/12 max-w-6xl mx-auto my-14 bg-gray-200">
                     <CardHeader className="mb-4 md:mb-6">
                         <div className="flex justify-between items-center">
-                            <h2 className="ml-2 text-2xl md:text-2xl font-bold">{subjectName} Examination</h2>
+                            <h2 className="ml-2 text-2xl md:text-2xl font-bold">{subjectName}</h2>
                         </div>
                     </CardHeader>
                     <CardContent className=" flex grid-cols-1 md:grid-cols-3 md:gap-6">

@@ -12,8 +12,10 @@ const PaymentReceipt: React.FC = () => {
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const pdfRef = useRef()
     const paid = 0
+    const email = '202006269@ub.ac.bw'
 
     let items = ''
+    let emailClicked = false
     let paymentDate = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
 
     const paymentId: any = new URLSearchParams(window.location.search).get(
@@ -36,6 +38,22 @@ const PaymentReceipt: React.FC = () => {
             pdf.save('Subscription Receipt.pdf')
         })
     };
+
+    const sendNotification = async (event: any) => {
+		try {
+			console.log('In sendNotification()')
+            emailClicked = true
+			await fetch('http://localhost:4242/send-notification', {
+				method: 'POST',
+				mode: 'cors',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ email: email }),
+			})
+				.then((res) => res.json())
+		} catch (error) {
+			console.error(error)
+		}
+	};
 
     // html
     return (
@@ -81,19 +99,16 @@ const PaymentReceipt: React.FC = () => {
 
                 {/* buttons */}
                 <div className=' my-5'>
-                    <Button className='bg-purple-700 mx-2' type='button'>
-                        <Link to='/'>
-                            Email
-                        </Link>
+                    <Button className='bg-purple-700 mx-2' disabled={emailClicked} onClick={sendNotification} type='button'>
+                        Email
                     </Button>
                     <Button className='bg-purple-700 mx-2' onClick={downloadPDF} type='button'>
-
                         Download PDF
                     </Button>
                     <Button className='bg-purple-700 mx-2' type='button'>
-                        {/* <Link to='/'> */}
-                        Proceed
-                        {/* </Link> */}
+                        <Link to='/learn'>
+                            Proceed
+                        </Link>
                     </Button>
                 </div>
             </main>

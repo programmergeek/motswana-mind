@@ -16,7 +16,7 @@ const EventPage: React.FC = () => {
     queryKey: ["event", event_id],
     queryFn: async () => {
       const data = await axios.get<Event>(
-        `http://0.0.0.0:3081/api/events/${event_id}`,
+        `http://10.0.19.248:3081/api/events/${event_id}`,
       );
       return data.data;
     },
@@ -90,7 +90,7 @@ const EventPage: React.FC = () => {
                     ? "Free"
                     : `P ${eventdata.data.price}`}
                 </p>
-                <Link to="/billing">
+                <Link to="/billing/$total" params={{total: String(eventdata.data.price)}}>
                   <Button className="w-full rounded-lg bg-[#029390] font-inter font-semibold hover:bg-[#029390]/90">
                     Buy Ticket
                   </Button>

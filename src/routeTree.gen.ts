@@ -22,6 +22,7 @@ import { Route as NumbersoperationsImport } from './routes/numbers&operations'
 import { Route as MysubjectsImport } from './routes/my_subjects'
 import { Route as MeasuresImport } from './routes/measures'
 import { Route as MathematicsImport } from './routes/mathematics'
+import { Route as LogoutImport } from './routes/logout'
 import { Route as LoginImport } from './routes/login'
 import { Route as LearnImport } from './routes/learn'
 import { Route as GeometryImport } from './routes/geometry'
@@ -94,6 +95,11 @@ const MeasuresRoute = MeasuresImport.update({
 
 const MathematicsRoute = MathematicsImport.update({
   path: '/mathematics',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const LogoutRoute = LogoutImport.update({
+  path: '/logout',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -218,6 +224,10 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof LoginImport
       parentRoute: typeof rootRoute
     }
+    '/logout': {
+      preLoaderRoute: typeof LogoutImport
+      parentRoute: typeof rootRoute
+    }
     '/mathematics': {
       preLoaderRoute: typeof MathematicsImport
       parentRoute: typeof rootRoute
@@ -312,6 +322,7 @@ export const routeTree = rootRoute.addChildren([
   GeometryRoute,
   LearnRoute,
   LoginRoute,
+  LogoutRoute,
   MathematicsRoute,
   MeasuresRoute,
   MysubjectsRoute,

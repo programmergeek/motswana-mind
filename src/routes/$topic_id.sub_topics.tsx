@@ -47,7 +47,7 @@ function SubTopicsPage() {
     // function to fetch sub topics by topic id
     const fetchSubTopicsByTopicId = async (topicId: string) => {
         try {
-            const response = await axios.get<Sub_Topic[]>(`http://localhost:3333/sub_topics/${topicId}`);
+            const response = await axios.get<Sub_Topic[]>(`http://10.0.19.248:3333/sub_topics/${topicId}`);
             //console.log('SubTopics data:', response.data);
             setSubtopics(response.data);
         } catch (error) {
@@ -57,7 +57,7 @@ function SubTopicsPage() {
 
     const fetchTopicName = async () => {
         try {
-            const response = await axios.get(`http://localhost:3333/topic_details/${topic_id}`);
+            const response = await axios.get(`http://10.0.19.248:3333/topic_details/${topic_id}`);
             const responseData = response.data;
             setTopicDetails(responseData[0]);
             console.log(responseData[0]);

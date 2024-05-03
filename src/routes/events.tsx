@@ -7,12 +7,13 @@ import { format } from "date-fns";
 import { Calendar } from "lucide-react";
 import Math from "../../public/math thumbnail.png";
 import Masonry from "react-responsive-masonry";
+import { Event } from "@/types/event.api.types";
 
 const EventsPage: React.FC<{ children: React.ReactNode }> = ({ ...props }) => {
   const events = useQuery({
     queryKey: ["events"],
     queryFn: async () => {
-      const data = await axios.get<Event[]>(`http://0.0.0.0:3081/api/events`);
+      const data = await axios.get<Event[]>(`http://10.0.19.248:3081/api/events`);
       console.log(data.data);
       return data.data;
     },
@@ -72,7 +73,7 @@ const EventCard: React.FC<Event> = ({ ...props }) => {
           >
             <Button className="bg-black">View Event</Button>
           </Link>
-          <Link to="/billing" className="w-full">
+          <Link to="/billing/$total" params={{total: String(props.price)}} className="w-full">
             <Button className="w-full rounded-lg bg-[#029390] font-inter font-semibold hover:bg-[#029390]/90">
               Buy Ticket
             </Button>
@@ -82,17 +83,6 @@ const EventCard: React.FC<Event> = ({ ...props }) => {
     </div>
   );
 };
-
-interface Event {
-  capacity: number;
-  description: string;
-  startTime: string;
-  endTime: string;
-  location: string;
-  title: string;
-  id: number;
-  thumbnail?: string;
-}
 
 export const Route = createFileRoute("/events")({
   component: EventsPage,

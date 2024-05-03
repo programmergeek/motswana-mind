@@ -11,14 +11,14 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 
 /* billing-form component */
-const BillingForm: React.FC = () => {
+const BillingForm: React.FC<{total: number}> = ({...props}) => {
 	const [loading, setLoading] = useState(false)
 	const [message, setMessage] = useState('')
 	const [isLoading, setIsLoading] = useState(false)
 
 	const stripe = useStripe()
 	const elements = useElements()
-	const [total, setTotal] = useState(0)
+	const [total, setTotal] = useState(props.total)
 
 	const [email, setEmail] = useState('')
 
@@ -47,21 +47,6 @@ const BillingForm: React.FC = () => {
 	//   }
 	// });
 
-	const sendNotification = async (event: any) => {
-		try {
-			console.log('In sendNotification()')
-			await fetch('http://localhost:4242/send-notification', {
-				method: 'POST',
-				mode: 'cors',
-				headers: { 'Content-Type': 'application/json' },
-				body: JSON.stringify({ email: email }),
-			})
-				.then((res) => res.json())
-		} catch (error) {
-			console.error(error)
-		}
-	};
-
 	const handlePayment = async (event: any) => {
 		console.log('In handlePayment()')
 
@@ -75,7 +60,7 @@ const BillingForm: React.FC = () => {
 		const { error } = await stripe.confirmPayment({
 			elements,
 			confirmParams: {
-				return_url: 'http://localhost:5173/receipt',      // payment completion page
+				return_url: 'http://10.0.19.248:5173/paymentreceipt',      // payment completion page
 			},
 		});
  
@@ -107,7 +92,6 @@ const BillingForm: React.FC = () => {
 					<h4 className='pb-5 text-center'>
 						Enter your payment details
 					</h4>
-					<section className='flex justify-between'>
 
 
 						{/* form */}
@@ -121,6 +105,13 @@ const BillingForm: React.FC = () => {
                 </div> */}
 
 								<PaymentElement id="payment-element" options={paymentElementOptions} />
+
+								{/* total */}
+							<div className='bg-white rounded-lg px-5 py-2 mt-5 mb-2 text-center'>
+								<p>
+									Total: P{total}.00
+								</p>
+							</div>
 
 								{/* <button disabled={isLoading || !stripe || !elements} id="submit">
                   <span id="button-text">
@@ -146,7 +137,6 @@ const BillingForm: React.FC = () => {
 						</div>
 
 					</section>
-				</section>
 			</main>
 		</Layout>
 	)

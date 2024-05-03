@@ -29,7 +29,7 @@ function VideoContent(){
 
     const contentDetails = async () => {
         try {
-            const response = await axios.get(`http://localhost:4444/content/${sub_topic_id}`);
+            const response = await axios.get(`http://10.0.19.248:4444/content/${sub_topic_id}`);
             const responseData = response.data as Content[]; // Type assertion
             console.log(responseData)
             setContent(response.data);

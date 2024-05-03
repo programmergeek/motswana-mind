@@ -111,6 +111,18 @@ const NavMenu: React.FC = () => {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
+                <Link to="/student_dashboard">
+                  <NavigationMenuLink
+                    asChild
+                    className={navigationMenuTriggerStyle()}
+                  >
+                    <p>
+                    Dashboard
+                    </p>
+                  </NavigationMenuLink>
+                </Link>
+              </NavigationMenuItem>
+              <NavigationMenuItem>
                 <Link to="/" className="text-black">
                   <NavigationMenuLink
                     asChild

@@ -223,7 +223,7 @@ export default function Index() {
                   </div>
                 </CardContent>
                 <CardFooter>
-                  <Link to="/billing" className="w-full rounded-[15px] bg-[#1E88E5] text-center text-base font-semibold">
+                  <Link to="/select_subjects" className="w-full rounded-[15px] bg-[#1E88E5] text-center text-base font-semibold">
                     <Button className="bg-[#1E88E5] rounded-[15px] w-full">
                       Sign up
                     </Button>

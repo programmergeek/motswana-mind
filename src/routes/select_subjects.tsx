@@ -10,37 +10,64 @@ import { Link } from '@tanstack/react-router'
 const SelectSubject: React.FC = () => {
 	const [total, setTotal] = useState(0)
 	let subjs: any = []
-
+	
+	console.log(subjs)
 	const pay = (event: any) => {
 		if (event) {
 			setTotal(total + 70)
 		} else {
 			setTotal(total - 70)
 		}
-		
+
 		// maths checkbox
-		// if (document.getElementById('mat')?.ariaChecked) {
-		// 	subjs.push(1)
-		// 	console.log(subjs)
-		// } else {			
-		// 	let index = subjs.indexOf(1)
-		// 	subjs.splice(index, 1)
-		// 	console.log('eles', subjs)
-		// }
 		if (document.getElementById('mat')?.ariaChecked == 'true') {
-			console.log('in')
+			subjs.push(1)
+		} else {			
+			let index = subjs.indexOf(1)
+			subjs.splice(index, 1)
 		}
 
 		// english language checkbox
-		// if (document.getElementById('eng') && event) {
-		// 	subjs.push(2)
-		// 	console.log(subjs)
-		// } else {			
-		// 	let index = subjs.indexOf(2)
-		// 	subjs.splice(index, 1)
-		// 	console.log(subjs)
-		// }
-	}
+		if (document.getElementById('eng')?.ariaChecked == 'true') {
+			subjs.push(2)
+		} else {			
+			let index = subjs.indexOf(2)
+			subjs.splice(index, 1)
+		}
+
+		// science language checkbox
+		if (document.getElementById('sci')?.ariaChecked == 'true') {
+			subjs.push(3)
+		} else {			
+			let index = subjs.indexOf(3)
+			subjs.splice(index, 1)
+		}
+
+		// agriculture language checkbox
+		if (document.getElementById('agr')?.ariaChecked == 'true') {
+			subjs.push(4)
+		} else {			
+			let index = subjs.indexOf(4)
+			subjs.splice(index, 1)
+		}
+
+		// religious language checkbox
+		if (document.getElementById('rel')?.ariaChecked == 'true') {
+			subjs.push(5)
+		} else {			
+			let index = subjs.indexOf(5)
+			subjs.splice(index, 1)
+		}
+
+		// social studies language checkbox
+		if (document.getElementById('soc')?.ariaChecked == 'true') {
+			subjs.push(6)
+		} else {			
+			let index = subjs.indexOf(6)
+			subjs.splice(index, 1)
+		}
+	};
+	
 
 	return (
 		<Layout>

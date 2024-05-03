@@ -53,6 +53,9 @@ function Studentdashboard() {
                         </AvatarFallback>
                     </Avatar>
                     <a href="" className="text-[#289CFF] ml-12">view my profile</a>
+                    <Link to="/logout">
+                    <Button>Logout</Button>
+                    </Link>
                 </div>
                 <div className="h-60 w-96">
                 <Carousel  
