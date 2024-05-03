@@ -17,15 +17,14 @@ import {
   X,
 } from "lucide-react";
 import { useState, useEffect } from "react";
-import axios from 'axios';
+import axios from "axios";
 import keycloak from "@/keycloakConfig";
-
 
 const NavMenu: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [authenticated, setAuthenticated] = useState(false);
 
-/*
+  /*
   useEffect(() => {
     checkAuth();
     console.log("Is it authenticated? "+ authenticated);
@@ -59,19 +58,16 @@ const NavMenu: React.FC = () => {
 
   return (
     <>
-      <div className="hidden fixed top-0 z-20 md:grid h-16 w-full grid-cols-2 bg-white shadow-md shadow-white lg:grid-cols-3">
+      <div className="fixed top-0 z-20 hidden h-16 w-full grid-cols-2 bg-white shadow-md shadow-white md:grid lg:grid-cols-3">
         <div id="logo" className="relative h-16">
           <Link to="/">
             <img
               src="/motswanamind-logo.png"
-              className="object-fit absolute left-5 top-[-30px] size-32 pl-3"
+              className="object-fit absolute left-5  h-auto w-32 pl-3"
             />
           </Link>
         </div>
-        <div
-          id="menu"
-          className="w-full place-items-center pt-2 grid"
-        >
+        <div id="menu" className="grid w-full place-items-center pt-2">
           <NavigationMenu>
             <NavigationMenuList className="flex gap-3 text-5xl font-bold">
               <NavigationMenuItem>
@@ -80,9 +76,7 @@ const NavMenu: React.FC = () => {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <p>
-                    Home
-                    </p>
+                    <p>Home</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -92,9 +86,7 @@ const NavMenu: React.FC = () => {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <p>
-                    Learn
-                    </p>
+                    <p>Learn</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -104,9 +96,7 @@ const NavMenu: React.FC = () => {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <p>
-                    Events
-                    </p>
+                    <p>Events</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -128,9 +118,7 @@ const NavMenu: React.FC = () => {
                     asChild
                     className={navigationMenuTriggerStyle()}
                   >
-                    <p>
-                    Resources
-                    </p>
+                    <p>Resources</p>
                   </NavigationMenuLink>
                 </Link>
               </NavigationMenuItem>
@@ -141,15 +129,15 @@ const NavMenu: React.FC = () => {
           <div className="hidden gap-3 font-della lg:flex">
             {authenticated ? (
               <>
-              <Link to="/learn">
-              <Button className="w-fit align-middle">Logout</Button>
-            </Link>
+                <Link to="/learn">
+                  <Button className="w-fit align-middle">Logout</Button>
+                </Link>
               </>
             ) : (
-            <Link to="/login">
-              <Button className="w-fit align-middle">Login</Button>
-            </Link>
-          )}
+              <Link to="/login">
+                <Button className="w-fit align-middle">Login</Button>
+              </Link>
+            )}
             <Button variant={"outline"}>Signup</Button>
           </div>
           <Button
