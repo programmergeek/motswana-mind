@@ -1,0 +1,10 @@
+{
+  "realm": "motswana-mind",
+  "auth-server-url": "http://10.0.18.86:8081/",
+  "ssl-required": "external",
+  "resource": "motswana-mind",
+  "bearer-only": false,
+  "credentials": {
+    "secret": "LNHr2HwEc48sKkGbknkV505KXv7HIQoe"
+  }
+}

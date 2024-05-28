@@ -1,0 +1,132 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            Int             @id @default(autoincrement())
+  username      String          @unique
+  email         String          @unique
+  password      String
+  fullname      String
+  Assessment    Assessment[]
+  events        Event[]
+  EventAttendee EventAttendee[]
+}
+
+model Event {
+  id          Int             @id @default(autoincrement())
+  title       String
+  description String
+  startTime   DateTime
+  endTime     DateTime
+  location    String
+  capacity    Int
+  organizerId Int
+  approved    Boolean         @default(false)
+  price       Int             @default(0)
+  thumbnail   String?
+  instructor  Int?
+  organizer   User            @relation(fields: [organizerId], references: [id])
+  Instructors Instructors?    @relation(fields: [instructor], references: [instructorId], onDelete: NoAction, onUpdate: NoAction, map: "instructor")
+  attendees   EventAttendee[]
+}
+
+model EventAttendee {
+  id         Int     @id @default(autoincrement())
+  eventId    Int
+  attendeeId Int
+  attended   Boolean @default(false)
+  attendee   User    @relation(fields: [attendeeId], references: [id])
+  event      Event   @relation(fields: [eventId], references: [id])
+}
+
+model Assessment {
+  assessment_id   Int       @id @default(autoincrement())
+  assessment_name String
+  assessment_type String?
+  user_id         Int
+  score           Decimal?  @db.Decimal(5, 2)
+  date_taken      DateTime? @db.Date
+  User            User      @relation(fields: [user_id], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "FK_assessment_user_id")
+}
+
+model Options {
+  option_id   Int      @id @default(autoincrement())
+  option_text String
+  is_correct  Boolean
+  question_id Int
+  Question    Question @relation(fields: [question_id], references: [question_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_option_qID")
+}
+
+model Question {
+  question_id   Int        @id @default(autoincrement())
+  question_text String
+  question_hint String?
+  topic_id      Int
+  sub_topic_id  Int?
+  Options       Options[]
+  Topic         Topic      @relation(fields: [topic_id], references: [topic_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_question_bID")
+  Sub_Topic     Sub_Topic? @relation(fields: [sub_topic_id], references: [sub_topic_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_question_sub_topic_id")
+}
+
+model Sub_Topic {
+  sub_topic_id   Int        @id @default(autoincrement())
+  sub_topic_name String
+  topic_id       Int
+  Content        Content[]
+  Question       Question[]
+  Topic          Topic      @relation(fields: [topic_id], references: [topic_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_sub_topic_topic_id")
+}
+
+model Subject {
+  subject_id        Int     @id @default(autoincrement())
+  subject_name      String
+  subject_banner    String?
+  subject_message_1 String?
+  subject_message_2 String?
+  Topic             Topic[]
+}
+
+model Topic {
+  topic_id     Int         @id @default(autoincrement())
+  topic_name   String
+  subject_id   Int
+  topic_image  String?
+  topic_desc_1 String?
+  topic_desc_2 String?
+  Content      Content[]
+  Question     Question[]
+  Sub_Topic    Sub_Topic[]
+  Subject      Subject     @relation(fields: [subject_id], references: [subject_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_topic_subject_id")
+}
+
+model Content {
+  content_id      Int        @id @default(autoincrement())
+  content_video   String?
+  content_article String?
+  topic_id        Int?
+  sub_topic_id    Int?
+  Sub_Topic       Sub_Topic? @relation(fields: [sub_topic_id], references: [sub_topic_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_content_sub_topic_id")
+  Topic           Topic?     @relation(fields: [topic_id], references: [topic_id], onDelete: NoAction, onUpdate: NoAction, map: "FK_content_topic_id")
+}
+
+model Instructors {
+  FirstName             String
+  LastName              String
+  InstructorDescription String?
+  instructorId          Int     @id @default(autoincrement())
+  Event                 Event[]
+}
+
+model Payment {
+  payment_id String  @id
+  user_id    String?
+  date       String?
+  product_id Int[]
+  total      Int?    @default(0)
+}

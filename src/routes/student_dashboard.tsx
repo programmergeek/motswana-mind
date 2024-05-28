@@ -42,7 +42,7 @@ function Studentdashboard() {
             <div className="divide-y divide-black">
             <div className="flex mt-10 p-14">
                 <div className="flex flex-col ml-6 mt-5">
-                    <p className="text-2xl">Welcome Obakeng!</p>
+                    <p className="text-2xl">Welcome Thomas!</p>
                     <Avatar className="size-28 ml-12 my-5">
                         <AvatarImage src="" />
                         <AvatarFallback>

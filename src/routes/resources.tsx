@@ -195,7 +195,7 @@ function Resources() {
                 </p>
 
                 
-            <div className="w-10/12 flex justify-center items-center">
+            <div className="w-10/12 mx-40 my-20">
             <Carousel>
             <CarouselContent>
                 <CarouselItem className="basis-1/3">

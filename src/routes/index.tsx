@@ -152,7 +152,9 @@ export default function Index() {
             want to miss out. Skip the FOMO and join us at one these
             exciting events.
           </p>
+          <Link to="/events">
           <Button className="w-fit font-della bg-accent">View all</Button>
+          </Link>
           </div>
         </section>
 
@@ -203,7 +205,7 @@ export default function Index() {
                 <CardHeader>
                   <div className="flex flex-col gap-3">
                     <p className="text-center text-white font-bold">Premium</p>
-                    <p className="text-center text-3xl text-white">P70/pm</p>
+                    <p className="text-center text-3xl text-white">P70/per subject</p>
                   </div>
                 </CardHeader>
                 <CardContent className="text-white">

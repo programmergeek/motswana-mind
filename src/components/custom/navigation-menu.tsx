@@ -113,7 +113,7 @@ const NavMenu: React.FC = () => {
                 </Link>
               </NavigationMenuItem>
               <NavigationMenuItem>
-                <Link to="/" className="text-black">
+                <Link to="/resources" className="text-black">
                   <NavigationMenuLink
                     asChild
                     className={navigationMenuTriggerStyle()}
@@ -126,7 +126,7 @@ const NavMenu: React.FC = () => {
           </NavigationMenu>
         </div>
         <div id="user" className="flex justify-end pt-4 lg:pr-20">
-          <div className="hidden gap-3 font-della lg:flex">
+          <div className="hidden gap-3 lg:flex">
             {authenticated ? (
               <>
                 <Link to="/learn">

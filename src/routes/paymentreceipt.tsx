@@ -1,5 +1,5 @@
 /* imports */
-import React, { useRef } from 'react'
+import React, { useRef, useState } from 'react'
 import { createFileRoute } from '@tanstack/react-router'
 import Layout from '@/components/layouts/main'
 import { Link } from '@tanstack/react-router'
@@ -8,14 +8,14 @@ import html2canvas from 'html2canvas'
 import jsPDF from 'jspdf'
 
 const PaymentReceipt: React.FC = () => {
+    const [emailClicked, setEmailClicked] = useState(false)
     const date = new Date()
     const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
     const pdfRef = useRef()
-    const paid = 0
+    const paid = 140
     const email = '202006269@ub.ac.bw'
 
-    let items = ''
-    let emailClicked = false
+    let items = 'Mathematics, Science'
     let paymentDate = months[date.getMonth()] + ' ' + date.getDate() + ', ' + date.getFullYear()
 
     const paymentId: any = new URLSearchParams(window.location.search).get(
@@ -39,17 +39,18 @@ const PaymentReceipt: React.FC = () => {
         })
     };
 
-    const sendNotification = async (event: any) => {
+    const sendNotification = async () => {
 		try {
 			console.log('In sendNotification()')
-            emailClicked = true
-			await fetch('http://localhost:4242/send-notification', {
+            setEmailClicked(true)
+
+			await fetch('http://10.0.19.248:4242/send-notification', {
 				method: 'POST',
 				mode: 'cors',
 				headers: { 'Content-Type': 'application/json' },
 				body: JSON.stringify({ email: email }),
 			})
-				.then((res) => res.json())
+				
 		} catch (error) {
 			console.error(error)
 		}
@@ -92,7 +93,7 @@ const PaymentReceipt: React.FC = () => {
                     </div>
 
                     <div className='m-2'>
-                        <span className='font-bold'>Items:</span>
+                        <span className='font-bold'>Items: </span>
                         {items}
                     </div>
                 </section>
